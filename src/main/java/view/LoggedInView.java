@@ -43,6 +43,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         final JLabel usernameInfo = new JLabel("Currently logged in: ");
         usernameInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
         username = new JLabel();
+        username.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final JLabel modeSelection = new JLabel("Choose a Mode: ");
         modeSelection.setAlignmentX(Component.CENTER_ALIGNMENT);
