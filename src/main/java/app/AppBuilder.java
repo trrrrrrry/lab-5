@@ -124,7 +124,7 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addLoginUseCase() {
-        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(signupViewModel, viewManagerModel,
                 loggedInViewModel, loginViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
                 userDataAccessObject, loginOutputBoundary);
@@ -172,7 +172,7 @@ public class AppBuilder {
      * @return the application
      */
     public JFrame build() {
-        final JFrame application = new JFrame("Login Example");
+        final JFrame application = new JFrame("GearUp");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         application.add(cardPanel);
