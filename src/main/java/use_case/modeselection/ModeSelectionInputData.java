@@ -1,24 +1,16 @@
-package use_case.login;
+package use_case.modeselection;
 
 /**
- * The Input Data for the Login Use Case.
+ * The Input Data for the Mode Selection Use Case.
  */
-public class LoginInputData {
+public class ModeSelectionInputData {
+    private final String selectedMode;
 
-    private final String username;
-    private final String password;
-
-    public LoginInputData(String username, String password) {
-        this.username = username;
-        this.password = password;
+    public ModeSelectionInputData(String selectedMode) {
+        this.selectedMode = selectedMode;
     }
 
-    String getUsername() {
-        return username;
+    public String getSelectedMode() {
+        return selectedMode;
     }
-
-    String getPassword() {
-        return password;
-    }
-
 }

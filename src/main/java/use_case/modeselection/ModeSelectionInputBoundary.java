@@ -1,13 +1,13 @@
-package use_case.login;
+package use_case.modeselection;
 
 /**
- * Input Boundary for actions which are related to logging in.
+ * Input Boundary for actions which are related to mode selection.
  */
-public interface LoginInputBoundary {
+public interface ModeSelectionInputBoundary {
 
     /**
-     * Executes the login use case.
-     * @param loginInputData the input data
+     * Executes the modeselection use case.
+     * @param modeselectionInputData the input data
      */
-    void execute(LoginInputData loginInputData);
+    void execute(ModeSelectionInputData modeselectionInputData);
 }
