@@ -30,6 +30,9 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private LogoutController logoutController;
     private final JLabel username;
 
+    private final JButton logOut;
+    private final JTextField passwordInputField = new JTextField(15);
+    private final JButton changePassword;
     private final JButton study;
     private final JButton test;
 
@@ -39,6 +42,9 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
         final JLabel title = new JLabel("Mode Selection View");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        final LabelTextPanel passwordInfo = new LabelTextPanel(
+                new JLabel("Password"), passwordInputField);
 
         final JLabel usernameInfo = new JLabel("Currently logged in: ");
         usernameInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -55,15 +61,71 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         test = new JButton("Test Mode");
         buttons.add(test);
 
+        final JPanel addButtons = new JPanel();
+        logOut = new JButton("Log Out");
+        addButtons.add(logOut);
+
+        changePassword = new JButton("Change Password");
+        addButtons.add(changePassword);
+
+        passwordInputField.getDocument().addDocumentListener(new DocumentListener() {
+            private void documentListenerHelper() {
+                final LoggedInState currentState = loggedInViewModel.getState();
+                currentState.setPassword(passwordInputField.getText());
+                loggedInViewModel.setState(currentState);
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
+        });
+        changePassword.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                evt -> {
+                    if (evt.getSource().equals(changePassword)) {
+                        final LoggedInState currentState = loggedInViewModel.getState();
+                        this.changePasswordController.execute(
+                                currentState.getUsername(),
+                                currentState.getPassword()
+                        );
+                    }
+                }
+        );
+        logOut.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                evt -> {
+                    if (evt.getSource().equals(logOut)) {
+                        final LoggedInState currentState = loggedInViewModel.getState();
+                        // Execute the logout through the LogoutController
+                        logoutController.execute(currentState.getUsername());
+                    }
+                }
+        );
+
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
         this.add(modeSelection);
 
         this.add(buttons);
+        this.add(addButtons);
 
         this.add(usernameInfo);
         this.add(username);
+
+        this.add(passwordInfo);
+        this.add(passwordErrorField);
     }
 
     @Override
