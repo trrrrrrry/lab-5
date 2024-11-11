@@ -23,7 +23,9 @@ public class Main {
                                             .addLogoutUseCase()
                                             .build();
         application.pack();
+        application.setSize(500, 360);
         application.setLocationRelativeTo(null);
         application.setVisible(true);
+
     }
 }
