@@ -36,6 +36,8 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private final JButton study;
     private final JButton test;
 
+    // change back to pull 7
+
     public LoggedInView(LoggedInViewModel loggedInViewModel) {
         this.loggedInViewModel = loggedInViewModel;
         this.loggedInViewModel.addPropertyChangeListener(this);
