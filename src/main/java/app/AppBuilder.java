@@ -18,6 +18,7 @@ import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.logout.LogoutPresenter;
+import interface_adapter.modeselection.ModeSelectionViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
@@ -66,6 +67,8 @@ public class AppBuilder {
     private LoggedInViewModel loggedInViewModel;
     private LoggedInView loggedInView;
     private LoginView loginView;
+    private LoggedInView modeSelectionView;
+    private ModeSelectionViewModel modeSelectionViewModel;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -101,6 +104,17 @@ public class AppBuilder {
         loggedInViewModel = new LoggedInViewModel();
         loggedInView = new LoggedInView(loggedInViewModel);
         cardPanel.add(loggedInView, loggedInView.getViewName());
+        return this;
+    }
+
+    /**
+     * Adds the Login View to the application.
+     * @return this builder
+     */
+    public AppBuilder addModeSelectionView() {
+        modeSelectionViewModel = new ModeSelectionViewModel();
+        modeSelectionView = new LoggedInView(modeSelectionViewModel);
+        cardPanel.add(modeSelectionView, modeSelectionView.getViewName());
         return this;
     }
 
