@@ -14,7 +14,7 @@ class SignupInteractorTest {
 
     @Test
     void successTest() {
-        SignupInputData inputData = new SignupInputData("Paul", "password", "password");
+        SignupInputData inputData = new SignupInputData("friendlygoose06@gmail.com", "password", "password");
         SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
         // This creates a successPresenter that tests whether the test case is as we expect.
@@ -22,8 +22,8 @@ class SignupInteractorTest {
             @Override
             public void prepareSuccessView(SignupOutputData user) {
                 // 2 things to check: the output data is correct, and the user has been created in the DAO.
-                assertEquals("Paul", user.getUsername());
-                assertTrue(userRepository.existsByName("Paul"));
+                assertEquals("friendlygoose06@gmail.com", user.getUsername());
+                assertTrue(userRepository.existsByName("friendlygoose06@gmail.com"));
             }
 
             @Override
@@ -43,7 +43,7 @@ class SignupInteractorTest {
 
     @Test
     void failurePasswordMismatchTest() {
-        SignupInputData inputData = new SignupInputData("Paul", "password", "wrong");
+        SignupInputData inputData = new SignupInputData("friendlygoose06@gmail.com", "password", "wrong");
         SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
         // This creates a presenter that tests whether the test case is as we expect.
@@ -71,12 +71,12 @@ class SignupInteractorTest {
 
     @Test
     void failureUserExistsTest() {
-        SignupInputData inputData = new SignupInputData("Paul", "password", "wrong");
+        SignupInputData inputData = new SignupInputData("friendlygoose06@gmail.com", "password", "password");
         SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
-        // Add Paul to the repo so that when we check later they already exist
+        // Add friendlygoose06@gmail.com to the repo so that when we check later they already exist
         UserFactory factory = new CommonUserFactory();
-        User user = factory.create("Paul", "pwd");
+        User user = factory.create("friendlygoose06@gmail.com", "pwd");
         userRepository.save(user);
 
         // This creates a presenter that tests whether the test case is as we expect.
@@ -100,5 +100,12 @@ class SignupInteractorTest {
 
         SignupInputBoundary interactor = new SignupInteractor(userRepository, failurePresenter, new CommonUserFactory());
         interactor.execute(inputData);
+    }
+
+    @Test
+    void failureInvalidEmailAddressTest(){
+        SignupInputData inputData = new SignupInputData("friendlygoose06@gmail.com", "password", "password");
+        SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+
     }
 }
