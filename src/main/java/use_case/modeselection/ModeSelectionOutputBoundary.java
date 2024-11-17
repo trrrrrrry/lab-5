@@ -5,9 +5,27 @@ package use_case.modeselection;
  */
 public interface ModeSelectionOutputBoundary {
     /**
-     * This is the present mode selection.
-     * @param outputData is the present mode selection
+     * Prepares the success view for the mode selection Use Case.
+     *
+     * @param outputData the output data
      */
-    void presentModeSelection(ModeSelectionOutputData outputData);
-}
+    void prepareSuccessView(ModeSelectionOutputData outputData);
 
+    /**
+     * Prepares the failure view for the Signup Use Case.
+     *
+     * @param errorMessage the explanation of the failure
+     */
+    void prepareFailView(String errorMessage);
+
+    /**
+     * Switches to the Study mode View.
+     */
+    void switchToStudyModeView();
+
+    /**
+     * Switches to the Test mode View.
+     */
+    void switchToTestModeView();
+
+}
