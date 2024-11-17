@@ -17,14 +17,15 @@ import interface_adapter.change_password.ChangePasswordController;
 import interface_adapter.change_password.LoggedInState;
 import interface_adapter.change_password.LoggedInViewModel;
 import interface_adapter.logout.LogoutController;
+import interface_adapter.modeselection.ModeSelectionViewModel;
 
 /**
  * The View for when the user is logged into the program.
  */
 public class LoggedInView extends JPanel implements PropertyChangeListener {
 
-    private final String viewName = "logged in";
-    private final LoggedInViewModel loggedInViewModel;
+    private final String viewName = "mode selectin";
+    private final ModeSelectionViewModel modeSelectionViewModel;
     private final JLabel passwordErrorField = new JLabel();
     private ChangePasswordController changePasswordController;
     private LogoutController logoutController;
@@ -36,9 +37,9 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private final JButton study;
     private final JButton test;
 
-    public LoggedInView(LoggedInViewModel loggedInViewModel) {
-        this.loggedInViewModel = loggedInViewModel;
-        this.loggedInViewModel.addPropertyChangeListener(this);
+    public LoggedInView(ModeSelectionViewModel modeSelectionViewModel) {
+        this.modeSelectionViewModel = modeSelectionViewModel;
+        this.modeSelectionViewModel.addPropertyChangeListener(this);
 
         final JLabel title = new JLabel("Mode Selection View");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
