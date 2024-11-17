@@ -6,16 +6,14 @@ package use_case.modeselection;
 public class ModeSelectionOutputData {
 
     private final String selectedMode;
-    private final String confirmationMessage;
+
 
     /**
      * Constructs a ModeSelectionOutputData object with the selected mode and confirmation message.
      * @param selectedMode The mode that was selected by the user.
-     * @param confirmationMessage A message confirming the selected mode.
      */
-    public ModeSelectionOutputData(String selectedMode, String confirmationMessage) {
+    public ModeSelectionOutputData(String selectedMode) {
         this.selectedMode = selectedMode;
-        this.confirmationMessage = confirmationMessage;
     }
 
     /**
@@ -27,12 +25,4 @@ public class ModeSelectionOutputData {
         return selectedMode;
     }
 
-    /**
-     * Gets the confirmation message.
-     *
-     * @return A confirmation message as a String.
-     */
-    public String getConfirmationMessage() {
-        return confirmationMessage;
-    }
 }
