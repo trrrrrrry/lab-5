@@ -10,4 +10,10 @@ public interface ModeSelectionDataAccessInterface {
      * @param mode The selected mode to be saved, represented as a String.
      */
     void saveSelectedMode(String mode);
+
+    /**
+     * Get the current selected mode.
+     * @return current mode
+     */
+    String getSelectedMode();
 }
