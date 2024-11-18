@@ -5,9 +5,12 @@ package use_case.modeselection;
  * The Mode Selection Interactor.
  */
 public class ModeSelectionInteractor implements ModeSelectionInputBoundary {
+    private final ModeSelectionDataAccessInterface modeSelectionDataAccessObject;
     private final ModeSelectionOutputBoundary presenter;
 
-    public ModeSelectionInteractor(ModeSelectionOutputBoundary outputBoundary) {
+    public ModeSelectionInteractor(ModeSelectionDataAccessInterface modeSelectionDataAccessInterface,
+                                   ModeSelectionOutputBoundary outputBoundary) {
+        this.modeSelectionDataAccessObject = modeSelectionDataAccessInterface;
         this.presenter = outputBoundary;
     }
 
