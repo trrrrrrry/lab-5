@@ -1,6 +1,0 @@
-2024-11-17 00:28:01 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "QUESTIONS" not found (this database is empty); SQL statement:
-SELECT * FROM Questions [42104-214]
-2024-11-17 00:33:44 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "QUESTIONS" not found (this database is empty); SQL statement:
-SELECT id, question_text FROM Questions [42104-214]
