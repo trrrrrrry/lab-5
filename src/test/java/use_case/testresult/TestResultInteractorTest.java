@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import use_case.testresult.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,6 +18,8 @@ class TestResultInteractorTest {
 
         TestresultDataAccessInterface testResultDataAccess = new InMemoryTestResultDataAccessObject();
 
+        // This creates a successPresenter that tests whether the test result is presented correctly
+        // In this case, the test result include no incorrect questions and the user took 120 seconds
         TestresultOutputBoundary successPresenter = new TestresultOutputBoundary() {
             @Override
             public void prepareSuccessView(TestresultOutputData outputData) {
@@ -35,6 +38,9 @@ class TestResultInteractorTest {
                 // no need to implement in a test
             }
         };
+
+        // Create the test result interactor and present
+        // the number of correct questions, time, and a list of incorect questions
         TestresultInputBoundary interactor = new TestresultInteractor(testResultDataAccess, successPresenter);
         interactor.execute(inputData);
 
@@ -42,4 +48,117 @@ class TestResultInteractorTest {
         assertEquals(120, testResultDataAccess.getTime());
         assertEquals(0, testResultDataAccess.getIncorrectQuestions().size());
     }
+
+    @Test
+    void successCorrectTestResultTest() {
+        ArrayList<String> incorrectQuestions = new ArrayList<>(Arrays.asList("Q1", "Q2"));
+        TestresultInputData inputData = new TestresultInputData(38, 100, incorrectQuestions);
+
+        TestresultDataAccessInterface testResultDataAccess = new InMemoryTestResultDataAccessObject();
+
+        // This creates a successPresenter that tests whether the test result is presented correctly
+        // In this case, the test result include 2 incorrect questions and the user took 100 seconds
+        // This test also test if the incorrect questions are being called correctly
+        TestresultOutputBoundary successPresenter = new TestresultOutputBoundary() {
+            @Override
+            public void prepareSuccessView(TestresultOutputData outputData) {
+                // Validate that the presenter is called with correct data
+                assertEquals(38, outputData.getCorrectQuestions());
+                assertEquals(100, outputData.getTime());
+                assertEquals(incorrectQuestions, outputData.getIncorrectQuestions());
+            }
+
+            @Override
+            public void prepareFailView(String errorMessage) {
+                fail("Expected success, but fail view was prepared");
+            }
+
+            @Override
+            public void switchToModeselectionView() {
+                // No need for test
+            }
+        };
+
+        // Create and execute the interactor
+        TestresultInputBoundary interactor = new TestresultInteractor(testResultDataAccess, successPresenter);
+        interactor.execute(inputData);
+        assertEquals(38, testResultDataAccess.getCorrectQuestions());
+        assertEquals(100, testResultDataAccess.getTime());
+        assertEquals(incorrectQuestions, testResultDataAccess.getIncorrectQuestions());
+    }
+
+    @Test
+    void failureInvalidCorrectQuestionTest() {
+        ArrayList<String> incorrectQuestions = new ArrayList<>(Arrays.asList("Q1", "Q2"));
+        TestresultInputData inputData = new TestresultInputData(-1, 100, incorrectQuestions);
+
+        TestresultDataAccessInterface testResultDataAccess = new InMemoryTestResultDataAccessObject();
+
+        // This creates a successPresenter that tests whether the test result is presented correctly
+        // In this case, the test result include 2 incorrect questions and the user took 100 seconds
+        // This test also test if the incorrect questions are being called correctly
+        TestresultOutputBoundary successPresenter = new TestresultOutputBoundary() {
+            @Override
+            public void prepareSuccessView(TestresultOutputData outputData) {
+                fail("Expected failure, but success view was prepared");
+            }
+
+            @Override
+            public void prepareFailView(String errorMessage) {
+                assertEquals("Invalid test result provided", errorMessage);
+            }
+
+            @Override
+            public void switchToModeselectionView() {
+                // No need for implementation in test
+            }
+        };
+
+        // Create and execute the interactor
+        TestresultInputBoundary interactor = new TestresultInteractor(testResultDataAccess, successPresenter);
+        interactor.execute(inputData);
+        // assert the correct questions to zero because no data should be passed to data access object
+        // it's the default value of int for correctQuestions and time and an empty arraylist for incorrectQuestions
+        assertEquals(0, testResultDataAccess.getCorrectQuestions());
+        assertEquals(0, testResultDataAccess.getTime());
+        assertEquals(0, testResultDataAccess.getIncorrectQuestions().size());
+    }
+
+    @Test
+    void failureInvalidTimeTest() {
+        ArrayList<String> incorrectQuestions = new ArrayList<>(Arrays.asList("Q1", "Q2"));
+        TestresultInputData inputData = new TestresultInputData(38, -1, incorrectQuestions);
+
+        TestresultDataAccessInterface testResultDataAccess = new InMemoryTestResultDataAccessObject();
+
+        // This creates a successPresenter that tests whether the test result is presented correctly
+        // In this case, the test result include 2 incorrect questions and the user took 100 seconds
+        // This test also test if the incorrect questions are being called correctly
+        TestresultOutputBoundary successPresenter = new TestresultOutputBoundary() {
+            @Override
+            public void prepareSuccessView(TestresultOutputData outputData) {
+                fail("Expected failure, but success view was prepared");
+            }
+
+            @Override
+            public void prepareFailView(String errorMessage) {
+                assertEquals("Invalid test result provided", errorMessage);
+            }
+
+            @Override
+            public void switchToModeselectionView() {
+                // No need for implementation in test
+            }
+        };
+
+        // Create and execute the interactor
+        TestresultInputBoundary interactor = new TestresultInteractor(testResultDataAccess, successPresenter);
+        interactor.execute(inputData);
+        // assert the correct questions to zero because no data should be passed to data access object
+        // it's the default value of int for correctQuestions and time and an empty arraylist for incorrectQuestions
+        assertEquals(0, testResultDataAccess.getCorrectQuestions());
+        assertEquals(0, testResultDataAccess.getTime());
+        assertEquals(0, testResultDataAccess.getIncorrectQuestions().size());
+    }
+
 }

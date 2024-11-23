@@ -18,7 +18,6 @@ import interface_adapter.change_password.LoggedInState;
 import interface_adapter.change_password.LoggedInViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.modeselection.ModeSelectionController;
-import interface_adapter.modeselection.ModeSelectionViewModel;
 
 /**
  * The View for when the user is logged into the program.
