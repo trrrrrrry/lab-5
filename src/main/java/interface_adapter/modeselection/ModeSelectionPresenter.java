@@ -4,8 +4,6 @@ import interface_adapter.ViewManagerModel;
 import use_case.modeselection.ModeSelectionOutputBoundary;
 import use_case.modeselection.ModeSelectionOutputData;
 
-
-
 /**
  * Presenter for mode selection use case.
  */
@@ -18,8 +16,6 @@ public class ModeSelectionPresenter implements ModeSelectionOutputBoundary {
         this.viewManagerModel = viewManagerModel;
     }
 
-
-
     @Override
     public void prepareSuccessView(ModeSelectionOutputData outputData) {
         modeSelectionViewModel.getState().setSelectedMode(outputData.getSelectedMode());
@@ -30,12 +26,12 @@ public class ModeSelectionPresenter implements ModeSelectionOutputBoundary {
 
     @Override
     public void prepareFailView(String errorMessage) {
-        //assume there is no failure case when selecting a mode.
+        // assume there is no failure case when selecting a mode.
     }
 
     @Override
     public void switchToStudyModeView() {
-        viewManagerModel.setState("test mode");
+        viewManagerModel.setState("study mode");
         viewManagerModel.firePropertyChanged();
     }
 

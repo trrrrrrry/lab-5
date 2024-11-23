@@ -17,10 +17,12 @@ public class Main {
                                             .addLoginView()
                                             .addSignupView()
                                             .addLoggedInView()
+                                            .addTestResultView()
                                             .addSignupUseCase()
                                             .addLoginUseCase()
                                             .addChangePasswordUseCase()
                                             .addLogoutUseCase()
+                                            .addTestresultUseCase()
                                             .build();
         application.pack();
         application.setSize(500, 360);

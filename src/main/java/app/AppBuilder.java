@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import data_access.InMemoryTestResultDataAccessObject;
 import data_access.InMemoryUserDataAccessObject;
 import entity.CommonUserFactory;
 import entity.UserFactory;
@@ -18,9 +19,13 @@ import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.logout.LogoutPresenter;
+import interface_adapter.modeselection.ModeSelectionViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.testresult.TestresultController;
+import interface_adapter.testresult.TestresultPresenter;
+import interface_adapter.testresult.TestresultViewModel;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
@@ -33,10 +38,10 @@ import use_case.logout.LogoutOutputBoundary;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
-import view.LoggedInView;
-import view.LoginView;
-import view.SignupView;
-import view.ViewManager;
+import use_case.testresult.TestresultInputBoundary;
+import use_case.testresult.TestresultInteractor;
+import use_case.testresult.TestresultOutputBoundary;
+import view.*;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
@@ -59,13 +64,17 @@ public class AppBuilder {
 
     // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
+    private final InMemoryTestResultDataAccessObject testResultDataAccessObject = new InMemoryTestResultDataAccessObject();
 
     private SignupView signupView;
     private SignupViewModel signupViewModel;
     private LoginViewModel loginViewModel;
     private LoggedInViewModel loggedInViewModel;
+    private ModeSelectionViewModel modeSelectionViewModel;
     private LoggedInView loggedInView;
     private LoginView loginView;
+    private TestresultViewModel testresultViewModel;
+    private TestresultView testresultView;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -100,7 +109,19 @@ public class AppBuilder {
     public AppBuilder addLoggedInView() {
         loggedInViewModel = new LoggedInViewModel();
         loggedInView = new LoggedInView(loggedInViewModel);
+        modeSelectionViewModel = new ModeSelectionViewModel();
         cardPanel.add(loggedInView, loggedInView.getViewName());
+        return this;
+    }
+
+    /**
+     * Add the test result View to the application.
+     * @return this builder
+     */
+    public AppBuilder addTestResultView() {
+        testresultViewModel = new TestresultViewModel();
+        testresultView = new TestresultView(testresultViewModel);
+        cardPanel.add(testresultView, testresultView.getViewName());
         return this;
     }
 
@@ -164,6 +185,22 @@ public class AppBuilder {
 
         final LogoutController logoutController = new LogoutController(logoutInteractor);
         loggedInView.setLogoutController(logoutController);
+        return this;
+    }
+
+    /**
+     * Adds the test result use case to the application.
+     * @return this builder.
+     */
+    public AppBuilder addTestresultUseCase() {
+        final TestresultOutputBoundary testresultOutputBoundary = new TestresultPresenter(testresultViewModel,
+                modeSelectionViewModel, viewManagerModel);
+
+        final TestresultInputBoundary testresultInteractor =
+                new TestresultInteractor(testResultDataAccessObject, testresultOutputBoundary);
+
+        final TestresultController testresultController = new TestresultController(testresultInteractor);
+        testresultView.setTestResultController(testresultController);
         return this;
     }
 

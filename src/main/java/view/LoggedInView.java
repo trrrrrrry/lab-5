@@ -17,7 +17,7 @@ import interface_adapter.change_password.ChangePasswordController;
 import interface_adapter.change_password.LoggedInState;
 import interface_adapter.change_password.LoggedInViewModel;
 import interface_adapter.logout.LogoutController;
-import interface_adapter.modeselection.ModeSelectionViewModel;
+import interface_adapter.modeselection.ModeSelectionController;
 
 /**
  * The View for when the user is logged into the program.
@@ -29,6 +29,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private final JLabel passwordErrorField = new JLabel();
     private ChangePasswordController changePasswordController;
     private LogoutController logoutController;
+    private ModeSelectionController modeSelectionController;
     private final JLabel username;
 
     private final JButton logOut;
@@ -40,7 +41,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     public LoggedInView(LoggedInViewModel loggedInViewModel) {
         this.loggedInViewModel = loggedInViewModel;
         this.loggedInViewModel.addPropertyChangeListener(this);
-
 
         final JLabel title = new JLabel("Logged In Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -58,9 +58,20 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
         final JPanel buttons = new JPanel();
         study = new JButton("Study Mode");
+        study.addActionListener(evt -> {
+            if (evt.getSource().equals(study)) {
+                modeSelectionController.switchToStudyModeView();
+            }
+        });
+
         buttons.add(study);
 
         test = new JButton("Test Mode");
+        test.addActionListener(evt -> {
+            if (evt.getSource().equals(test)) {
+                modeSelectionController.switchToTestModeView();
+            }
+        });
         buttons.add(test);
 
         final JPanel addButtons = new JPanel();
@@ -153,5 +164,9 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
     public void setLogoutController(LogoutController logoutController) {
         this.logoutController = logoutController;
+    }
+
+    public void setModeSelectionController(ModeSelectionController modeSelectionController) {
+        this.modeSelectionController = modeSelectionController;
     }
 }
