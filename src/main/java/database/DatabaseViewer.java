@@ -1,7 +1,8 @@
-package data_access;
+package database;
 
 import java.util.List;
 
+import data_access.DatabaseRetriever;
 import entity.Answer;
 import entity.Question;
 
@@ -15,15 +16,12 @@ public class DatabaseViewer {
      */
     public static void displayAllQuestions() {
         try {
-            // Retrieve all questions with answers
             final List<Question> questions = DatabaseRetriever.getAllQuestions();
 
-            // Iterate over questions and print details
             for (Question question : questions) {
                 System.out.println("Question ID: " + question.getId());
                 System.out.println("Question Text: " + question.getQuestionText());
 
-                // Print each answer for the question
                 for (Answer answer : question.getAnswers()) {
                     String answerText = " - Answer: " + answer.getAnswerText();
                     if (answer.isCorrect()) {
@@ -39,6 +37,11 @@ public class DatabaseViewer {
         }
     }
 
+    /**
+     * Display the all the questions with their options (and the correct answer) to test the database.
+     *
+     * @param args command-line arguments passed to the application (not used in this method).
+     */
     public static void main(String[] args) {
         displayAllQuestions();
     }
