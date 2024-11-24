@@ -1,6 +1,6 @@
 package view;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -9,151 +9,127 @@ import java.beans.PropertyChangeListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
-import interface_adapter.login.LoginController;
-import interface_adapter.login.LoginState;
-import interface_adapter.login.LoginViewModel;
+import interface_adapter.logout.LogoutController;
+import interface_adapter.studymode.StudyModeController;
+import interface_adapter.studymode.StudyModeViewModel;
 
 /**
  * The View when the user select Study Mode.
  */
-public class StudyModeView extends JPanel implements ActionListener, PropertyChangeListener {
-    private final String viewName = "Study Mode";
-    private final StudyModeViewModel studymodeViewModel;
+public class StudyModeView extends JPanel implements ActionListener {
+    private final String viewName = "study mode";
 
-    private final JButton logIn;
-    private final JButton toSignUp;
-    private StudyModeController studymodeController;
+    private LogoutController logoutController;
+    private final StudyModeViewModel studymodeViewModel;
+    private StudyModeController studyModeController;
+
+    private final JLabel username;
 
     public StudyModeView(StudyModeViewModel studymodeViewModel) {
-
         this.studymodeViewModel = studymodeViewModel;
-        this.studymodeViewModel.addPropertyChangeListener(this);
 
-        final JLabel title = new JLabel("Login");
+        final JLabel title = new JLabel("Study Mode");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        final LabelTextPanel usernameInfo = new LabelTextPanel(
-                new JLabel("Username"), usernameInputField);
-        final LabelTextPanel passwordInfo = new LabelTextPanel(
-                new JLabel("Password"), passwordInputField);
+        final JLabel moduleSelection = new JLabel("Please select a module from the below: ");
+        moduleSelection.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final JPanel buttons = new JPanel();
-        toSignUp = new JButton("Go to Sign Up");
-        buttons.add(toSignUp);
-        logIn = new JButton("Log In");
-        buttons.add(logIn);
+        buttons.setLayout(new GridLayout(2, 3, 10, 10));
 
-        logIn.addActionListener(
+        final JButton module1 = new JButton("Module 1");
+        buttons.add(module1);
+        final JButton module2 = new JButton("Module 2");
+        buttons.add(module2);
+        final JButton module3 = new JButton("Module 3");
+        buttons.add(module3);
+        final JButton module4 = new JButton("Module 4");
+        buttons.add(module4);
+        final JButton module5 = new JButton("Module 5");
+        buttons.add(module5);
+        final JButton module6 = new JButton("Module 6");
+        buttons.add(module6);
+
+        final JLabel usernameInfo = new JLabel("Currently logged in: ");
+        usernameInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        username = new JLabel();
+        username.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // Take user to 'begin view' page based on their selection
+        module1.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(logIn)) {
-                            final LoginState currentState = loginViewModel.getState();
-
-                            loginController.execute(
-                                    currentState.getUsername(),
-                                    currentState.getPassword()
-                            );
-                        }
+                        studyModeController.switchToStudyModeBeginView();
                     }
                 }
         );
 
-        toSignUp.addActionListener(
+        module2.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        loginController.switchToSignUpView();
+                        studyModeController.switchToStudyModeBeginView();
                     }
                 }
         );
 
-        usernameInputField.getDocument().addDocumentListener(new DocumentListener() {
+        module3.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        studyModeController.switchToStudyModeBeginView();
+                    }
+                }
+        );
 
-            private void documentListenerHelper() {
-                final LoginState currentState = loginViewModel.getState();
-                currentState.setUsername(usernameInputField.getText());
-                loginViewModel.setState(currentState);
-            }
+        module4.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        studyModeController.switchToStudyModeBeginView();
+                    }
+                }
+        );
 
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
+        module5.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        studyModeController.switchToStudyModeBeginView();
+                    }
+                }
+        );
 
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
-        });
+        module6.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        studyModeController.switchToStudyModeBeginView();
+                    }
+                }
+        );
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        passwordInputField.getDocument().addDocumentListener(new DocumentListener() {
-
-            private void documentListenerHelper() {
-                final LoginState currentState = loginViewModel.getState();
-                currentState.setPassword(new String(passwordInputField.getPassword()));
-                loginViewModel.setState(currentState);
-            }
-
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
-        });
-
         this.add(title);
-        this.add(usernameInfo);
-        this.add(usernameErrorField);
-        this.add(passwordInfo);
+        this.add(moduleSelection);
         this.add(buttons);
-    }
 
-    /**
-     * React to a button click that results in evt.
-     * @param evt the ActionEvent to react to
-     */
-    public void actionPerformed(ActionEvent evt) {
-        System.out.println("Click " + evt.getActionCommand());
-    }
-
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        final LoginState state = (LoginState) evt.getNewValue();
-        setFields(state);
-        usernameErrorField.setText(state.getLoginError());
-    }
-
-    private void setFields(LoginState state) {
-        usernameInputField.setText(state.getUsername());
-        passwordInputField.setText(state.getPassword());
+        this.add(usernameInfo);
+        this.add(username);
     }
 
     public String getViewName() {
         return viewName;
     }
 
-    public void setLoginController(LoginController loginController) {
-        this.loginController = loginController;
+    public void setLogoutController(LogoutController logoutController) {
+        this.logoutController = logoutController;
+    }
+
+    public void setStudyModeController(StudyModeController controller) {
+        this.studyModeController = controller;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent evt) {
+        System.out.println("Click " + evt.getActionCommand());
     }
 }

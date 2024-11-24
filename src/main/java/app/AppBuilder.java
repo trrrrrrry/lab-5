@@ -6,8 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import data_access.InMemoryTestResultDataAccessObject;
-import data_access.InMemoryUserDataAccessObject;
+import data_access.*;
 import entity.CommonUserFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
@@ -19,10 +18,18 @@ import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.logout.LogoutPresenter;
+import interface_adapter.modeselection.ModeSelectionController;
+import interface_adapter.modeselection.ModeSelectionPresenter;
 import interface_adapter.modeselection.ModeSelectionViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.studymode.StudyModeController;
+import interface_adapter.studymode.StudyModePresenter;
+import interface_adapter.studymode.StudyModeViewModel;
+import interface_adapter.studymodebegin.StudyModeBeginController;
+import interface_adapter.studymodebegin.StudyModeBeginPresenter;
+import interface_adapter.studymodebegin.StudyModeBeginViewModel;
 import interface_adapter.testresult.TestresultController;
 import interface_adapter.testresult.TestresultPresenter;
 import interface_adapter.testresult.TestresultViewModel;
@@ -35,9 +42,19 @@ import use_case.login.LoginOutputBoundary;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
+import use_case.modeselection.ModeSelectionInputBoundary;
+import use_case.modeselection.ModeSelectionInteractor;
+import use_case.modeselection.ModeSelectionOutputBoundary;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
+import use_case.studymode.StudyModeDataAccessInterface;
+import use_case.studymode.StudyModeInputBoundary;
+import use_case.studymode.StudyModeInteractor;
+import use_case.studymode.StudyModeOutputBoundary;
+import use_case.studymodebegin.StudyModeBeginInputBoundary;
+import use_case.studymodebegin.StudyModeBeginInteractor;
+import use_case.studymodebegin.StudyModeBeginOutputBoundary;
 import use_case.testresult.TestresultInputBoundary;
 import use_case.testresult.TestresultInteractor;
 import use_case.testresult.TestresultOutputBoundary;
@@ -64,6 +81,9 @@ public class AppBuilder {
 
     // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
+    private final InMemoryStudyModeDataAccessInterface studyModeDataAccessInterface = new InMemoryStudyModeDataAccessInterface();
+    private final InMemoryStudyModeBeginDataAccessInterface studyModeBeginDataAccessInterface = new InMemoryStudyModeBeginDataAccessInterface();
+    private final InMemoryModeSelectionDataAccessInterface modeSelectionDataAccessInterface = new InMemoryModeSelectionDataAccessInterface();
     private final InMemoryTestResultDataAccessObject testResultDataAccessObject = new InMemoryTestResultDataAccessObject();
 
     private SignupView signupView;
@@ -73,6 +93,10 @@ public class AppBuilder {
     private ModeSelectionViewModel modeSelectionViewModel;
     private LoggedInView loggedInView;
     private LoginView loginView;
+    private StudyModeView studyModeView;
+    private StudyModeViewModel studyModeViewModel;
+    private StudyModeBeginView studyModeBeginView;
+    private StudyModeBeginViewModel studyModeBeginViewModel;
     private TestresultViewModel testresultViewModel;
     private TestresultView testresultView;
 
@@ -111,6 +135,28 @@ public class AppBuilder {
         loggedInView = new LoggedInView(loggedInViewModel);
         modeSelectionViewModel = new ModeSelectionViewModel();
         cardPanel.add(loggedInView, loggedInView.getViewName());
+        return this;
+    }
+
+    /**
+     * Adds the Study Mode View to the application.
+     * @return this builder
+     */
+    public AppBuilder addStudyModeView() {
+        studyModeViewModel = new StudyModeViewModel();
+        studyModeView = new StudyModeView(studyModeViewModel);
+        cardPanel.add(studyModeView, studyModeView.getViewName());
+        return this;
+    }
+
+    /**
+     * Adds the Study Mode Begin View to the application.
+     * @return this builder
+     */
+    public AppBuilder addStudyModeBeginView() {
+        studyModeBeginViewModel = new StudyModeBeginViewModel();
+        studyModeBeginView = new StudyModeBeginView(studyModeBeginViewModel);
+        cardPanel.add(studyModeBeginView, studyModeBeginView.getViewName());
         return this;
     }
 
@@ -156,6 +202,20 @@ public class AppBuilder {
     }
 
     /**
+     * Adds the Logged In (Mode Selection) Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addLoggedInUseCase() {
+        final ModeSelectionOutputBoundary modeSelectionOutputBoundary = new ModeSelectionPresenter(viewManagerModel, modeSelectionViewModel);
+        final ModeSelectionInputBoundary modeSelectionInteractor = new ModeSelectionInteractor(
+                modeSelectionDataAccessInterface, modeSelectionOutputBoundary);
+
+        final ModeSelectionController modeSelectionController = new ModeSelectionController(modeSelectionInteractor);
+        loggedInView.setModeSelectionController(modeSelectionController);
+        return this;
+    }
+
+    /**
      * Adds the Change Password Use Case to the application.
      * @return this builder
      */
@@ -185,6 +245,38 @@ public class AppBuilder {
 
         final LogoutController logoutController = new LogoutController(logoutInteractor);
         loggedInView.setLogoutController(logoutController);
+        return this;
+    }
+
+    /**
+     * Adds the Study Mode Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addStudyModeUseCase() {
+        final StudyModeOutputBoundary studyModeOutputBoundary = new StudyModePresenter(viewManagerModel,
+                studyModeViewModel, studyModeBeginViewModel);
+
+        final StudyModeInputBoundary studyModeInteractor =
+                new StudyModeInteractor(studyModeDataAccessInterface, studyModeOutputBoundary);
+
+        final StudyModeController studyModeController = new StudyModeController(studyModeInteractor);
+        studyModeView.setStudyModeController(studyModeController);
+        return this;
+    }
+
+    /**
+     * Adds the Study Mode Begin Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addStudyModeBeginUseCase() {
+        final StudyModeBeginOutputBoundary studyModeBeginOutputBoundary = new StudyModeBeginPresenter(viewManagerModel,
+                studyModeBeginViewModel);
+
+        final StudyModeBeginInputBoundary studyModeBeginInteractor =
+                new StudyModeBeginInteractor(studyModeBeginDataAccessInterface, studyModeBeginOutputBoundary);
+
+        final StudyModeBeginController studyModeBeginController = new StudyModeBeginController(studyModeBeginInteractor);
+        studyModeBeginView.setStudyModeBeginController(studyModeBeginController);
         return this;
     }
 

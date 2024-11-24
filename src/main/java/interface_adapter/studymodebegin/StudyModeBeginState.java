@@ -1,9 +1,9 @@
-package interface_adapter.studymode;
+package interface_adapter.studymodebegin;
 
 /**
- * The state for the Study Mode View Model.
+ * The state for the Study Mode Begin View Model.
  */
-public class StudyModeState {
+public class StudyModeBeginState {
     private String module = "";
 
     public String getModule() {
