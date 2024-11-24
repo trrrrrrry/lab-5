@@ -1,9 +1,9 @@
-package use_case.studymode;
+package use_case.studymodebegin;
 
 /**
- * DAO for the Study Mode Use Case.
+ * DAO for the Study Mode Begin Use Case.
  */
-public interface StudyModeDataAccessInterface {
+public interface StudyModeBeginDataAccessInterface {
     /**
      * Returns the module that the user chose.
      * @return the module that the user chose; null indicates that the user didn't choose a module.

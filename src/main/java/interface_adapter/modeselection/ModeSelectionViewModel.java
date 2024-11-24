@@ -11,7 +11,7 @@ public class ModeSelectionViewModel extends ViewModel<ModeSelectionState> {
     public static final String TEST_MODE_BUTTON_LABEL = "Test Mode";
 
     public ModeSelectionViewModel() {
-        super("mode selection");
+        super("logged in");
         setState(new ModeSelectionState());
     }
 }

@@ -8,16 +8,17 @@ import use_case.modeselection.ModeSelectionInputData;
  */
 public class ModeSelectionController {
     private final ModeSelectionInputBoundary modeSelectionInteractor;
+
     public ModeSelectionController(ModeSelectionInputBoundary modeSelectionInteractor) {
         this.modeSelectionInteractor = modeSelectionInteractor;
     }
 
     /**
      * Execute the mode selection use case.
-     * @param mode the mode that the user selected.
+     * @param module the mode that the user selected.
      */
-    public void execute(String mode) {
-        final ModeSelectionInputData modeSelectionInputData = new ModeSelectionInputData(mode);
+    public void execute(String module) {
+        final ModeSelectionInputData modeSelectionInputData = new ModeSelectionInputData(module);
         modeSelectionInteractor.execute(modeSelectionInputData);
     }
 

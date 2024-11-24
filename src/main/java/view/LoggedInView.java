@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -18,6 +20,7 @@ import interface_adapter.change_password.LoggedInState;
 import interface_adapter.change_password.LoggedInViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.modeselection.ModeSelectionController;
+import interface_adapter.modeselection.ModeSelectionViewModel;
 
 /**
  * The View for when the user is logged into the program.
@@ -42,7 +45,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         this.loggedInViewModel = loggedInViewModel;
         this.loggedInViewModel.addPropertyChangeListener(this);
 
-        final JLabel title = new JLabel("Logged In Screen");
+        final JLabel title = new JLabel("Mode Selection");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final LabelTextPanel passwordInfo = new LabelTextPanel(
@@ -57,21 +60,25 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         modeSelection.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final JPanel buttons = new JPanel();
-        study = new JButton("Study Mode");
-        study.addActionListener(evt -> {
-            if (evt.getSource().equals(study)) {
-                modeSelectionController.switchToStudyModeView();
-            }
-        });
+        study = new JButton(ModeSelectionViewModel.STUDY_MODE_BUTTON_LABEL);
+        study.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        modeSelectionController.switchToStudyModeView();
+                    }
+                }
+        );
 
         buttons.add(study);
 
-        test = new JButton("Test Mode");
-        test.addActionListener(evt -> {
-            if (evt.getSource().equals(test)) {
-                modeSelectionController.switchToTestModeView();
-            }
-        });
+        test = new JButton(ModeSelectionViewModel.TEST_MODE_BUTTON_LABEL);
+        test.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        modeSelectionController.switchToTestModeView();
+                    }
+                }
+        );
         buttons.add(test);
 
         final JPanel addButtons = new JPanel();

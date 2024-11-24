@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class TestresultState {
     private int correctQuestions;
     private int time;
-    private ArrayList<String> incorrectQuestions;
+    private ArrayList<String> incorrectQuestions = new ArrayList<>();
     private String testResultError;
 
     public int getCorrectQuestions() {
