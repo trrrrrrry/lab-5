@@ -1,8 +1,10 @@
-package data_access;
+package database;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import data_access.DatabaseConnection;
 
 /**
  * Initializes the database by creating the Questions and Answers tables.

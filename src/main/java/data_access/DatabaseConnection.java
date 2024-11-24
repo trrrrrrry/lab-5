@@ -10,8 +10,8 @@ import java.sql.SQLException;
 public class DatabaseConnection {
 
     // Embedded H2 database URL
-    private static final String DB_URL = "jdbc:h2:./questionbank";
-    private static final String DB_USER = "sa";
+    private static final String DB_URL = "jdbc:h2:file:./src/main/java/database/database1";
+    private static final String DB_USER = "huang";
     private static final String DB_PASSWORD = "";
 
     /**

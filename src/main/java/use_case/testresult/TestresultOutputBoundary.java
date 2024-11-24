@@ -1,7 +1,5 @@
 package use_case.testresult;
 
-import use_case.testresult.TestresultOutputData;
-
 /**
  * The output boundary for the Login Use Case.
  */

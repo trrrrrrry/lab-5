@@ -1,8 +1,10 @@
-package data_access;
+package database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import data_access.DatabaseConnection;
 
 /**
  * Inserts questions and answers into the database.
@@ -70,7 +72,7 @@ public class DatabaseInserter {
             insertAnswer(questionId, "Berlin", false);
             insertAnswer(questionId, "Rome", false);
 
-            System.out.println("Question and answers inserted successfully.");
+            System.out.println("Question and answers with id " + questionId + " inserted successfully.");
 
         }
         catch (SQLException exception) {

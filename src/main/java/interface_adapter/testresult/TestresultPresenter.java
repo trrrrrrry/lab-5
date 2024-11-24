@@ -30,7 +30,9 @@ public class TestresultPresenter implements TestresultOutputBoundary {
 
     @Override
     public void prepareFailView(String errorMessage) {
-        // No need to add code here. We'll assume that logout can't fail.
+        final TestresultState testresultState = new TestresultState();
+        testresultState.setTestResultError(errorMessage);
+        testresultViewModel.firePropertyChanged();
     }
 
     @Override

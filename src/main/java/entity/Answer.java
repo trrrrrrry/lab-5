@@ -49,9 +49,9 @@ public class Answer {
     /**
      * Sets the correctness of this answer.
      *
-     * @param isCorrect true if this answer is correct, false otherwise
+     * @param iscorrect true if this answer is correct, false otherwise
      */
-    public void setCorrect(boolean isccrrect) {
-        this.isCorrect = isCorrect;
+    public void setCorrect(boolean iscorrect) {
+        this.isCorrect = iscorrect;
     }
 }

@@ -13,12 +13,16 @@ public class Question {
     private List<Answer> answers = new ArrayList<>();
 
     /**
-     * Constructs a new Question with the specified text.
+     * Constructs a new Question with the specified ID, question text, and answers.
      *
+     * @param id the unique ID of the question
      * @param questionText the text of the question
+     * @param answers the list of answers associated with the question
      */
-    public Question(String questionText) {
+    public Question(int id, String questionText, List<Answer> answers) {
+        this.id = id;
         this.questionText = questionText;
+        this.answers = answers;
     }
 
     /**
@@ -73,5 +77,19 @@ public class Question {
      */
     public void addAnswer(Answer answer) {
         answers.add(answer);
+    }
+
+    /**
+     * Returns a string representation of the question.
+     *
+     * @return a string representation of the question
+     */
+    @Override
+    public String toString() {
+        return "Question{"
+                + "id=" + id
+                + ", questionText='" + questionText + '\''
+                + ", answers=" + answers
+                + '}';
     }
 }

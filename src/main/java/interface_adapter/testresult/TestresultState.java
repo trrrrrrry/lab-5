@@ -6,6 +6,7 @@ public class TestresultState {
     private int correctQuestions;
     private int time;
     private ArrayList<String> incorrectQuestions;
+    private String testResultError;
 
     public int getCorrectQuestions() {
         return correctQuestions;
@@ -29,6 +30,10 @@ public class TestresultState {
 
     public void setIncorrectQuestions(ArrayList<String> incorrectQuestions) {
         this.incorrectQuestions = incorrectQuestions;
+    }
+
+    public void setTestResultError(String testResultError) {
+        this.testResultError = testResultError;
     }
 
 }
