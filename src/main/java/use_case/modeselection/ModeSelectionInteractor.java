@@ -1,6 +1,5 @@
 package use_case.modeselection;
 
-
 /**
  * The Mode Selection Interactor.
  */
