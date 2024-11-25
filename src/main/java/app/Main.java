@@ -32,7 +32,9 @@ public class Main {
                                             .addTestresultUseCase()
                                             .build();
         application.pack();
-        application.setSize(500, 360);
+        final int sizeWidth = 500;
+        final int sizeHeight = 360;
+        application.setSize(sizeWidth, sizeHeight);
         application.setLocationRelativeTo(null);
         application.setVisible(true);
 
