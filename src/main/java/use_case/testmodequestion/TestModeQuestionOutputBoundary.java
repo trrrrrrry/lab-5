@@ -19,5 +19,10 @@ public interface TestModeQuestionOutputBoundary {
     /**
      * Switch to the next Test Mode Question View.
      */
-    void switchToTestModeBeginView();
+    void switchToNextQuestionView();
+
+    /**
+     * Switch to the Test Result View.
+     */
+    void switchToTestResultView();
 }

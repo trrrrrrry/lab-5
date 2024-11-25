@@ -19,5 +19,11 @@ public interface StudyModeQuestionOutputBoundary {
     /**
      * Switch to the next Study Mode Question View.
      */
-    void switchToStudyModeBeginView();
+    void switchToNextQuestionView();
+
+    /**
+     * Switch to the Test Result View.
+     */
+    void switchToTestResultView();
+
 }

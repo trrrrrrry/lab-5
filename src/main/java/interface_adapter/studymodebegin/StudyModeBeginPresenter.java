@@ -1,6 +1,8 @@
 package interface_adapter.studymodebegin;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.studymodequestion.StudyModeQuestionState;
+import interface_adapter.studymodequestion.StudyModeQuestionViewModel;
 import use_case.studymodebegin.StudyModeBeginOutputBoundary;
 import use_case.studymodebegin.StudyModeBeginOutputData;
 
@@ -11,15 +13,23 @@ public class StudyModeBeginPresenter implements StudyModeBeginOutputBoundary {
 
     private ViewManagerModel viewManagerModel;
     private StudyModeBeginViewModel studyModeBeginViewModel;
+    private StudyModeQuestionViewModel studyModeQuestionViewModel;
 
-    public StudyModeBeginPresenter(ViewManagerModel viewManagerModel, StudyModeBeginViewModel studyModeBeginViewModel) {
+    public StudyModeBeginPresenter(ViewManagerModel viewManagerModel, StudyModeBeginViewModel studyModeBeginViewModel, StudyModeQuestionViewModel studyModeQuestionViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.studyModeBeginViewModel = studyModeBeginViewModel;
+        this.studyModeQuestionViewModel = studyModeQuestionViewModel;
     }
 
     @Override
     public void prepareSuccessView(StudyModeBeginOutputData outputData) {
+        final StudyModeQuestionState studyModeQuestionState = studyModeQuestionViewModel.getState();
+        studyModeQuestionState.setSelectedOption(outputData.getModule());
+        this.studyModeQuestionViewModel.setState(studyModeQuestionState);
+        this.studyModeQuestionViewModel.firePropertyChanged();
 
+        this.viewManagerModel.setState(studyModeQuestionViewModel.getViewName());
+        this.viewManagerModel.firePropertyChanged();
     }
 
     @Override

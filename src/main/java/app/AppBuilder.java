@@ -30,6 +30,7 @@ import interface_adapter.studymode.StudyModeViewModel;
 import interface_adapter.studymodebegin.StudyModeBeginController;
 import interface_adapter.studymodebegin.StudyModeBeginPresenter;
 import interface_adapter.studymodebegin.StudyModeBeginViewModel;
+import interface_adapter.studymodequestion.StudyModeQuestionViewModel;
 import interface_adapter.testmode.TestModeController;
 import interface_adapter.testmode.TestModePresenter;
 import interface_adapter.testmode.TestModeViewModel;
@@ -51,7 +52,6 @@ import use_case.modeselection.ModeSelectionOutputBoundary;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
-import use_case.studymode.StudyModeDataAccessInterface;
 import use_case.studymode.StudyModeInputBoundary;
 import use_case.studymode.StudyModeInteractor;
 import use_case.studymode.StudyModeOutputBoundary;
@@ -104,6 +104,8 @@ public class AppBuilder {
     private StudyModeViewModel studyModeViewModel;
     private StudyModeBeginView studyModeBeginView;
     private StudyModeBeginViewModel studyModeBeginViewModel;
+    private StudyModeQuestionView studyModeQuestionView;
+    private StudyModeQuestionViewModel studyModeQuestionViewModel;
     private TestModeView testModeView;
     private TestModeViewModel testModeViewModel;
     private TestresultViewModel testresultViewModel;
@@ -165,6 +167,17 @@ public class AppBuilder {
     public AppBuilder addStudyModeBeginView() {
         studyModeBeginViewModel = new StudyModeBeginViewModel();
         studyModeBeginView = new StudyModeBeginView(studyModeBeginViewModel);
+        cardPanel.add(studyModeBeginView, studyModeBeginView.getViewName());
+        return this;
+    }
+
+    /**
+     * Adds the Study Mode Question View to the application.
+     * @return this builder
+     */
+    public AppBuilder addStudyModeQuestionView() {
+        studyModeQuestionViewModel = new StudyModeQuestionViewModel();
+        studyModeQuestionView = new StudyModeQuestionView(studyModeQuestionViewModel);
         cardPanel.add(studyModeBeginView, studyModeBeginView.getViewName());
         return this;
     }
@@ -290,7 +303,7 @@ public class AppBuilder {
      */
     public AppBuilder addStudyModeBeginUseCase() {
         final StudyModeBeginOutputBoundary studyModeBeginOutputBoundary = new StudyModeBeginPresenter(viewManagerModel,
-                studyModeBeginViewModel);
+                studyModeBeginViewModel, studyModeQuestionViewModel);
 
         final StudyModeBeginInputBoundary studyModeBeginInteractor =
                 new StudyModeBeginInteractor(studyModeBeginDataAccessInterface, studyModeBeginOutputBoundary);

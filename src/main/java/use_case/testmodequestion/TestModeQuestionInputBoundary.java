@@ -19,6 +19,6 @@ public interface TestModeQuestionInputBoundary {
     /**
      * Switch to the TestResult(?) View.
      */
-    void switchToTestResult();
+    void switchToTestResultView();
 }
 
