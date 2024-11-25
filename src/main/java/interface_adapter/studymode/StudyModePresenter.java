@@ -1,7 +1,6 @@
 package interface_adapter.studymode;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.studymode.StudyModeViewModel;
 import interface_adapter.studymodebegin.StudyModeBeginState;
 import interface_adapter.studymodebegin.StudyModeBeginViewModel;
 import use_case.studymode.StudyModeOutputBoundary;
@@ -38,7 +37,7 @@ public class StudyModePresenter implements StudyModeOutputBoundary {
 
     @Override
     public void prepareFailView(String errorMessage) {
-
+        // Assume no failure view
     }
 
     @Override

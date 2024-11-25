@@ -7,7 +7,8 @@ public class StudyModeInteractor implements StudyModeInputBoundary {
     private final StudyModeDataAccessInterface studyModeDataAccessInterface;
     private final StudyModeOutputBoundary studyModeOutputBoundary;
 
-    public StudyModeInteractor(StudyModeDataAccessInterface studyModeDataAccessInterface, StudyModeOutputBoundary studyModeOutputBoundary) {
+    public StudyModeInteractor(StudyModeDataAccessInterface studyModeDataAccessInterface,
+                               StudyModeOutputBoundary studyModeOutputBoundary) {
         this.studyModeDataAccessInterface = studyModeDataAccessInterface;
         this.studyModeOutputBoundary = studyModeOutputBoundary;
     }

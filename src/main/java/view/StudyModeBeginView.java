@@ -6,10 +6,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import interface_adapter.logout.LogoutController;
 import interface_adapter.studymodebegin.StudyModeBeginController;
@@ -33,9 +30,11 @@ public class StudyModeBeginView extends JPanel {
 
         this.studyModeBeginViewModel = studyModeBeginViewModel;
 
-        final JLabel beginText = new JLabel("Welcome to study " + ". The questions you get wrong will be "
+        final JLabel beginText = new JLabel("<html><p>Welcome to study "
+                + ". The questions you get wrong will be "
                 + " redisplayed until you answer all of them correctly.");
         beginText.setAlignmentX(Component.CENTER_ALIGNMENT);
+        beginText.setFont(new Font("Arial", Font.PLAIN, 20));
 
         final JPanel buttons = new JPanel();
         begin = new JButton("Begin");

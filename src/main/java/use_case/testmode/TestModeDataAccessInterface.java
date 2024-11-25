@@ -1,4 +1,6 @@
 package use_case.testmode;
 
-public interface TestModeDataAccessInterface {
-}
+/**
+ * DAO for the Test Mode Use Case.
+ */
+public interface TestModeDataAccessInterface { }

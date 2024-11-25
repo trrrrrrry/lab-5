@@ -30,6 +30,9 @@ import interface_adapter.studymode.StudyModeViewModel;
 import interface_adapter.studymodebegin.StudyModeBeginController;
 import interface_adapter.studymodebegin.StudyModeBeginPresenter;
 import interface_adapter.studymodebegin.StudyModeBeginViewModel;
+import interface_adapter.testmode.TestModeController;
+import interface_adapter.testmode.TestModePresenter;
+import interface_adapter.testmode.TestModeViewModel;
 import interface_adapter.testresult.TestresultController;
 import interface_adapter.testresult.TestresultPresenter;
 import interface_adapter.testresult.TestresultViewModel;
@@ -55,6 +58,9 @@ import use_case.studymode.StudyModeOutputBoundary;
 import use_case.studymodebegin.StudyModeBeginInputBoundary;
 import use_case.studymodebegin.StudyModeBeginInteractor;
 import use_case.studymodebegin.StudyModeBeginOutputBoundary;
+import use_case.testmode.TestModeInputBoundary;
+import use_case.testmode.TestModeInteractor;
+import use_case.testmode.TestModeOutputBoundary;
 import use_case.testresult.TestresultInputBoundary;
 import use_case.testresult.TestresultInteractor;
 import use_case.testresult.TestresultOutputBoundary;
@@ -83,6 +89,7 @@ public class AppBuilder {
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
     private final InMemoryStudyModeDataAccessInterface studyModeDataAccessInterface = new InMemoryStudyModeDataAccessInterface();
     private final InMemoryStudyModeBeginDataAccessInterface studyModeBeginDataAccessInterface = new InMemoryStudyModeBeginDataAccessInterface();
+    private final InMemoryTestModeDataAccessInterface testyModeDataAccessInterface = new InMemoryTestModeDataAccessInterface();
     private final InMemoryModeSelectionDataAccessInterface modeSelectionDataAccessInterface = new InMemoryModeSelectionDataAccessInterface();
     private final InMemoryTestResultDataAccessObject testResultDataAccessObject = new InMemoryTestResultDataAccessObject();
 
@@ -97,6 +104,8 @@ public class AppBuilder {
     private StudyModeViewModel studyModeViewModel;
     private StudyModeBeginView studyModeBeginView;
     private StudyModeBeginViewModel studyModeBeginViewModel;
+    private TestModeView testModeView;
+    private TestModeViewModel testModeViewModel;
     private TestresultViewModel testresultViewModel;
     private TestresultView testresultView;
 
@@ -157,6 +166,17 @@ public class AppBuilder {
         studyModeBeginViewModel = new StudyModeBeginViewModel();
         studyModeBeginView = new StudyModeBeginView(studyModeBeginViewModel);
         cardPanel.add(studyModeBeginView, studyModeBeginView.getViewName());
+        return this;
+    }
+
+    /**
+     * Adds the Test Mode View to the application.
+     * @return this builder
+     */
+    public AppBuilder addTestModeView() {
+        testModeViewModel = new TestModeViewModel();
+        testModeView = new TestModeView(testModeViewModel);
+        cardPanel.add(testModeView, testModeView.getViewName());
         return this;
     }
 
@@ -277,6 +297,21 @@ public class AppBuilder {
 
         final StudyModeBeginController studyModeBeginController = new StudyModeBeginController(studyModeBeginInteractor);
         studyModeBeginView.setStudyModeBeginController(studyModeBeginController);
+        return this;
+    }
+
+    /**
+     * Adds the Test Mode Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addTestModeUseCase() {
+        final TestModeOutputBoundary testModeOutputBoundary = new TestModePresenter(viewManagerModel, testModeViewModel);
+
+        final TestModeInputBoundary testModeInteractor =
+                new TestModeInteractor(testyModeDataAccessInterface, testModeOutputBoundary);
+
+        final TestModeController testModeController = new TestModeController(testModeInteractor);
+        testModeView.setTestModeController(testModeController);
         return this;
     }
 
