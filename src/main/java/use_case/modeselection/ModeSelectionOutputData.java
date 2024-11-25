@@ -7,7 +7,6 @@ public class ModeSelectionOutputData {
 
     private final String selectedMode;
 
-
     /**
      * Constructs a ModeSelectionOutputData object with the selected mode and confirmation message.
      * @param selectedMode The mode that was selected by the user.
