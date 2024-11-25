@@ -3,7 +3,7 @@ package use_case.studymodequestion;
 /**
  * Input Boundary for actions which are related to study mode question.
  */
-public interface StudyModeQuestionInputBoundary {
+public interface TestModeQuestionInputBoundary {
 
     /**
      * Executes the StudyModeQuestion use case.
@@ -19,5 +19,5 @@ public interface StudyModeQuestionInputBoundary {
     /**
      * Switch to the TestResult(?) View.
      */
-    void switchToTestResult();
+    void switchToTestResultView();
 }
