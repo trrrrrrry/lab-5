@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import interface_adapter.logout.LogoutController;
 import interface_adapter.studymode.StudyModeController;
+import interface_adapter.studymode.StudyModeState;
 import interface_adapter.studymode.StudyModeViewModel;
 
 /**
@@ -27,9 +28,15 @@ public class StudyModeView extends JPanel implements ActionListener {
     private StudyModeController studyModeController;
 
     private final JLabel username;
+    private final JButton module1;
+    private final JButton module2;
+    private final JButton module3;
+    private final JButton module4;
+    private final JButton module5;
+    private final JButton module6;
 
-    public StudyModeView(StudyModeViewModel studymodeViewModel) {
-        this.studymodeViewModel = studymodeViewModel;
+    public StudyModeView(StudyModeViewModel studyModeViewModel) {
+        this.studymodeViewModel = studyModeViewModel;
 
         final JLabel title = new JLabel("Study Mode");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -39,17 +46,17 @@ public class StudyModeView extends JPanel implements ActionListener {
         final JPanel buttons = new JPanel();
         buttons.setLayout(new GridLayout(2, 3, 10, 10));
 
-        final JButton module1 = new JButton("Module 1");
+        module1 = new JButton("Module 1");
         buttons.add(module1);
-        final JButton module2 = new JButton("Module 2");
+        module2 = new JButton("Module 2");
         buttons.add(module2);
-        final JButton module3 = new JButton("Module 3");
+        module3 = new JButton("Module 3");
         buttons.add(module3);
-        final JButton module4 = new JButton("Module 4");
+        module4 = new JButton("Module 4");
         buttons.add(module4);
-        final JButton module5 = new JButton("Module 5");
+        module5 = new JButton("Module 5");
         buttons.add(module5);
-        final JButton module6 = new JButton("Module 6");
+        module6 = new JButton("Module 6");
         buttons.add(module6);
 
         final JLabel usernameInfo = new JLabel("Currently logged in: ");
@@ -61,6 +68,11 @@ public class StudyModeView extends JPanel implements ActionListener {
         module1.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(module1)) {
+                            final StudyModeState studyModeState = studyModeViewModel.getState();
+                            studyModeState.setModule("Module 1");
+                            studyModeController.execute(studyModeState.getModule());
+                        }
                         studyModeController.switchToStudyModeBeginView();
                     }
                 }
@@ -69,6 +81,11 @@ public class StudyModeView extends JPanel implements ActionListener {
         module2.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(module2)) {
+                            final StudyModeState studyModeState = studyModeViewModel.getState();
+
+                            studyModeController.execute(studyModeState.getModule());
+                        }
                         studyModeController.switchToStudyModeBeginView();
                     }
                 }
@@ -77,6 +94,11 @@ public class StudyModeView extends JPanel implements ActionListener {
         module3.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(module3)) {
+                            final StudyModeState studyModeState = studyModeViewModel.getState();
+
+                            studyModeController.execute(studyModeState.getModule());
+                        }
                         studyModeController.switchToStudyModeBeginView();
                     }
                 }
@@ -85,6 +107,11 @@ public class StudyModeView extends JPanel implements ActionListener {
         module4.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(module4)) {
+                            final StudyModeState studyModeState = studyModeViewModel.getState();
+
+                            studyModeController.execute(studyModeState.getModule());
+                        }
                         studyModeController.switchToStudyModeBeginView();
                     }
                 }
@@ -93,6 +120,11 @@ public class StudyModeView extends JPanel implements ActionListener {
         module5.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(module5)) {
+                            final StudyModeState studyModeState = studyModeViewModel.getState();
+
+                            studyModeController.execute(studyModeState.getModule());
+                        }
                         studyModeController.switchToStudyModeBeginView();
                     }
                 }
@@ -101,6 +133,11 @@ public class StudyModeView extends JPanel implements ActionListener {
         module6.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(module6)) {
+                            final StudyModeState studyModeState = studyModeViewModel.getState();
+
+                            studyModeController.execute(studyModeState.getModule());
+                        }
                         studyModeController.switchToStudyModeBeginView();
                     }
                 }

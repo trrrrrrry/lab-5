@@ -1,4 +1,14 @@
 package interface_adapter.testmode;
 
-public class TestModeViewModel {
+import interface_adapter.ViewModel;
+
+/**
+ * The View Model for the Test Mode View.
+ */
+public class TestModeViewModel extends ViewModel<TestModeState> {
+
+    public TestModeViewModel() {
+        super("test mode");
+        setState(new TestModeState());
+    }
 }

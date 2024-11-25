@@ -6,7 +6,7 @@ import use_case.studymode.StudyModeDataAccessInterface;
  * In-memory implementation of the DAO for topic chosen in Study Mode. This implementation does
  * NOT persist data between runs of the program.
  */
-    public class InMemoryStudyModeDataAccessInterface implements StudyModeDataAccessInterface {
+public class InMemoryStudyModeDataAccessInterface implements StudyModeDataAccessInterface {
 
     private String module;
 
