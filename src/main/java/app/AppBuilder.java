@@ -90,7 +90,7 @@ public class AppBuilder {
     private final InMemoryStudyModeDataAccessInterface studyModeDataAccessInterface = new InMemoryStudyModeDataAccessInterface();
     private final InMemoryStudyModeBeginDataAccessInterface studyModeBeginDataAccessInterface = new InMemoryStudyModeBeginDataAccessInterface();
     private final InMemoryTestModeDataAccessInterface testyModeDataAccessInterface = new InMemoryTestModeDataAccessInterface();
-    private final InMemoryModeSelectionDataAccessInterface modeSelectionDataAccessInterface = new InMemoryModeSelectionDataAccessInterface();
+    private final InMemoryModeSelectionDataAccessObject modeSelectionDataAccessInterface = new InMemoryModeSelectionDataAccessObject();
     private final InMemoryTestResultDataAccessObject testResultDataAccessObject = new InMemoryTestResultDataAccessObject();
 
     private SignupView signupView;

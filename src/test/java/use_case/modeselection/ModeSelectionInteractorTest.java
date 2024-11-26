@@ -124,4 +124,39 @@ class ModeSelectionInteractorTest {
         interactor.execute(inputData);
     }
 
+    @Test
+    void failureInvalidModeTest() {
+        // Create Input Data for selecting Study Mode
+        ModeSelectionInputData inputData = new ModeSelectionInputData("game mode");
+
+        // Set up In-Memory Data Access and Output Boundary
+        ModeSelectionDataAccessInterface modeSelectionDataAccess = new InMemoryModeSelectionDataAccessObject();
+        ModeSelectionOutputBoundary failurePresenter = new ModeSelectionOutputBoundary() {
+            @Override
+            public void prepareSuccessView(ModeSelectionOutputData response) {
+                fail("Unexpected failure, success view was called when there is an invalid mode.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("Invalid mode selected, Please choose Study or Test", error);
+            }
+
+            @Override
+            public void switchToStudyModeView() {
+                // not useful in a test
+            }
+
+            @Override
+            public void switchToTestModeView() {
+                // not useful in a test
+            }
+        };
+
+        // Create the ModeSelectionInteractor and execute the selection
+        ModeSelectionInputBoundary interactor = new ModeSelectionInteractor(modeSelectionDataAccess, failurePresenter);
+        interactor.execute(inputData);
+    }
+
+
 }

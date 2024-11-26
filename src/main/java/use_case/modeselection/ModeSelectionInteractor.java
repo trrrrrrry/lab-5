@@ -20,10 +20,11 @@ public class ModeSelectionInteractor implements ModeSelectionInputBoundary {
         if (!isValidMode(mode)) {
             presenter.prepareFailView("Invalid mode selected, Please choose Study or Test");
         }
-        final ModeSelectionOutputData outputData = new ModeSelectionOutputData(mode);
-
-        presenter.prepareSuccessView(outputData);
-
+        else {
+            modeSelectionDataAccessObject.saveSelectedMode(mode);
+            final ModeSelectionOutputData outputData = new ModeSelectionOutputData(mode);
+            presenter.prepareSuccessView(outputData);
+        }
     }
 
     @Override
