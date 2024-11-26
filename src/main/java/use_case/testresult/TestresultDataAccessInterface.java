@@ -24,4 +24,22 @@ public interface TestresultDataAccessInterface {
      * @return a list of incorrect questions
      */
     ArrayList<String> getIncorrectQuestions();
+
+    /**
+     * Save number of correct questions.
+     * @param correctQuestions number of correct questions
+     */
+    void saveCorrectQuestions(int correctQuestions);
+
+    /**
+     * Save time used.
+     * @param time time used to take the test
+     */
+    void saveTime(int time);
+
+    /**
+     * Save the incorrect questions.
+     * @param incorrectQuestions incorrect questions
+     */
+    void saveIncorrectQuestions(ArrayList<String> incorrectQuestions);
 }

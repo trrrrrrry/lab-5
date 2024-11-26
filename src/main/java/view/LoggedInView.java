@@ -48,8 +48,11 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         final JLabel title = new JLabel("Mode Selection");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        final JLabel changeForPassword = new JLabel("If you wish to change your password, please "
+                + "enter the new Password below");
+        changeForPassword.setAlignmentX(Component.CENTER_ALIGNMENT);
         final LabelTextPanel passwordInfo = new LabelTextPanel(
-                new JLabel("Password"), passwordInputField);
+                new JLabel("New Password"), passwordInputField);
 
         final JLabel usernameInfo = new JLabel("Currently logged in: ");
         usernameInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -87,6 +90,18 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
         changePassword = new JButton("Change Password");
         addButtons.add(changePassword);
+        changePassword.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                evt -> {
+                    if (evt.getSource().equals(changePassword)) {
+                        final LoggedInState currentState = loggedInViewModel.getState();
+                        this.changePasswordController.execute(
+                                currentState.getUsername(),
+                                currentState.getPassword()
+                        );
+                    }
+                }
+        );
 
         passwordInputField.getDocument().addDocumentListener(new DocumentListener() {
             private void documentListenerHelper() {
@@ -110,18 +125,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 documentListenerHelper();
             }
         });
-        changePassword.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                evt -> {
-                    if (evt.getSource().equals(changePassword)) {
-                        final LoggedInState currentState = loggedInViewModel.getState();
-                        this.changePasswordController.execute(
-                                currentState.getUsername(),
-                                currentState.getPassword()
-                        );
-                    }
-                }
-        );
+
         logOut.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 evt -> {
@@ -137,12 +141,12 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
         this.add(title);
         this.add(modeSelection);
-
         this.add(buttons);
-        this.add(addButtons);
 
+        this.add(changeForPassword);
         this.add(passwordInfo);
         this.add(passwordErrorField);
+        this.add(addButtons);
 
         this.add(usernameInfo);
         this.add(username);

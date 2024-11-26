@@ -27,4 +27,19 @@ public class InMemoryTestResultDataAccessObject implements TestresultDataAccessI
     public ArrayList<String> getIncorrectQuestions() {
         return incorrectQuestions;
     }
+
+    @Override
+    public void saveCorrectQuestions(int numCorrectQuestions) {
+        this.correctQuestions = numCorrectQuestions;
+    }
+
+    @Override
+    public void saveTime(int timeUsed) {
+        this.time = timeUsed;
+    }
+
+    @Override
+    public void saveIncorrectQuestions(ArrayList<String> incorrectQuestionsList) {
+        this.incorrectQuestions = incorrectQuestionsList;
+    }
 }
