@@ -1,6 +1,7 @@
 package use_case.testresult;
 
 import data_access.InMemoryTestResultDataAccessObject;
+import interface_adapter.ViewManagerModel;
 import org.junit.jupiter.api.Test;
 import use_case.testresult.*;
 
@@ -34,7 +35,7 @@ class TestResultInteractorTest {
             }
 
             @Override
-            public void switchToModeselectionView() {
+            public void switchToLoggedInView() {
                 // no need to implement in a test
             }
         };
@@ -74,7 +75,7 @@ class TestResultInteractorTest {
             }
 
             @Override
-            public void switchToModeselectionView() {
+            public void switchToLoggedInView() {
                 // No need for test
             }
         };
@@ -109,7 +110,7 @@ class TestResultInteractorTest {
             }
 
             @Override
-            public void switchToModeselectionView() {
+            public void switchToLoggedInView() {
                 // No need for implementation in test
             }
         };
@@ -146,7 +147,7 @@ class TestResultInteractorTest {
             }
 
             @Override
-            public void switchToModeselectionView() {
+            public void switchToLoggedInView() {
                 // No need for implementation in test
             }
         };
@@ -161,4 +162,44 @@ class TestResultInteractorTest {
         assertEquals(0, testResultDataAccess.getIncorrectQuestions().size());
     }
 
+    @Test
+    void switchToLoggedInViewTest() {
+        // Arrange the input data
+        ArrayList<String> incorrectQuestions = new ArrayList<>(Arrays.asList("Q1", "Q2"));
+        TestresultInputData inputData = new TestresultInputData(38, 100, incorrectQuestions);
+
+        TestresultDataAccessInterface testResultDataAccess = new InMemoryTestResultDataAccessObject();
+
+        // Create a ViewManagerModel to track the current view
+        ViewManagerModel viewManagerModel = new ViewManagerModel();
+
+        // Create a presenter with the overridden method that interacts with the ViewManagerModel
+        TestresultOutputBoundary successPresenter = new TestresultOutputBoundary() {
+            @Override
+            public void prepareSuccessView(TestresultOutputData outputData) {
+                // No action needed for this specific test
+            }
+
+            @Override
+            public void prepareFailView(String errorMessage) {
+                // No action needed for this specific test
+            }
+
+            @Override
+            public void switchToLoggedInView() {
+                //same implementation from the test result presenter switchToLoggedInView()
+                viewManagerModel.setState("logged in");
+                viewManagerModel.firePropertyChanged();
+            }
+        };
+
+            // Create and execute the interactor
+            TestresultInputBoundary interactor = new TestresultInteractor(testResultDataAccess, successPresenter);
+            interactor.execute(inputData);
+
+            //Test if the view is navigated successfuly
+            interactor.switchToLoggedInView();
+            assertEquals("logged in", viewManagerModel.getState());
+
+    }
 }
