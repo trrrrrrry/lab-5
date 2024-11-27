@@ -65,7 +65,8 @@ By offering both focused learning and realistic test simulations, this program p
 5. Run the file
 
 ## License
-This project is licensed under the ____. See the [LICENSE](LICENSE) fil for details
+This project is open source licensed under the MIT License, which allows you to freely use, modify, and distribute the code for personal or commercial purposes, provided that you include the original copyright notice.
+See the [LICENSE](LICENSE) file for the full text.
 
 ## Section for Feedback
 We value your feedback! If you have any suggestions, bug reports, or feature requests, please feel free to open an issue in the GitHub repository. Your input will help us improve and make the G1 Test Preparation Program even better.

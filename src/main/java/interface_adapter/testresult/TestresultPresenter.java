@@ -1,8 +1,7 @@
 package interface_adapter.testresult;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.modeselection.ModeSelectionViewModel;
-import interface_adapter.testresult.TestresultViewModel;
+import interface_adapter.change_password.LoggedInViewModel;
 import use_case.testresult.TestresultOutputBoundary;
 import use_case.testresult.TestresultOutputData;
 
@@ -11,13 +10,13 @@ import use_case.testresult.TestresultOutputData;
  */
 public class TestresultPresenter implements TestresultOutputBoundary {
     private final TestresultViewModel testresultViewModel;
-    private final ModeSelectionViewModel modeSelectionViewModel;
+    private final LoggedInViewModel loggedInViewModel;
     private final ViewManagerModel viewManagerModel;
 
-    public TestresultPresenter(TestresultViewModel testResultViewModel, ModeSelectionViewModel modeSelectionViewModel,
+    public TestresultPresenter(TestresultViewModel testResultViewModel, LoggedInViewModel loggedInViewModel,
                                ViewManagerModel viewManagerModel) {
         this.testresultViewModel = testResultViewModel;
-        this.modeSelectionViewModel = modeSelectionViewModel;
+        this.loggedInViewModel = loggedInViewModel;
         this.viewManagerModel = viewManagerModel;
     }
 
@@ -36,8 +35,9 @@ public class TestresultPresenter implements TestresultOutputBoundary {
     }
 
     @Override
-    public void switchToModeselectionView() {
-        viewManagerModel.setState(modeSelectionViewModel.getViewName());
+    public void switchToLoggedInView() {
+        viewManagerModel.setState(loggedInViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
     }
 
 }

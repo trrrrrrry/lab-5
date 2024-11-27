@@ -1,5 +1,6 @@
 package use_case.modeselection;
 
+import interface_adapter.ViewManagerModel;
 import org.junit.jupiter.api.Test;
 import data_access.InMemoryModeSelectionDataAccessObject;
 
@@ -14,6 +15,9 @@ class ModeSelectionInteractorTest {
 
         // Set up the In-Memory Data
         ModeSelectionDataAccessInterface modeSelectionDataAccess = new InMemoryModeSelectionDataAccessObject();
+
+        // Create a ViewManagerModel to track the current view
+        ViewManagerModel viewManagerModel = new ViewManagerModel();
 
         // set up a success presenter to see if the user is redirected to the mode they chose
         // in this case, the study mode
@@ -30,12 +34,13 @@ class ModeSelectionInteractorTest {
 
             @Override
             public void switchToStudyModeView() {
-
+                viewManagerModel.setState("study mode");
+                viewManagerModel.firePropertyChanged();
             }
 
             @Override
             public void switchToTestModeView() {
-
+                // no need for this test.
             }
         };
 
@@ -45,6 +50,10 @@ class ModeSelectionInteractorTest {
 
         // Test if the correct mode was saved
         assertEquals("study mode", modeSelectionDataAccess.getSelectedMode());
+
+        //Test if the view is navigated successfuly
+        interactor.switchToStudyModeView();
+        assertEquals("study mode", viewManagerModel.getState());
     }
 
 
@@ -55,6 +64,9 @@ class ModeSelectionInteractorTest {
 
         // Set up the In-Memory Data
         ModeSelectionDataAccessInterface modeSelectionDataAccess = new InMemoryModeSelectionDataAccessObject();
+
+        // Create a ViewManagerModel to track the current view
+        ViewManagerModel viewManagerModel = new ViewManagerModel();
 
         // set up a success presenter to see if the user is redirected to the mode they chose
         // in this case, the study mode
@@ -76,7 +88,8 @@ class ModeSelectionInteractorTest {
 
             @Override
             public void switchToTestModeView() {
-                // not used in a test
+                viewManagerModel.setState("test mode");
+                viewManagerModel.firePropertyChanged();
             }
         };
 
@@ -86,6 +99,10 @@ class ModeSelectionInteractorTest {
 
         // Test if the correct mode was saved
         assertEquals("test mode", modeSelectionDataAccess.getSelectedMode());
+
+        //Test if the view is navigated successfuly
+        interactor.switchToTestModeView();
+        assertEquals("test mode", viewManagerModel.getState());
     }
 
 

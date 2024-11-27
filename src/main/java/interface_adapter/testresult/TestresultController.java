@@ -1,9 +1,9 @@
 package interface_adapter.testresult;
 
+import java.util.ArrayList;
+
 import use_case.testresult.TestresultInputBoundary;
 import use_case.testresult.TestresultInputData;
-
-import java.util.ArrayList;
 
 /**
  * Controller for test result use case.
@@ -29,7 +29,7 @@ public class TestresultController {
     /**
      * Execute the "switch to modeselectionView" use case.
      */
-    public void switchToModeselectionView() {
-        testresultInteractor.switchToModeselectionView();
+    public void switchToLoggedInView() {
+        testresultInteractor.switchToLoggedInView();
     }
 }

@@ -334,7 +334,7 @@ public class AppBuilder {
      */
     public AppBuilder addTestresultUseCase() {
         final TestresultOutputBoundary testresultOutputBoundary = new TestresultPresenter(testresultViewModel,
-                modeSelectionViewModel, viewManagerModel);
+                loggedInViewModel, viewManagerModel);
 
         final TestresultInputBoundary testresultInteractor =
                 new TestresultInteractor(testResultDataAccessObject, testresultOutputBoundary);

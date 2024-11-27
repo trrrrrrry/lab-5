@@ -36,8 +36,8 @@ public class TestresultInteractor implements TestresultInputBoundary {
     }
 
     @Override
-    public void switchToModeselectionView() {
-        testresultPresenter.switchToModeselectionView();
+    public void switchToLoggedInView() {
+        testresultPresenter.switchToLoggedInView();
     }
 
     // Private method to validate the input data
