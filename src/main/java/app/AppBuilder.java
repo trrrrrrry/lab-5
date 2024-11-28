@@ -323,10 +323,10 @@ public class AppBuilder {
                 testModeViewModel);
 
         final TestModeInputBoundary testModeInteractor =
-                new TestModeInteractor(testModeOutputBoundary);
+                new TestModeInteractor(testModeDataAccessInterface, testModeOutputBoundary);
 
         final TestModeController testModeController = new TestModeController(testModeInteractor);
-        testModeView.setTestModeController(testModeDataAccessInterface, testModeController);
+        testModeView.setTestModeController(testModeController);
         return this;
     }
 
