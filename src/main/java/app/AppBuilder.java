@@ -320,7 +320,7 @@ public class AppBuilder {
      */
     public AppBuilder addTestModeUseCase() {
         final TestModeOutputBoundary testModeOutputBoundary = new TestModePresenter(viewManagerModel,
-                testModeViewModel, modeSelectionViewModel);
+                testModeViewModel);
 
         final TestModeInputBoundary testModeInteractor =
                 new TestModeInteractor(testModeOutputBoundary);
@@ -342,7 +342,7 @@ public class AppBuilder {
                 new TestresultInteractor(testResultDataAccessObject, testresultOutputBoundary);
 
         final TestresultController testresultController = new TestresultController(testresultInteractor);
-        testresultView.setTestResultController(testresultController);
+        testresultView.setTestResultController(testyModeDataAccessInterface, testresultController);
         return this;
     }
 
