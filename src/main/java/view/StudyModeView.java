@@ -34,6 +34,7 @@ public class StudyModeView extends JPanel implements ActionListener {
     private final JButton module4;
     private final JButton module5;
     private final JButton module6;
+    private final JButton backToModeSelection;
 
     public StudyModeView(StudyModeViewModel studyModeViewModel) {
         this.studymodeViewModel = studyModeViewModel;
@@ -58,6 +59,7 @@ public class StudyModeView extends JPanel implements ActionListener {
         buttons.add(module5);
         module6 = new JButton("Module 6");
         buttons.add(module6);
+        backToModeSelection = new JButton("Back To Mode Selection");
 
         final JLabel usernameInfo = new JLabel("Currently logged in: ");
         usernameInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -83,7 +85,7 @@ public class StudyModeView extends JPanel implements ActionListener {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(module2)) {
                             final StudyModeState studyModeState = studyModeViewModel.getState();
-
+                            studyModeState.setModule("Module 2");
                             studyModeController.execute(studyModeState.getModule());
                         }
                         studyModeController.switchToStudyModeBeginView();
@@ -96,7 +98,7 @@ public class StudyModeView extends JPanel implements ActionListener {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(module3)) {
                             final StudyModeState studyModeState = studyModeViewModel.getState();
-
+                            studyModeState.setModule("Module 3");
                             studyModeController.execute(studyModeState.getModule());
                         }
                         studyModeController.switchToStudyModeBeginView();
@@ -109,7 +111,7 @@ public class StudyModeView extends JPanel implements ActionListener {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(module4)) {
                             final StudyModeState studyModeState = studyModeViewModel.getState();
-
+                            studyModeState.setModule("Module 4");
                             studyModeController.execute(studyModeState.getModule());
                         }
                         studyModeController.switchToStudyModeBeginView();
@@ -122,7 +124,7 @@ public class StudyModeView extends JPanel implements ActionListener {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(module5)) {
                             final StudyModeState studyModeState = studyModeViewModel.getState();
-
+                            studyModeState.setModule("Module 5");
                             studyModeController.execute(studyModeState.getModule());
                         }
                         studyModeController.switchToStudyModeBeginView();
@@ -135,10 +137,18 @@ public class StudyModeView extends JPanel implements ActionListener {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(module6)) {
                             final StudyModeState studyModeState = studyModeViewModel.getState();
-
+                            studyModeState.setModule("Module 6");
                             studyModeController.execute(studyModeState.getModule());
                         }
                         studyModeController.switchToStudyModeBeginView();
+                    }
+                }
+        );
+
+        backToModeSelection.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        studyModeController.switchToModeSelectionView();
                     }
                 }
         );
@@ -148,6 +158,8 @@ public class StudyModeView extends JPanel implements ActionListener {
         this.add(title);
         this.add(moduleSelection);
         this.add(buttons);
+
+        this.add(backToModeSelection);
 
         this.add(usernameInfo);
         this.add(username);
