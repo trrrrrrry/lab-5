@@ -90,7 +90,7 @@ public class AppBuilder {
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
     private final InMemoryStudyModeDataAccessInterface studyModeDataAccessInterface = new InMemoryStudyModeDataAccessInterface();
     private final InMemoryStudyModeBeginDataAccessInterface studyModeBeginDataAccessInterface = new InMemoryStudyModeBeginDataAccessInterface();
-    private final InMemoryTestModeDataAccessInterface testyModeDataAccessInterface = new InMemoryTestModeDataAccessInterface();
+    private final InMemoryTestModeDataAccessInterface testModeDataAccessInterface = new InMemoryTestModeDataAccessInterface();
     private final InMemoryModeSelectionDataAccessObject modeSelectionDataAccessInterface = new InMemoryModeSelectionDataAccessObject();
     private final InMemoryTestResultDataAccessObject testResultDataAccessObject = new InMemoryTestResultDataAccessObject();
 
@@ -326,7 +326,7 @@ public class AppBuilder {
                 new TestModeInteractor(testModeOutputBoundary);
 
         final TestModeController testModeController = new TestModeController(testModeInteractor);
-        testModeView.setTestModeController(testModeController);
+        testModeView.setTestModeController(testModeDataAccessInterface, testModeController);
         return this;
     }
 
@@ -342,7 +342,7 @@ public class AppBuilder {
                 new TestresultInteractor(testResultDataAccessObject, testresultOutputBoundary);
 
         final TestresultController testresultController = new TestresultController(testresultInteractor);
-        testresultView.setTestResultController(testyModeDataAccessInterface, testresultController);
+        testresultView.setTestResultController(testresultController);
         return this;
     }
 
