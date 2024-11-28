@@ -29,4 +29,11 @@ public class StudyModeController {
     public void switchToStudyModeBeginView() {
         studyModeInputBoundary.switchToStudyModeBeginView();
     }
+
+    /**
+     * Executes the "switch to LoggedIn" Use Case.
+     */
+    public void switchToModeSelectionView() {
+        studyModeInputBoundary.switchToModeSelectionView();
+    }
 }

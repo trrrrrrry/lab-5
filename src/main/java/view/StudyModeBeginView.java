@@ -23,15 +23,19 @@ public class StudyModeBeginView extends JPanel {
     private StudyModeBeginController studyModeBeginController;
 
     private final JButton begin;
-
     private final JLabel username;
 
     public StudyModeBeginView(StudyModeBeginViewModel studyModeBeginViewModel) {
 
         this.studyModeBeginViewModel = studyModeBeginViewModel;
 
+        final String moduleName = studyModeBeginViewModel.getState().getModule();
+
+        final JLabel title = new JLabel("Study Mode");
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         final JLabel beginText = new JLabel("<html><p>Welcome to study "
-                + ". The questions you get wrong will be "
+                + moduleName + ". The questions you get wrong will be "
                 + " redisplayed until you answer all of them correctly.");
         beginText.setAlignmentX(Component.CENTER_ALIGNMENT);
         beginText.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -50,6 +54,7 @@ public class StudyModeBeginView extends JPanel {
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        this.add(title);
         this.add(beginText);
         this.add(buttons);
 
@@ -68,4 +73,5 @@ public class StudyModeBeginView extends JPanel {
     public void setLogoutController(LogoutController logoutController) {
         this.logoutController = logoutController;
     }
+
 }
