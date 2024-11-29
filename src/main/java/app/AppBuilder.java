@@ -12,6 +12,7 @@ import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.change_password.ChangePasswordController;
 import interface_adapter.change_password.ChangePasswordPresenter;
+import interface_adapter.change_password.LoggedInState;
 import interface_adapter.change_password.LoggedInViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
@@ -292,7 +293,7 @@ public class AppBuilder {
      */
     public AppBuilder addStudyModeUseCase() {
         final StudyModeOutputBoundary studyModeOutputBoundary = new StudyModePresenter(viewManagerModel,
-                studyModeViewModel, studyModeBeginViewModel);
+                studyModeViewModel, studyModeBeginViewModel, modeSelectionViewModel);
 
         final StudyModeInputBoundary studyModeInteractor =
                 new StudyModeInteractor(studyModeDataAccessInterface, studyModeOutputBoundary);
@@ -324,11 +325,12 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addTestModeUseCase() {
+
         final TestModeOutputBoundary testModeOutputBoundary =
                 new TestModePresenter(viewManagerModel, testModeViewModel);
 
         final TestModeInputBoundary testModeInteractor =
-                new TestModeInteractor(testyModeDataAccessInterface, testModeOutputBoundary);
+                new TestModeInteractor(testModeDataAccessInterface, testModeOutputBoundary);
 
         final TestModeController testModeController = new TestModeController(testModeInteractor);
         testModeView.setTestModeController(testModeController);

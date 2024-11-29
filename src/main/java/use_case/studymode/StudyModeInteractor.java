@@ -25,4 +25,9 @@ public class StudyModeInteractor implements StudyModeInputBoundary {
     public void switchToStudyModeBeginView() {
         studyModeOutputBoundary.switchToStudyModeBeginView();
     }
+
+    @Override
+    public void switchToModeSelectionView() {
+        studyModeOutputBoundary.switchToModeSelectionView();
+    }
 }

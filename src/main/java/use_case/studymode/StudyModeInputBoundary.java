@@ -15,4 +15,9 @@ public interface StudyModeInputBoundary {
      * Switch to the Study Mode Begin View.
      */
     void switchToStudyModeBeginView();
+
+    /**
+     * Switch to the Mode Selection View.
+     */
+    void switchToModeSelectionView();
 }
