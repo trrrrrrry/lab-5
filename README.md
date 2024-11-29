@@ -1,4 +1,4 @@
-# **CSC207 G1 Preparation Tool - Gear Up**
+# **CSC207 Final Project: G1 Preparation Tool - Gear Up**
 
 ## Authors and Contributors
 
@@ -35,12 +35,19 @@ By offering both focused learning and realistic test simulations, this program p
 9. [Contribution Guidelines](#contribution-guidelines)
 
 ## Features
-* **Modular Learning**: Practice questions through modules, which ensure the study process is more achievable.
-* **Mimic Test Feature**: Simulate a full G1 test environment with timed sessions and randomized 40 questions to experience real test conditions.
-* **Progress Tracking**: Keep track of your incorrect questions which allows users to review their progress.
+* **Personalized Account (API)**: Personalized account for each use with valid email address. Invalid Email will be rejected as shown below. 
+![Invalid Email](images/invalidemail.png)
+* **Flexible Study Methods**: Provide Study Mode and Test Mode for the user to flexibly choose their study plan.
+![Mode Selection](images/mode_selection.png)
+* **Modular Learning (Study Mode)**: Practice questions through modules in Study Mode, which ensure the study process is more achievable.
+![Modules](images/Modules.png)
+* **Mimic Test Feature (Test Mode)**: Simulate a full G1 test in Test Mode, with timed sessions and randomized 40 questions to experience real test conditions.
+![Test Mode](images/test_mode.png)
+* **Progress Tracking (Test Result)**: Keep track of your incorrect questions which allows users to review their progress.
 * **User-Friendly Interface**: Designed for easy navigation and intuitive learning, making preparation accessible for everyone.
 
 ## Installation Instruction
+### Step 1: To Install this project, users are required to download specific packages and software if they haven't done. 
 **Package and Software that need to be downloaded - IntelliJ**
 - [Installation Guidelines for IntelliJ](https://www.jetbrains.com/help/idea/installation-guide.html)
 
@@ -53,16 +60,27 @@ By offering both focused learning and realistic test simulations, this program p
 
 **Get a GitHub Account**
 - [Instruction for Signing Up a GitHub Account](https://education.github.com/pack)
+
+**Common Issues of Installation**
+When cloning our program to the downloaded IntelliJ, users may be required to authenticate GitHub account on their InterlliJ if they haven't done. The following link is the instruction for authenticating GitHub account on IntelliJ.
 - [Authenticate GitHub account on IntelliJ](https://www.jetbrains.com/help/idea/github.html)
 
-
-## Usage Guide
+### Step 2: After downloading required software and packages, users now can clone install our project following the steps below. 
 1. Copy the following link
 > https://github.com/faenwitee/GearUp.git
 2. Click "Get from Version Control" on the top right corner
 3. Paste the above link and click "clone"
 4. locate the file named "main"
 5. Run the file
+
+## Usage Guide
+* After locating and running the file named "main", user now can sign up for a personal account using a valid email address. 
+![SignUp](images/signup.png)
+* Then user may choose either study or test mode to aid their study.
+![ModeSelection](images/mode_selection.png)
+* Following the instruction for each mode, user can start studying
+* After complete each module or test, user would get a result summary.
+* Clicking the "finish" button on the result displaying page would allow user go back to the mode selection page, which allows user to engage again (repeating process with above). 
 
 ## License
 This project is open source licensed under the MIT License, which allows you to freely use, modify, and distribute the code for personal or commercial purposes, provided that you include the original copyright notice.
