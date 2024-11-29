@@ -2,6 +2,9 @@ package interface_adapter.testresult;
 
 import java.util.ArrayList;
 
+/**
+ * State of Test Result use case.
+ */
 public class TestresultState {
     private int correctQuestions;
     private int time;
