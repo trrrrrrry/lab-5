@@ -11,7 +11,13 @@ public interface ModeSelectionInputBoundary {
      */
     void execute(ModeSelectionInputData modeselectionInputData);
 
+    /**
+     * Switch to Study Mode View.
+     */
     void switchToStudyModeView();
 
+    /**
+     * Switch to Test Mode View.
+     */
     void switchToTestModeView();
 }
