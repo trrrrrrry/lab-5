@@ -26,7 +26,7 @@ public class Main {
                                             .addStudyModeUseCase()
                                             .addLoggedInUseCase()
                                             .addStudyModeBeginUseCase()
-                                            .addTestResultView()
+                                            .addTestModeUseCase()
                                             .addChangePasswordUseCase()
                                             .addLogoutUseCase()
                                             .addTestresultUseCase()
