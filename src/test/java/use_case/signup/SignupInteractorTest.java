@@ -8,6 +8,16 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
+import org.mockito.Mockito;
+import use_case.email_validation.VerifaliaEmailValidator;
+
+import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.when;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SignupInteractorTest {
@@ -103,9 +113,99 @@ class SignupInteractorTest {
     }
 
     @Test
-    void failureInvalidEmailAddressTest(){
-        SignupInputData inputData = new SignupInputData("friendlygoose06@gmail.com", "password", "password");
+    void failureInvalidEmailTest() throws IOException {
+        SignupInputData inputData = new SignupInputData("invalidEmail", "password", "password");
         SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
+        // Mock the VerifaliaEmailValidator to return false for invalid email
+        mockStatic(VerifaliaEmailValidator.class);
+        when(VerifaliaEmailValidator.validateEmail(anyString())).thenReturn(false);
+
+        SignupOutputBoundary failurePresenter = new SignupOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SignupOutputData user) {
+                fail("Use case success is unexpected.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("Invalid email address. Please enter a valid email.", error);
+            }
+
+            @Override
+            public void switchToLoginView() {
+            }
+        };
+
+        SignupInputBoundary interactor = new SignupInteractor(userRepository, failurePresenter, new CommonUserFactory());
+        interactor.execute(inputData);
+
+        // Clean up static mock
+        Mockito.framework().clearInlineMocks();
+    }
+
+    @Test
+    void successValidEmailTest() throws IOException {
+        SignupInputData inputData = new SignupInputData("huangterritory@gmail.com", "password", "password");
+        SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+
+        // Mock the VerifaliaEmailValidator to return true for valid email
+        mockStatic(VerifaliaEmailValidator.class);
+        when(VerifaliaEmailValidator.validateEmail(anyString())).thenReturn(true);
+
+        SignupOutputBoundary successPresenter = new SignupOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SignupOutputData user) {
+                assertEquals("huangterritory@gmail.com", user.getUsername());
+                assertTrue(userRepository.existsByName("huangterritory@gmail.com"));
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                fail("Use case failure is unexpected.");
+            }
+
+            @Override
+            public void switchToLoginView() {
+            }
+        };
+
+        SignupInputBoundary interactor = new SignupInteractor(userRepository, successPresenter, new CommonUserFactory());
+        interactor.execute(inputData);
+
+        // Clean up static mock
+        Mockito.framework().clearInlineMocks();
+    }
+
+    @Test
+    void failureEmailValidationIOExceptionTest() throws IOException {
+        SignupInputData inputData = new SignupInputData("test@example.com", "password", "password");
+        SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+
+        // Mock the VerifaliaEmailValidator to throw an IOException
+        mockStatic(VerifaliaEmailValidator.class);
+        when(VerifaliaEmailValidator.validateEmail(anyString())).thenThrow(new IOException());
+
+        SignupOutputBoundary failurePresenter = new SignupOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SignupOutputData user) {
+                fail("Use case success is unexpected.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("An error occurred during email validation. Please try again.", error);
+            }
+
+            @Override
+            public void switchToLoginView() {
+            }
+        };
+
+        SignupInputBoundary interactor = new SignupInteractor(userRepository, failurePresenter, new CommonUserFactory());
+        interactor.execute(inputData);
+
+        // Clean up static mock
+        Mockito.framework().clearInlineMocks();
     }
 }
