@@ -38,8 +38,11 @@ public class StudyModeView extends JPanel implements ActionListener {
 
     public StudyModeView(StudyModeViewModel studyModeViewModel) {
         this.studymodeViewModel = studyModeViewModel;
+        this.setBackground(Color.decode("#11212D"));
 
-        final JLabel title = new JLabel("Study Mode");
+        final JLabel title = new JLabel("Study Mode\n");
+        title.setFont(new Font("Times New Roman", Font.ITALIC, 25));
+        title.setForeground(Color.decode("#4A5C6A"));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         final JLabel moduleSelection = new JLabel("Please select a module from the below: ");
         moduleSelection.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -73,6 +76,8 @@ public class StudyModeView extends JPanel implements ActionListener {
                         if (evt.getSource().equals(module1)) {
                             final StudyModeState studyModeState = studyModeViewModel.getState();
                             studyModeState.setModule("Module 1");
+                            studyModeViewModel.setState(studyModeState);
+                            studyModeViewModel.firePropertyChanged();
                             studyModeController.execute(studyModeState.getModule());
                         }
                         studyModeController.switchToStudyModeBeginView();
@@ -86,6 +91,8 @@ public class StudyModeView extends JPanel implements ActionListener {
                         if (evt.getSource().equals(module2)) {
                             final StudyModeState studyModeState = studyModeViewModel.getState();
                             studyModeState.setModule("Module 2");
+                            studyModeViewModel.setState(studyModeState);
+                            studyModeViewModel.firePropertyChanged();
                             studyModeController.execute(studyModeState.getModule());
                         }
                         studyModeController.switchToStudyModeBeginView();
@@ -99,6 +106,8 @@ public class StudyModeView extends JPanel implements ActionListener {
                         if (evt.getSource().equals(module3)) {
                             final StudyModeState studyModeState = studyModeViewModel.getState();
                             studyModeState.setModule("Module 3");
+                            studyModeViewModel.setState(studyModeState);
+                            studyModeViewModel.firePropertyChanged();
                             studyModeController.execute(studyModeState.getModule());
                         }
                         studyModeController.switchToStudyModeBeginView();
@@ -112,6 +121,8 @@ public class StudyModeView extends JPanel implements ActionListener {
                         if (evt.getSource().equals(module4)) {
                             final StudyModeState studyModeState = studyModeViewModel.getState();
                             studyModeState.setModule("Module 4");
+                            studyModeViewModel.setState(studyModeState);
+                            studyModeViewModel.firePropertyChanged();
                             studyModeController.execute(studyModeState.getModule());
                         }
                         studyModeController.switchToStudyModeBeginView();
@@ -125,6 +136,8 @@ public class StudyModeView extends JPanel implements ActionListener {
                         if (evt.getSource().equals(module5)) {
                             final StudyModeState studyModeState = studyModeViewModel.getState();
                             studyModeState.setModule("Module 5");
+                            studyModeViewModel.setState(studyModeState);
+                            studyModeViewModel.firePropertyChanged();
                             studyModeController.execute(studyModeState.getModule());
                         }
                         studyModeController.switchToStudyModeBeginView();
@@ -138,6 +151,8 @@ public class StudyModeView extends JPanel implements ActionListener {
                         if (evt.getSource().equals(module6)) {
                             final StudyModeState studyModeState = studyModeViewModel.getState();
                             studyModeState.setModule("Module 6");
+                            studyModeViewModel.setState(studyModeState);
+                            studyModeViewModel.firePropertyChanged();
                             studyModeController.execute(studyModeState.getModule());
                         }
                         studyModeController.switchToStudyModeBeginView();
