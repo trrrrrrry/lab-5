@@ -1,15 +1,15 @@
 package interface_adapter.studymodequestion;
 
-import use_case.studymodequestion.TestModeQuestionInputBoundary;
+import use_case.studymodequestion.StudyModeQuestionInputBoundary;
 import use_case.studymodequestion.StudyModeQuestionInputData;
 
 /**
  * The controller for study mode question use case.
  */
 public class StudyModeQuestionController {
-    private final TestModeQuestionInputBoundary smqInteractor;
+    private final StudyModeQuestionInputBoundary smqInteractor;
 
-    public StudyModeQuestionController(TestModeQuestionInputBoundary studyModeQuestionInteractor) {
+    public StudyModeQuestionController(StudyModeQuestionInputBoundary studyModeQuestionInteractor) {
         this.smqInteractor = studyModeQuestionInteractor;
     }
 

@@ -30,10 +30,15 @@ import interface_adapter.studymode.StudyModeViewModel;
 import interface_adapter.studymodebegin.StudyModeBeginController;
 import interface_adapter.studymodebegin.StudyModeBeginPresenter;
 import interface_adapter.studymodebegin.StudyModeBeginViewModel;
+import interface_adapter.studymodequestion.StudyModeQuestionController;
+import interface_adapter.studymodequestion.StudyModeQuestionPresenter;
 import interface_adapter.studymodequestion.StudyModeQuestionViewModel;
 import interface_adapter.testmode.TestModeController;
 import interface_adapter.testmode.TestModePresenter;
 import interface_adapter.testmode.TestModeViewModel;
+import interface_adapter.testmodequestion.TestModeQuestionController;
+import interface_adapter.testmodequestion.TestModeQuestionPresenter;
+import interface_adapter.testmodequestion.TestModeQuestionViewModel;
 import interface_adapter.testresult.TestresultController;
 import interface_adapter.testresult.TestresultPresenter;
 import interface_adapter.testresult.TestresultViewModel;
@@ -58,9 +63,15 @@ import use_case.studymode.StudyModeOutputBoundary;
 import use_case.studymodebegin.StudyModeBeginInputBoundary;
 import use_case.studymodebegin.StudyModeBeginInteractor;
 import use_case.studymodebegin.StudyModeBeginOutputBoundary;
+import use_case.studymodequestion.StudyModeQuestionInputBoundary;
+import use_case.studymodequestion.StudyModeQuestionInteractor;
+import use_case.studymodequestion.StudyModeQuestionOutputBoundary;
 import use_case.testmode.TestModeInputBoundary;
 import use_case.testmode.TestModeInteractor;
 import use_case.testmode.TestModeOutputBoundary;
+import use_case.testmodequestion.TestModeQuestionInputBoundary;
+import use_case.testmodequestion.TestModeQuestionInteractor;
+import use_case.testmodequestion.TestModeQuestionOutputBoundary;
 import use_case.testresult.TestresultInputBoundary;
 import use_case.testresult.TestresultInteractor;
 import use_case.testresult.TestresultOutputBoundary;
@@ -92,6 +103,8 @@ public class AppBuilder {
     private final InMemoryTestModeDataAccessInterface testyModeDataAccessInterface = new InMemoryTestModeDataAccessInterface();
     private final InMemoryModeSelectionDataAccessInterface modeSelectionDataAccessInterface = new InMemoryModeSelectionDataAccessInterface();
     private final InMemoryTestResultDataAccessObject testResultDataAccessObject = new InMemoryTestResultDataAccessObject();
+    private final InMemoryStudyModeQuestionDataAccessInterface studyModeQuestionDataAccessInterface = new InMemoryStudyModeQuestionDataAccessInterface();
+    private final InMemoryTestModeQuestionDataAccessInterface testModeQuestionDataAccessInterface = new InMemoryTestModeQuestionDataAccessInterface();
 
     private SignupView signupView;
     private SignupViewModel signupViewModel;
@@ -110,6 +123,8 @@ public class AppBuilder {
     private TestModeViewModel testModeViewModel;
     private TestresultViewModel testresultViewModel;
     private TestresultView testresultView;
+    private TestModeQuestionView testModeQuestionView;
+    private TestModeQuestionViewModel testModeQuestionViewModel;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -294,6 +309,38 @@ public class AppBuilder {
 
         final StudyModeController studyModeController = new StudyModeController(studyModeInteractor);
         studyModeView.setStudyModeController(studyModeController);
+        return this;
+    }
+
+    /**
+     * Adds the Study Mode Question Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addStudyModeQuestionUseCase() {
+        final StudyModeQuestionOutputBoundary studyModeQuestionOutputBoundary = new StudyModeQuestionPresenter(viewManagerModel,
+                 studyModeQuestionViewModel);
+
+        final StudyModeQuestionInputBoundary studyModeQuestionInteractor =
+                new StudyModeQuestionInteractor(studyModeQuestionDataAccessInterface, studyModeQuestionOutputBoundary);
+
+        final StudyModeQuestionController studyModeQuestionController = new StudyModeQuestionController(studyModeQuestionInteractor);
+        studyModeQuestionView.setStudyModeQuestionController(studyModeQuestionController);
+        return this;
+    }
+
+    /**
+     * Adds the Test Mode Question Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addTestModeQuestionUseCase() {
+        final TestModeQuestionOutputBoundary testModeQuestionOutputBoundary = new TestModeQuestionPresenter(viewManagerModel,
+                testModeQuestionViewModel);
+
+        final TestModeQuestionInputBoundary testModeQuestionInteractor =
+                new TestModeQuestionInteractor(testModeQuestionDataAccessInterface, testModeQuestionOutputBoundary);
+
+        final TestModeQuestionController testModeQuestionController = new TestModeQuestionController(testModeQuestionInteractor);
+        testModeQuestionView.setTestModeQuestionController(testModeQuestionController);
         return this;
     }
 
