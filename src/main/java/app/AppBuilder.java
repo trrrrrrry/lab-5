@@ -91,7 +91,7 @@ public class AppBuilder {
             new InMemoryStudyModeDataAccessInterface();
     private final InMemoryStudyModeBeginDataAccessInterface studyModeBeginDataAccessInterface =
             new InMemoryStudyModeBeginDataAccessInterface();
-    private final InMemoryTestModeDataAccessInterface testyModeDataAccessInterface =
+    private final InMemoryTestModeDataAccessInterface testModeDataAccessInterface =
             new InMemoryTestModeDataAccessInterface();
     private final InMemoryModeSelectionDataAccessObject modeSelectionDataAccessInterface =
             new InMemoryModeSelectionDataAccessObject();
@@ -327,7 +327,7 @@ public class AppBuilder {
     public AppBuilder addTestModeUseCase() {
 
         final TestModeOutputBoundary testModeOutputBoundary =
-                new TestModePresenter(viewManagerModel, testModeViewModel);
+                new TestModePresenter(viewManagerModel, testModeViewModel, modeSelectionViewModel);
 
         final TestModeInputBoundary testModeInteractor =
                 new TestModeInteractor(testModeDataAccessInterface, testModeOutputBoundary);
