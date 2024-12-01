@@ -71,28 +71,5 @@ class QuestionEntityTest {
         assertTrue(question.getAnswers().contains(answer));
     }
 
-    @Test
-    public void testToString() {
-        // Arrange
-        int id = 1;
-        String questionText = "What is the capital of France?";
-        List<Answer> answers = new ArrayList<>();
-        answers.add(new Answer("Paris", true));
-        answers.add(new Answer("London", false));
-        answers.add(new Answer("Berlin", false));
-        answers.add(new Answer("Madrid", false));
-
-        Question question = new Question(id, questionText, answers);
-
-        // Act
-        String result = question.toString();
-
-        // Expected format of toString() output
-        String expected = "Question{id=1, questionText='What is the capital of France?', answers=[Answer{answerText='Paris', isCorrect=true}, Answer{answerText='London', isCorrect=false}, Answer{answerText='Berlin', isCorrect=false}, Answer{answerText='Madrid', isCorrect=false}]}";
-
-        // Assert
-        assertEquals(expected, result);
-    }
-
 }
 

@@ -1,10 +1,10 @@
 package use_case.signup;
 
+import java.io.IOException;
+
 import entity.User;
 import entity.UserFactory;
 import use_case.email_validation.VerifaliaEmailValidator;
-
-import java.io.IOException;
 
 /**
  * The Signup Interactor.
