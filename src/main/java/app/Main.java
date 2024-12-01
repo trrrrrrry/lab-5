@@ -22,6 +22,7 @@ public class Main {
                                             .addStudyModeBeginView()
                                             .addStudyModeQuestionView()
                                             .addTestModeView()
+                                            .addTestModeQuestionView()
                                             .addSignupUseCase()
                                             .addLoginUseCase()
                                             .addStudyModeUseCase()
@@ -30,9 +31,10 @@ public class Main {
                                             .addStudyModeQuestionUseCase()
                                             .addTestResultView()
                                             .addTestModeUseCase()
+                                            .addTestModeQuestionUseCase()
                                             .addChangePasswordUseCase()
                                             .addLogoutUseCase()
-                                            .addTestresultUseCase()
+                                            .addTestResultUseCase()
                                             .build();
         application.pack();
         final int sizeWidth = 500;

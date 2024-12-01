@@ -203,7 +203,7 @@ public class AppBuilder {
     public AppBuilder addStudyModeQuestionView() {
         studyModeQuestionViewModel = new StudyModeQuestionViewModel();
         studyModeQuestionView = new StudyModeQuestionView(studyModeQuestionViewModel);
-        cardPanel.add(studyModeBeginView, studyModeBeginView.getViewName());
+        cardPanel.add(studyModeQuestionView, studyModeQuestionView.getViewName());
         return this;
     }
 
@@ -215,6 +215,17 @@ public class AppBuilder {
         testModeViewModel = new TestModeViewModel();
         testModeView = new TestModeView(testModeViewModel);
         cardPanel.add(testModeView, testModeView.getViewName());
+        return this;
+    }
+
+    /**
+     * Adds the Test Mode Question View to the application.
+     * @return this builder
+     */
+    public AppBuilder addTestModeQuestionView() {
+        testModeQuestionViewModel = new TestModeQuestionViewModel();
+        testModeQuestionView = new TestModeQuestionView(testModeQuestionViewModel);
+        cardPanel.add(testModeQuestionView, testModeQuestionView.getViewName());
         return this;
     }
 
@@ -382,7 +393,7 @@ public class AppBuilder {
                 new TestModePresenter(viewManagerModel, testModeViewModel, modeSelectionViewModel);
 
         final TestModeInputBoundary testModeInteractor =
-                new TestModeInteractor(testModeDataAccessInterface, testModeOutputBoundary);
+                new TestModeInteractor(testModeOutputBoundary);
 
         final TestModeController testModeController = new TestModeController(testModeInteractor);
         testModeView.setTestModeController(testModeController);
@@ -393,7 +404,7 @@ public class AppBuilder {
      * Adds the test result use case to the application.
      * @return this builder.
      */
-    public AppBuilder addTestresultUseCase() {
+    public AppBuilder addTestResultUseCase() {
         final TestresultOutputBoundary testresultOutputBoundary = new TestresultPresenter(testresultViewModel,
                 loggedInViewModel, viewManagerModel);
 
