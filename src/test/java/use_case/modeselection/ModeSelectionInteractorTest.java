@@ -51,7 +51,7 @@ class ModeSelectionInteractorTest {
         // Test if the correct mode was saved
         assertEquals("study mode", modeSelectionDataAccess.getSelectedMode());
 
-        //Test if the view is navigated successfuly
+        //Test if the view is navigated successfully
         interactor.switchToStudyModeView();
         assertEquals("study mode", viewManagerModel.getState());
     }
@@ -68,8 +68,8 @@ class ModeSelectionInteractorTest {
         // Create a ViewManagerModel to track the current view
         ViewManagerModel viewManagerModel = new ViewManagerModel();
 
-        // set up a success presenter to see if the user is redirected to the mode they chose
-        // in this case, the study mode
+        // Set up a success presenter to see if the user is redirected to the mode they chose
+        // in this case, the study mode.
         ModeSelectionOutputBoundary successPresenter = new ModeSelectionOutputBoundary() {
             @Override
             public void prepareSuccessView(ModeSelectionOutputData outputData) {
@@ -136,7 +136,7 @@ class ModeSelectionInteractorTest {
             }
         };
 
-        // Create the ModeSelectionInteractor and execute the selection
+        // Create the <ModeSelectionInteractor> and execute the selection
         ModeSelectionInputBoundary interactor = new ModeSelectionInteractor(modeSelectionDataAccess, failurePresenter);
         interactor.execute(inputData);
     }
@@ -170,7 +170,7 @@ class ModeSelectionInteractorTest {
             }
         };
 
-        // Create the ModeSelectionInteractor and execute the selection
+        // Create the <ModeSelectionInteractor> and execute the selection
         ModeSelectionInputBoundary interactor = new ModeSelectionInteractor(modeSelectionDataAccess, failurePresenter);
         interactor.execute(inputData);
     }
