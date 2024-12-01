@@ -37,9 +37,9 @@ public class StudyModeBeginView extends JPanel {
         title.setForeground(Color.decode("#4A5C6A"));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        final JLabel beginText = new JLabel("<html><p>Welcome to study "
+        final JLabel beginText = new JLabel("<html>Welcome to study "
                 + moduleName + ". The questions you get wrong will be "
-                + " redisplayed until you answer all of them correctly.");
+                + " redisplayed until you answer all of them correctly.</html>");
         beginText.setAlignmentX(Component.CENTER_ALIGNMENT);
         beginText.setFont(new Font("Arial", Font.PLAIN, 20));
 

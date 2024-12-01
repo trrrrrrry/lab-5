@@ -6,6 +6,8 @@ import interface_adapter.testmode.TestModeViewModel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * The View after user selected test mode.
@@ -18,6 +20,7 @@ public class TestModeView extends JPanel {
     private TestModeController testModeController;
 
     private final JButton begin;
+    private final JButton backToModeSelection;
     private final JLabel username;
 
     public TestModeView(TestModeViewModel viewModel) {
@@ -33,15 +36,26 @@ public class TestModeView extends JPanel {
         begin = new JButton("Begin");
         buttons.add(begin);
 
+        backToModeSelection = new JButton("Back To Mode Selection");
+
         final JLabel usernameInfo = new JLabel("Currently logged in: ");
         usernameInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
         username = new JLabel();
         username.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        backToModeSelection.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        testModeController.switchToModeSelectionView();
+                    }
+                }
+        );
+
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(beginText);
         this.add(buttons);
+        this.add(backToModeSelection);
 
         this.add(usernameInfo);
         this.add(username);
