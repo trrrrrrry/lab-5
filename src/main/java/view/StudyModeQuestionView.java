@@ -168,7 +168,7 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
             final List<Answer> answers = currentQuestion.getAnswers();
             final JButton[] options = {option1, option2, option3, option4};
 
-            for (int i = 1; i < 5; i++) {
+            for (int i = 0; i < 4; i++) {
                 if (i < answers.size()) {
                     options[i].setText(answers.get(i).getAnswerText());
                     options[i].setEnabled(true);
