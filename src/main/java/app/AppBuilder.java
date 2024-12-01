@@ -1,6 +1,7 @@
 package app;
 
 import java.awt.CardLayout;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -199,8 +200,9 @@ public class AppBuilder {
     /**
      * Adds the Study Mode Question View to the application.
      * @return this builder
+     * @throws SQLException throws exceptions
      */
-    public AppBuilder addStudyModeQuestionView() {
+    public AppBuilder addStudyModeQuestionView() throws SQLException {
         studyModeQuestionViewModel = new StudyModeQuestionViewModel();
         studyModeQuestionView = new StudyModeQuestionView(studyModeQuestionViewModel);
         cardPanel.add(studyModeBeginView, studyModeBeginView.getViewName());
