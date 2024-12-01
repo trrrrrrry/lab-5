@@ -37,8 +37,8 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // TODO: Add question
-        final JLabel moduleSelection = new JLabel("Question needed to be added ");
-        moduleSelection.setAlignmentX(Component.CENTER_ALIGNMENT);
+        final JLabel studymodequestion = new JLabel("Question needed to be added ");
+        studymodequestion.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final JPanel buttons = new JPanel();
         buttons.setLayout(new GridLayout(2, 3, 10, 10));
@@ -114,7 +114,7 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
-        this.add(moduleSelection);
+        this.add(studymodequestion);
         this.add(buttons);
 
         this.add(usernameInfo);
