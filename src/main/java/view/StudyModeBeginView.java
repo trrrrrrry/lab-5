@@ -22,6 +22,8 @@ public class StudyModeBeginView extends JPanel {
     private final StudyModeBeginViewModel studyModeBeginViewModel;
     private StudyModeBeginController studyModeBeginController;
 
+    private final JButton backToStudyMode;
+    private final JPanel buttonWrapper;
     private final JButton begin;
     private final JLabel username;
 
@@ -58,11 +60,28 @@ public class StudyModeBeginView extends JPanel {
         buttons.setBackground(Color.decode("#11212D"));
         final String fancyFont = "Lucida Handwriting";
         final int fontSize = 20;
+
         begin = new JButton("Begin");
         begin.setFont(new Font(fancyFont, Font.ITALIC, fontSize));
         begin.setForeground(Color.decode("#9BA8AB"));
         begin.setBackground(Color.decode("#253745"));
         buttons.add(begin);
+
+        backToStudyMode = new JButton("Back To Study Mode");
+        backToStudyMode.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        final int wrapperMargin = 20;
+        buttonWrapper = new JPanel();
+        buttonWrapper.setLayout(new BoxLayout(buttonWrapper, BoxLayout.Y_AXIS));
+        buttonWrapper.setOpaque(false);
+        buttonWrapper.setBorder(BorderFactory.createEmptyBorder(wrapperMargin, 0, wrapperMargin, 0));
+        buttonWrapper.add(backToStudyMode);
+
+        backToStudyMode.setBackground(Color.decode("#9BA8AB"));
+        backToStudyMode.setForeground(Color.decode("#253745"));
+        backToStudyMode.setFocusPainted(false);
+        backToStudyMode.setOpaque(true);
+        backToStudyMode.setBorderPainted(false);
 
         final JLabel usernameInfo = new JLabel("Currently logged in: ");
         usernameInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -72,11 +91,22 @@ public class StudyModeBeginView extends JPanel {
         // Take user to 'question view' page based on their selection
         // begin.addActionListener();
 
+        // Take user back to <TestModeView>
+        backToStudyMode.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        studyModeBeginController.switchToStudyModeView();
+                    }
+                }
+        );
+
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
         this.add(beginText);
         this.add(buttons);
+
+        this.add(buttonWrapper);
 
         this.add(usernameInfo);
         this.add(username);

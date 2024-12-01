@@ -309,7 +309,7 @@ public class AppBuilder {
      */
     public AppBuilder addStudyModeBeginUseCase() {
         final StudyModeBeginOutputBoundary studyModeBeginOutputBoundary = new StudyModeBeginPresenter(viewManagerModel,
-                studyModeBeginViewModel, studyModeQuestionViewModel);
+                studyModeBeginViewModel, studyModeQuestionViewModel, studyModeViewModel);
 
         final StudyModeBeginInputBoundary studyModeBeginInteractor =
                 new StudyModeBeginInteractor(studyModeBeginDataAccessInterface, studyModeBeginOutputBoundary);
