@@ -11,7 +11,7 @@ class StudyModeInteractorTest {
     @Test
     void successModuleSelectionTest() {
         // assume user selected module 1 to study
-        StudyModeInputData = new StudyModeInputData("Module 1");
+        StudyModeInputData inputData = new StudyModeInputData("Module 1");
 
         // Set up the In-Memory Data
         StudyModeDataAccessInterface studymodeDataAccessInterface = new InMemoryStudyModeDataAccessInterface();
