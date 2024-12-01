@@ -7,6 +7,8 @@ import interface_adapter.ViewModel;
  */
 public class StudyModeQuestionViewModel extends ViewModel<StudyModeQuestionState> {
 
+    public static final String STUDY_MODE_QUESTION_BUTTON_LABEL = "begin";
+
     public StudyModeQuestionViewModel() {
         super("study mode question");
         setState(new StudyModeQuestionState());
