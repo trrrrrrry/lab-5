@@ -17,7 +17,7 @@ import interface_adapter.studymodebegin.StudyModeBeginViewModel;
 /**
  * The View after user selected a topic to study on - the 'Begin' Page.
  */
-public class StudyModeBeginView extends JPanel {
+public class StudyModeBeginView extends JPanel{
     private final String viewName = "study mode begin";
 
     private LogoutController logoutController;
@@ -76,11 +76,14 @@ public class StudyModeBeginView extends JPanel {
         begin.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(begin)) {
-                            final StudyModeBeginState studyModeBeginState = studyModeBeginViewModel.getState();
-                            studyModeBeginState.setModule("Begin");
-                            studyModeBeginController.execute(studyModeBeginState.getModule());
-                        }
+//                        if (evt.getSource().equals(begin)) {
+//                            final StudyModeBeginState studyModeBeginState = studyModeBeginViewModel.getState();
+//                            studyModeBeginState.setModule("study mode question");
+//                            studyModeBeginViewModel.setState(studyModeBeginState);
+//                            studyModeBeginViewModel.firePropertyChanged();
+//                            studyModeBeginController.execute(studyModeBeginState.getModule());
+//                        }
+                        System.out.println("test test");
                         studyModeBeginController.switchToStudyModeQuestionView();
                     }
                 }
