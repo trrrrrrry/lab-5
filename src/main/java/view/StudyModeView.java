@@ -194,6 +194,7 @@ public class StudyModeView extends JPanel implements ActionListener {
                 }
         );
 
+        // Take user back to <LoggedInView>
         backToModeSelection.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {

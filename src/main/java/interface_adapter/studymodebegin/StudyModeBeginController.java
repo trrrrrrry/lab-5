@@ -25,9 +25,16 @@ public class StudyModeBeginController {
     }
 
     /**
-     * Executes the "switch to StudyModeBegin" Use Case.
+     * Executes the "switch to StudyModeQuestion" Use Case.
      */
     public void switchToStudyModeQuestionView() {
         studyModeBeginInputBoundary.switchToStudyModeQuestionView();
+    }
+
+    /**
+     * Executes the "switch to StudyMode" Use Case.
+     */
+    public void switchToStudyModeView() {
+        studyModeBeginInputBoundary.switchToStudyModeView();
     }
 }
