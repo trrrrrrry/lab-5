@@ -7,4 +7,5 @@ import use_case.testmode.TestModeDataAccessInterface;
  * NOT persist data between runs of the program.
  */
 public class InMemoryTestModeDataAccessInterface implements TestModeDataAccessInterface {
+
 }

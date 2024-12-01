@@ -33,7 +33,8 @@ public class TestresultView extends JPanel implements ActionListener, PropertyCh
         final JLabel title = new JLabel(TestresultViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        final JLabel correctQuestionsLabel = new JLabel("Correct questions you got for this test is " + viewModel.getCorrectQuestions());
+        final JLabel correctQuestionsLabel = new JLabel("Correct questions you got for this test is "
+                + viewModel.getCorrectQuestions());
         final JLabel timeLabel = new JLabel("The time taken for this test is " + viewModel.getTime());
 
         final JPanel incorrectQuestionsPanel = new JPanel();
@@ -60,7 +61,7 @@ public class TestresultView extends JPanel implements ActionListener, PropertyCh
         finish.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        testresultController.switchToModeselectionView();
+                        testresultController.switchToLoggedInView();
                     }
                 }
         );

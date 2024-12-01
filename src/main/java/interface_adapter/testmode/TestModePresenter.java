@@ -3,6 +3,7 @@ package interface_adapter.testmode;
 import interface_adapter.ViewManagerModel;
 // import interface_adapter.testmodequestion.TestModeQuestionState;
 // import interface_adapter.testmodequestion.TestModeQuestionViewModel;
+import interface_adapter.modeselection.ModeSelectionViewModel;
 import use_case.testmode.TestModeOutputBoundary;
 import use_case.testmode.TestModeOutputData;
 
@@ -12,16 +13,19 @@ import use_case.testmode.TestModeOutputData;
 public class TestModePresenter implements TestModeOutputBoundary {
     private ViewManagerModel viewManagerModel;
     private TestModeViewModel testModeViewModel;
+    private ModeSelectionViewModel modeSelectionViewModel;
     // private TestModeQuestionViewModel testModeQuestionViewModel;
 
     public TestModePresenter(ViewManagerModel viewManagerModel,
-                             TestModeViewModel testModeViewModel) {
+                             TestModeViewModel testModeViewModel,
+                             ModeSelectionViewModel modeSelectionViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.testModeViewModel = testModeViewModel;
+        this.modeSelectionViewModel = modeSelectionViewModel;
     }
 
     @Override
-    public void prepareSuccessView(TestModeOutputData outputData) {
+    public void prepareSuccessView() {
         // On success, switch to test mode question view
 
         final TestModeState testModeState = testModeViewModel.getState();
@@ -40,6 +44,12 @@ public class TestModePresenter implements TestModeOutputBoundary {
     @Override
     public void switchToTestModeQuestionView() {
         viewManagerModel.setState(testModeViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+    }
+
+    @Override
+    public void switchToModeSelectionView() {
+        viewManagerModel.setState(modeSelectionViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 }

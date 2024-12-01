@@ -6,7 +6,7 @@ import use_case.modeselection.ModeSelectionDataAccessInterface;
  * In-memory implementation of the DAO for storing mode selection data. This implementation does
  * NOT persist data between runs of the program.
  */
-public class InMemoryModeSelectionDataAccessInterface implements ModeSelectionDataAccessInterface {
+public class InMemoryModeSelectionDataAccessObject implements ModeSelectionDataAccessInterface {
     private String selectedMode;
 
     @Override

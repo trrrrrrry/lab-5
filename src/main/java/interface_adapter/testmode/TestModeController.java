@@ -18,4 +18,11 @@ public class TestModeController {
     public void switchToTestModeQuestionView() {
         testModeInputBoundary.switchToTestModeQuestionView();
     }
+
+    /**
+     * Executes the "switch to ModeSelection" Use Case.
+     */
+    public void switchToModeSelectionView() {
+        testModeInputBoundary.switchToModeSelectionView();
+    }
 }

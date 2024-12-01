@@ -7,9 +7,8 @@ public interface TestModeOutputBoundary {
 
     /**
      * Prepares the success view for the Test Mode Use Case.
-     * @param outputData the output data
      */
-    void prepareSuccessView(TestModeOutputData outputData);
+    void prepareSuccessView();
 
     /**
      * Prepares the failure view for the Test Mode Use Case.
@@ -21,4 +20,9 @@ public interface TestModeOutputBoundary {
      * Switch to the Study Mode Begin View.
      */
     void switchToTestModeQuestionView();
+
+    /**
+     * Switch to the Mode Selection View.
+     */
+    void switchToModeSelectionView();
 }

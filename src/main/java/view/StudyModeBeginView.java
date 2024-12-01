@@ -25,21 +25,45 @@ public class StudyModeBeginView extends JPanel {
     private StudyModeBeginController studyModeBeginController;
 
     private final JButton begin;
-
     private final JLabel username;
 
     public StudyModeBeginView(StudyModeBeginViewModel studyModeBeginViewModel) {
 
         this.studyModeBeginViewModel = studyModeBeginViewModel;
+        this.setBackground(Color.decode("#11212D"));
 
-        final JLabel beginText = new JLabel("<html><p>Welcome to study "
-                + ". The questions you get wrong will be "
-                + " redisplayed until you answer all of them correctly.");
+        final String moduleName = studyModeBeginViewModel.getState().getModule();
+
+        final JLabel title = new JLabel("Study Mode\n");
+        title.setFont(new Font("Times New Roman", Font.ITALIC, 25));
+        title.setForeground(Color.decode("#4A5C6A"));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        final JLabel beginText = new JLabel("<html>Welcome to study "
+                + moduleName + ". The questions you get wrong will be "
+                + " redisplayed until you answer all of them correctly.</html>");
         beginText.setAlignmentX(Component.CENTER_ALIGNMENT);
         beginText.setFont(new Font("Arial", Font.PLAIN, 20));
 
+        studyModeBeginViewModel.addPropertyChangeListener(evt -> {
+            if ("state".equals(evt.getPropertyName())) {
+                final String newModuleName = studyModeBeginViewModel.getState().getModule();
+                beginText.setText("<html><div style='text-align: center; font-family: \"Times New Roman\"; margin: 10px auto;'>"
+                        + "<p style='color: #C1E8FF;'>Welcome to study <span style='color: #5483B3; "
+                        + "font-style: italic;'>" + newModuleName + "</span>.</p>"
+                        + "<p style='color: #C1E8FF;'>The questions you get wrong</span> "
+                        + "will be redisplayed until you answer all of them correctly.</p></div></html>");
+            }
+        });
+
         final JPanel buttons = new JPanel();
+        buttons.setBackground(Color.decode("#11212D"));
+        final String fancyFont = "Lucida Handwriting";
+        final int fontSize = 20;
         begin = new JButton("Begin");
+        begin.setFont(new Font(fancyFont, Font.ITALIC, fontSize));
+        begin.setForeground(Color.decode("#9BA8AB"));
+        begin.setBackground(Color.decode("#253745"));
         buttons.add(begin);
 
         final JLabel usernameInfo = new JLabel("Currently logged in: ");
@@ -64,6 +88,7 @@ public class StudyModeBeginView extends JPanel {
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        this.add(title);
         this.add(beginText);
         this.add(buttons);
 
@@ -82,4 +107,5 @@ public class StudyModeBeginView extends JPanel {
     public void setLogoutController(LogoutController logoutController) {
         this.logoutController = logoutController;
     }
+
 }

@@ -13,5 +13,5 @@ public interface TestresultInputBoundary {
     /**
      * Executes the switch to mode selection use case.
      */
-    void switchToModeselectionView();
+    void switchToLoggedInView();
 }

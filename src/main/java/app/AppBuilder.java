@@ -12,6 +12,7 @@ import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.change_password.ChangePasswordController;
 import interface_adapter.change_password.ChangePasswordPresenter;
+import interface_adapter.change_password.LoggedInState;
 import interface_adapter.change_password.LoggedInViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
@@ -96,15 +97,24 @@ public class AppBuilder {
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
-    // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
-    private final InMemoryStudyModeDataAccessInterface studyModeDataAccessInterface = new InMemoryStudyModeDataAccessInterface();
-    private final InMemoryStudyModeBeginDataAccessInterface studyModeBeginDataAccessInterface = new InMemoryStudyModeBeginDataAccessInterface();
-    private final InMemoryTestModeDataAccessInterface testyModeDataAccessInterface = new InMemoryTestModeDataAccessInterface();
-    private final InMemoryModeSelectionDataAccessInterface modeSelectionDataAccessInterface = new InMemoryModeSelectionDataAccessInterface();
-    private final InMemoryTestResultDataAccessObject testResultDataAccessObject = new InMemoryTestResultDataAccessObject();
-    private final InMemoryStudyModeQuestionDataAccessInterface studyModeQuestionDataAccessInterface = new InMemoryStudyModeQuestionDataAccessInterface();
-    private final InMemoryTestModeQuestionDataAccessInterface testModeQuestionDataAccessInterface = new InMemoryTestModeQuestionDataAccessInterface();
+
+    private final InMemoryStudyModeDataAccessInterface studyModeDataAccessInterface =
+            new InMemoryStudyModeDataAccessInterface();
+    private final InMemoryStudyModeBeginDataAccessInterface studyModeBeginDataAccessInterface =
+            new InMemoryStudyModeBeginDataAccessInterface();
+    private final InMemoryTestModeDataAccessInterface testModeDataAccessInterface =
+            new InMemoryTestModeDataAccessInterface();
+    private final InMemoryModeSelectionDataAccessObject modeSelectionDataAccessInterface =
+            new InMemoryModeSelectionDataAccessObject();
+    private final InMemoryTestResultDataAccessObject testResultDataAccessObject =
+            new InMemoryTestResultDataAccessObject();
+    private final InMemoryTestModeQuestionDataAccessInterface testModeQuestionDataAccessInterface = 
+            new InMemoryTestModeQuestionDataAccessInterface();
+    private final InMemoryStudyModeQuestionDataAccessInterface studyModeQuestionDataAccessInterface = 
+            new InMemoryStudyModeQuestionDataAccessInterface();
+
+
 
     private SignupView signupView;
     private SignupViewModel signupViewModel;
@@ -254,7 +264,8 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addLoggedInUseCase() {
-        final ModeSelectionOutputBoundary modeSelectionOutputBoundary = new ModeSelectionPresenter(viewManagerModel, modeSelectionViewModel);
+        final ModeSelectionOutputBoundary modeSelectionOutputBoundary =
+                new ModeSelectionPresenter(viewManagerModel, modeSelectionViewModel);
         final ModeSelectionInputBoundary modeSelectionInteractor = new ModeSelectionInteractor(
                 modeSelectionDataAccessInterface, modeSelectionOutputBoundary);
 
@@ -302,7 +313,7 @@ public class AppBuilder {
      */
     public AppBuilder addStudyModeUseCase() {
         final StudyModeOutputBoundary studyModeOutputBoundary = new StudyModePresenter(viewManagerModel,
-                studyModeViewModel, studyModeBeginViewModel);
+                studyModeViewModel, studyModeBeginViewModel, modeSelectionViewModel);
 
         final StudyModeInputBoundary studyModeInteractor =
                 new StudyModeInteractor(studyModeDataAccessInterface, studyModeOutputBoundary);
@@ -355,7 +366,8 @@ public class AppBuilder {
         final StudyModeBeginInputBoundary studyModeBeginInteractor =
                 new StudyModeBeginInteractor(studyModeBeginDataAccessInterface, studyModeBeginOutputBoundary);
 
-        final StudyModeBeginController studyModeBeginController = new StudyModeBeginController(studyModeBeginInteractor);
+        final StudyModeBeginController studyModeBeginController =
+                new StudyModeBeginController(studyModeBeginInteractor);
         studyModeBeginView.setStudyModeBeginController(studyModeBeginController);
         return this;
     }
@@ -365,10 +377,12 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addTestModeUseCase() {
-        final TestModeOutputBoundary testModeOutputBoundary = new TestModePresenter(viewManagerModel, testModeViewModel);
+
+        final TestModeOutputBoundary testModeOutputBoundary =
+                new TestModePresenter(viewManagerModel, testModeViewModel, modeSelectionViewModel);
 
         final TestModeInputBoundary testModeInteractor =
-                new TestModeInteractor(testyModeDataAccessInterface, testModeOutputBoundary);
+                new TestModeInteractor(testModeDataAccessInterface, testModeOutputBoundary);
 
         final TestModeController testModeController = new TestModeController(testModeInteractor);
         testModeView.setTestModeController(testModeController);
@@ -381,7 +395,7 @@ public class AppBuilder {
      */
     public AppBuilder addTestresultUseCase() {
         final TestresultOutputBoundary testresultOutputBoundary = new TestresultPresenter(testresultViewModel,
-                modeSelectionViewModel, viewManagerModel);
+                loggedInViewModel, viewManagerModel);
 
         final TestresultInputBoundary testresultInteractor =
                 new TestresultInteractor(testResultDataAccessObject, testresultOutputBoundary);

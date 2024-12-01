@@ -79,17 +79,4 @@ public class Question {
         answers.add(answer);
     }
 
-    /**
-     * Returns a string representation of the question.
-     *
-     * @return a string representation of the question
-     */
-    @Override
-    public String toString() {
-        return "Question{"
-                + "id=" + id
-                + ", questionText='" + questionText + '\''
-                + ", answers=" + answers
-                + '}';
-    }
 }

@@ -19,7 +19,7 @@ public class StudyModeController {
      */
     public void execute(String module) {
         final StudyModeInputData studyModeInputData = new StudyModeInputData(module);
-
+        System.out.println("wangqiangis\n\n\n" + module);
         studyModeInputBoundary.execute(studyModeInputData);
     }
 
@@ -28,5 +28,12 @@ public class StudyModeController {
      */
     public void switchToStudyModeBeginView() {
         studyModeInputBoundary.switchToStudyModeBeginView();
+    }
+
+    /**
+     * Executes the "switch to LoggedIn" Use Case.
+     */
+    public void switchToModeSelectionView() {
+        studyModeInputBoundary.switchToModeSelectionView();
     }
 }

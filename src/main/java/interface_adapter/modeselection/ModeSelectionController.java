@@ -15,10 +15,10 @@ public class ModeSelectionController {
 
     /**
      * Execute the mode selection use case.
-     * @param module the mode that the user selected.
+     * @param mode the mode that the user selected.
      */
-    public void execute(String module) {
-        final ModeSelectionInputData modeSelectionInputData = new ModeSelectionInputData(module);
+    public void execute(String mode) {
+        final ModeSelectionInputData modeSelectionInputData = new ModeSelectionInputData(mode);
         modeSelectionInteractor.execute(modeSelectionInputData);
     }
 
