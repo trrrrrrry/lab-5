@@ -9,13 +9,15 @@ import java.beans.PropertyChangeListener;
 import javax.swing.*;
 
 import interface_adapter.logout.LogoutController;
+import interface_adapter.studymode.StudyModeState;
 import interface_adapter.studymodebegin.StudyModeBeginController;
+import interface_adapter.studymodebegin.StudyModeBeginState;
 import interface_adapter.studymodebegin.StudyModeBeginViewModel;
 
 /**
  * The View after user selected a topic to study on - the 'Begin' Page.
  */
-public class StudyModeBeginView extends JPanel {
+public class StudyModeBeginView extends JPanel{
     private final String viewName = "study mode begin";
 
     private LogoutController logoutController;
@@ -90,6 +92,21 @@ public class StudyModeBeginView extends JPanel {
 
         // Take user to 'question view' page based on their selection
         // begin.addActionListener();
+        begin.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+//                        if (evt.getSource().equals(begin)) {
+//                            final StudyModeBeginState studyModeBeginState = studyModeBeginViewModel.getState();
+//                            studyModeBeginState.setModule("study mode question");
+//                            studyModeBeginViewModel.setState(studyModeBeginState);
+//                            studyModeBeginViewModel.firePropertyChanged();
+//                            studyModeBeginController.execute(studyModeBeginState.getModule());
+//                        }
+                        System.out.println("test test");
+                        studyModeBeginController.switchToStudyModeQuestionView();
+                    }
+                }
+        );
 
         // Take user back to <TestModeView>
         backToStudyMode.addActionListener(

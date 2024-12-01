@@ -3,7 +3,7 @@ package use_case.studymodequestion;
 /**
  * The TestModeQuestion Interactor.
  */
-public class StudyModeQuestionInteractor implements TestModeQuestionInputBoundary {
+public class StudyModeQuestionInteractor implements StudyModeQuestionInputBoundary {
     private final StudyModeQuestionDataAccessInterface smqdaiObject;
     private final StudyModeQuestionOutputBoundary presenter;
 

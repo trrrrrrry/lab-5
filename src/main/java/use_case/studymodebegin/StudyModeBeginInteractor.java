@@ -13,7 +13,6 @@ public class StudyModeBeginInteractor implements StudyModeBeginInputBoundary {
         this.studyModeBeginOutputBoundary = studyModeBeginOutputBoundary;
     }
 
-
     @Override
     public void execute(StudyModeBeginInputData studyModeBeginInputData) {
         final String module = studyModeBeginInputData.getModule();

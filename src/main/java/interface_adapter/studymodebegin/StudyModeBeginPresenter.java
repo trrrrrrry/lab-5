@@ -45,9 +45,8 @@ public class StudyModeBeginPresenter implements StudyModeBeginOutputBoundary {
 
     @Override
     public void switchToStudyModeQuestionView() {
-//        viewManagerModel.setState(studyModeQuestionViewModel.getViewName());
-//        viewManagerModel.firePropertyChanged();
-    }
+        viewManagerModel.setState(studyModeQuestionViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
 
     @Override
     public void switchToStudyModeView() {
