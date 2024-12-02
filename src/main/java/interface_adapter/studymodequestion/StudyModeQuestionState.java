@@ -4,6 +4,7 @@ package interface_adapter.studymodequestion;
  * The state for the study mode question view model.
  */
 public class StudyModeQuestionState {
+    private String module = "";
     private String selectedOption = "";
 
     /**
@@ -20,6 +21,14 @@ public class StudyModeQuestionState {
      */
     public void setSelectedOption(String selectedOption) {
         this.selectedOption = selectedOption;
+    }
+
+    public String getModule() {
+        return module;
+    }
+
+    public void setModule(String module) {
+        this.module = module;
     }
 
 }
