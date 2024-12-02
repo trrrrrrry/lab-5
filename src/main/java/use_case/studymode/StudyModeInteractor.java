@@ -33,7 +33,8 @@ public class StudyModeInteractor implements StudyModeInputBoundary {
     }
 
     private boolean isValidModule(String module) {
-        final Set<String> validModules = new HashSet<>(Arrays.asList("Module 1", "Module 2", "Module 3", "Module 4", "Module 5", "Module 6"));
+        final Set<String> validModules = new HashSet<>(Arrays.asList("Module 1", "Module 2", "Module 3",
+                "Module 4", "Module 5", "Module 6"));
         return validModules.contains(module);
     }
 
