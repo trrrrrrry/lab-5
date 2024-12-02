@@ -18,7 +18,7 @@
 
 
 ## Overview
-This program is designed to help users effectively prepare for their G1 driving test by offering a variety of practice options. Users can learn at their own pace by practicing individual topics through different modules. In addition to module-specific practice, users can simulate full G1 test experiences using our mimic test feature, which replicates the real test environment with timed sessions and randomized questions.
+This program is designed to help users effectively prepare for their G1 driving test by offering a variety of practice options. Users can learn at their own pace by practicing individual topics through different modules. In addition to module-specific practice, users can simulate full G1 test experiences using our mimic test feature, which replicates the real test environment with randomized questions.
 
 By offering both focused learning and realistic test simulations, this program provides a comprehensive way for users to build their confidence and knowledge, ensuring they are well-prepared to succeed in their G1 test.
 
@@ -41,7 +41,7 @@ By offering both focused learning and realistic test simulations, this program p
 ![Mode Selection](images/mode_selection.png)
 * **Modular Learning (Study Mode)**: Practice questions through modules in Study Mode, which ensure the study process is more achievable.
 ![Modules](images/Modules.png)
-* **Mimic Test Feature (Test Mode)**: Simulate a full G1 test in Test Mode, with timed sessions and randomized 40 questions to experience real test conditions.
+* **Mimic Test Feature (Test Mode)**: Simulate a full G1 test in Test Mode, with randomized 40 questions to experience real test conditions.
 ![Test Mode](images/test_mode.png)
 * **Progress Tracking (Test Result)**: Keep track of your incorrect questions which allows users to review their progress.
 * **User-Friendly Interface**: Designed for easy navigation and intuitive learning, making preparation accessible for everyone.

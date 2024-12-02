@@ -18,11 +18,10 @@ public class TestresultController {
     /**
      * Execute the Test result use case.
      * @param correctQuestions number of correct questions got
-     * @param time time taken by the user for this test
      * @param incorrectQuestions a list of incorrect questions user got for this test
      */
-    public void execute(int correctQuestions, int time, ArrayList<String> incorrectQuestions) {
-        final TestresultInputData inputData = new TestresultInputData(correctQuestions, time, incorrectQuestions);
+    public void execute(int correctQuestions, ArrayList<String> incorrectQuestions) {
+        final TestresultInputData inputData = new TestresultInputData(correctQuestions, incorrectQuestions);
         testresultInteractor.execute(inputData);
     }
 

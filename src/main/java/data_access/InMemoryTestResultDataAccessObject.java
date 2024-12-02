@@ -1,8 +1,8 @@
 package data_access;
 
-import use_case.testresult.TestresultDataAccessInterface;
-
 import java.util.ArrayList;
+
+import use_case.testresult.TestresultDataAccessInterface;
 
 /**
  * In-memory implementation of the DAO for storing test result data. This implementation does
@@ -10,17 +10,11 @@ import java.util.ArrayList;
  */
 public class InMemoryTestResultDataAccessObject implements TestresultDataAccessInterface {
     private int correctQuestions;
-    private int time;
     private ArrayList<String> incorrectQuestions = new ArrayList<>();
 
     @Override
     public int getCorrectQuestions() {
         return correctQuestions;
-    }
-
-    @Override
-    public int getTime() {
-        return time;
     }
 
     @Override
@@ -31,11 +25,6 @@ public class InMemoryTestResultDataAccessObject implements TestresultDataAccessI
     @Override
     public void saveCorrectQuestions(int numCorrectQuestions) {
         this.correctQuestions = numCorrectQuestions;
-    }
-
-    @Override
-    public void saveTime(int timeUsed) {
-        this.time = timeUsed;
     }
 
     @Override
