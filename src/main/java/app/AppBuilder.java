@@ -224,7 +224,7 @@ public class AppBuilder {
      * Adds the Test Mode Question View to the application.
      * @return this builder
      */
-    public AppBuilder addTestModeQuestionView() {
+    public AppBuilder addTestModeQuestionView() throws SQLException {
         testModeQuestionViewModel = new TestModeQuestionViewModel();
         testModeQuestionView = new TestModeQuestionView(testModeQuestionViewModel);
         cardPanel.add(testModeQuestionView, testModeQuestionView.getViewName());

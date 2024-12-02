@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
@@ -30,11 +31,16 @@ public class TestresultView extends JPanel implements ActionListener, PropertyCh
 
     private final Color backgroundC = Color.decode("#99acaf");
 
+    private int correctQuestions;
+
+    private ArrayList<String> wrongqueestions;
+
     public TestresultView(TestresultViewModel viewModel) {
         this.testresultViewModel = viewModel;
         testresultViewModel.addPropertyChangeListener(this);
 
-        final int correctQuestions = testresultViewModel.getState().getCorrectQuestions();
+        //        final int correctQuestions = testresultViewModel.getState().getCorrectQuestions();
+        this.correctQuestions = 0;
         final ArrayList<String> incorrectQuestions = testresultViewModel.getState().getIncorrectQuestions();
 
         final JLabel title = new JLabel(TestresultViewModel.TITLE_LABEL);
@@ -48,19 +54,48 @@ public class TestresultView extends JPanel implements ActionListener, PropertyCh
         final JPanel incorrectQuestionsPanel = new JPanel();
         incorrectQuestionsPanel.setLayout(new BoxLayout(incorrectQuestionsPanel, BoxLayout.Y_AXIS));
         incorrectQuestionsPanel.setBackground(backgroundC);
-        final JLabel incorrectQuestionsLabel;
-        if (viewModel.getIncorrectQuestions().isEmpty()) {
-            incorrectQuestionsLabel = new JLabel("Congratulations! You answered all 40 "
-                    + "questions correctly for this test.");
-        }
-        else {
-            incorrectQuestionsLabel = new JLabel("Incorrect questions you got from this test is(are): ");
-        }
+        final JLabel[] incorrectQuestionsLabel = new JLabel[1];
 
-        for (String question: incorrectQuestions) {
-            incorrectQuestionsPanel.add(new JLabel("- " + question));
-        }
-        incorrectQuestionsPanel.add(incorrectQuestionsLabel);
+        testresultViewModel.addPropertyChangeListener(evt -> {
+            if ("state".equals(evt.getPropertyName())) {
+                this.correctQuestions = testresultViewModel.getState().getCorrectQuestions();
+                this.wrongqueestions = testresultViewModel.getState().getIncorrectQuestions();
+                System.out.println(this.correctQuestions);
+                System.out.println(this.wrongqueestions);
+                correctQuestionsLabel.setText("You got "
+                        + this.correctQuestions + " correct questions for this test.");
+                if (this.wrongqueestions.isEmpty()) {
+                    incorrectQuestionsLabel[0] = new JLabel("Congratulations! You answered all 40 "
+                            + "questions correctly for this test.");
+                    incorrectQuestionsPanel.add(incorrectQuestionsLabel[0]);
+
+                }
+                else {
+                    incorrectQuestionsLabel[0] = new JLabel("Incorrect questions you got from this test is(are): ");
+                    incorrectQuestionsPanel.add(incorrectQuestionsLabel[0]);
+                    for (String question: wrongqueestions) {
+                        incorrectQuestionsPanel.add(new JLabel("- " + question));
+                    }
+                }
+            }
+        });
+
+        //        final JPanel incorrectQuestionsPanel = new JPanel();
+        //        incorrectQuestionsPanel.setLayout(new BoxLayout(incorrectQuestionsPanel, BoxLayout.Y_AXIS));
+        //        incorrectQuestionsPanel.setBackground(backgroundC);
+        //        final JLabel incorrectQuestionsLabel;
+        //        if (viewModel.getIncorrectQuestions().isEmpty()) {
+        //            incorrectQuestionsLabel[0] = new JLabel("Congratulations! You answered all 40 "
+        //                    + "questions correctly for this test.");
+        //        }
+        //        else {
+        //            incorrectQuestionsLabel[0] = new JLabel("Incorrect questions you got from this test is(are): ");
+        //        }
+
+        //        for (String question: wrongqueestions) {
+        //            incorrectQuestionsPanel.add(new JLabel("- " + question));
+        //        }
+        //        incorrectQuestionsPanel.add(incorrectQuestionsLabel[0]);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(title);

@@ -17,6 +17,7 @@ import interface_adapter.logout.LogoutController;
 import interface_adapter.studymodequestion.StudyModeQuestionController;
 import interface_adapter.studymodequestion.StudyModeQuestionViewModel;
 
+// TODO: wrapper of question text and option text
 /**
  * The View of Study Mode Question.
  */
@@ -118,6 +119,8 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
                         else {
                             option1.setBackground(Color.RED);
                             option1.revalidate();
+                            option1.setOpaque(true);
+                            option1.repaint();
                             if (!questions.contains(currentQuestion)) {
                                 questions.add(currentQuestion);
                             }
@@ -289,11 +292,11 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
     }
 
     private void loadNextQuestion() {
-        if (this.questions == null || this.questions.isEmpty()) {
-            System.out.print("no questions available yet.");
-        }
+        //        if (this.questions == null || this.questions.isEmpty()) {
+        //            System.out.print("no questions available yet.");
+        //        }
 
-        else if (!this.questions.isEmpty()) {
+        if (!this.questions.isEmpty()) {
             currentQuestion = this.questions.poll();
             studymodequestion.setText(currentQuestion.getQuestionText());
 
@@ -315,13 +318,13 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
         }
         else {
             // End session if no more questions
-            JOptionPane.showMessageDialog(
-                    this,
-                    "You have completed the study mode!",
-                    "Done",
-                    JOptionPane.INFORMATION_MESSAGE
-            );
-            //            studyModeQuestionController.switchToStudyModeView();
+//            JOptionPane.showMessageDialog(
+//                    this,
+//                    "You have completed the study mode!",
+//                    "Done",
+//                    JOptionPane.INFORMATION_MESSAGE
+//            );
+            studyModeQuestionController.switchToStudyModeView();
 
         }
     }
