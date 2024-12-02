@@ -3,6 +3,9 @@ package interface_adapter.testmodequestion;
 import use_case.testmodequestion.TestModeQuestionInputBoundary;
 import use_case.testmodequestion.TestModeQuestionInputData;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  * The controller for test mode question use case.
  */
@@ -15,10 +18,12 @@ public class TestModeQuestionController {
 
     /**
      * Execute the test mode question use case.
-     * @param option the option that the user selected.
+     * @param correctnumber the number of correct questions
+     * @param wrongquestions the arraylist of wrong questions
+     *
      */
-    public void execute(String option) {
-        final TestModeQuestionInputData input = new TestModeQuestionInputData(option);
+    public void execute(int correctnumber, ArrayList<String> wrongquestions) {
+        final TestModeQuestionInputData input = new TestModeQuestionInputData(correctnumber, wrongquestions);
         tmqInteractor.execute(input);
     }
 

@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,9 +40,11 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
     private ArrayList<String> wrongquestions = new ArrayList<>();
     private int correctquestions;
 
-    public TestModeQuestionView(TestModeQuestionViewModel testModeQuestionViewModel) {
+    public TestModeQuestionView(TestModeQuestionViewModel testModeQuestionViewModel) throws SQLException {
         this.testModeQuestionViewModel = testModeQuestionViewModel;
-        this.questions = DatabaseRetriever.getQuestionsRandom();
+        //TODO:uncomment 回来
+//        this.questions = DatabaseRetriever.getQuestionsRandom();
+        this.questions = DatabaseRetriever.getQuestionsInRange(0,3);
         this.wrongquestions = new ArrayList<>();
 
         final JLabel title = new JLabel("Test Mode Question");
@@ -244,8 +247,10 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
             final TestModeQuestionState testModeQuestionState = testModeQuestionViewModel.getState();
             testModeQuestionState.setCorrectQuestions(correctquestions);
             testModeQuestionState.setIncorrectQuestions(wrongquestions);
+            System.out.println(wrongquestions);
             testModeQuestionViewModel.setState(testModeQuestionState);
             testModeQuestionViewModel.firePropertyChanged();
+            testModeQuestionController.execute(testModeQuestionState.getCorrectQuestions(), testModeQuestionState.getIncorrectQuestions());
             testModeQuestionController.switchToTestResultView();
 
         }
