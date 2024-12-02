@@ -1,7 +1,5 @@
 package use_case.testmode;
 
-import use_case.studymode.StudyModeOutputData;
-
 /**
  * The output boundary for the Test Mode Use Case.
  */

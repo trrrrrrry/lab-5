@@ -9,7 +9,6 @@ import java.beans.PropertyChangeListener;
 import javax.swing.*;
 
 import interface_adapter.logout.LogoutController;
-import interface_adapter.studymode.StudyModeState;
 import interface_adapter.studymodebegin.StudyModeBeginController;
 import interface_adapter.studymodebegin.StudyModeBeginState;
 import interface_adapter.studymodebegin.StudyModeBeginViewModel;
