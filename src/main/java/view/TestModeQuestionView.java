@@ -47,7 +47,7 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
         final JLabel title = new JLabel("Test Mode Question");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        testmodequestion = new JLabel("Question needed to be added ");
+        testmodequestion = new JLabel("<html>Question needed to be added </html>");
         testmodequestion.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final JPanel buttons = new JPanel();
@@ -240,12 +240,14 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
             //                    "Done",
             //                    JOptionPane.INFORMATION_MESSAGE
             //            );
+
             final TestModeQuestionState testModeQuestionState = testModeQuestionViewModel.getState();
             testModeQuestionState.setCorrectQuestions(correctquestions);
             testModeQuestionState.setIncorrectQuestions(wrongquestions);
             testModeQuestionViewModel.setState(testModeQuestionState);
             testModeQuestionViewModel.firePropertyChanged();
             testModeQuestionController.switchToTestResultView();
+
         }
     }
 
@@ -256,7 +258,6 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
     public void setLogoutController(LogoutController logoutController) {
         this.logoutController = logoutController;
     }
-
 
     public void setTestModeQuestionController(TestModeQuestionController testModeQuestionController) {
         this.testModeQuestionController = testModeQuestionController;

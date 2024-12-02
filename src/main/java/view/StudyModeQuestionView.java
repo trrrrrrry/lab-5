@@ -43,6 +43,7 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
         //        this.questions = DatabaseRetriever.getQuestionsFromStart(0);
         this.moduleName = studyModeQuestionViewModel.getState().getModule();
         this.questions = getModuleQuestion();
+        this.setBackground(Color.decode("#FBFADA"));
 
         // TODO: get module name and then provide questions for corressponding module
 
@@ -60,6 +61,7 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
 
         final JPanel buttons = new JPanel();
         buttons.setLayout(new BoxLayout(buttons, BoxLayout.Y_AXIS));
+        buttons.setBackground(Color.decode("#FBFADA"));
         //        buttons.setLayout(new FlowLayout(FlowLayout.LEFT));
         buttons.setAlignmentX(Component.CENTER_ALIGNMENT);
 

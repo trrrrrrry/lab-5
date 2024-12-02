@@ -40,6 +40,8 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     public LoggedInView(LoggedInViewModel loggedInViewModel) {
         this.loggedInViewModel = loggedInViewModel;
         this.loggedInViewModel.addPropertyChangeListener(this);
+        final String backGroundc = "#11212D";
+        this.setBackground(Color.decode(backGroundc));
 
         final int titleFontSize = 25;
         final JLabel title = new JLabel("Mode Selection");
@@ -49,11 +51,14 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
         final JLabel changeForPassword = new JLabel("If you wish to change your password, please "
                 + "enter the new Password below");
+        changeForPassword.setForeground(Color.decode("#92A1C2"));
         changeForPassword.setAlignmentX(Component.CENTER_ALIGNMENT);
         final LabelTextPanel passwordInfo = new LabelTextPanel(
-                new JLabel("New Password"), passwordInputField);
+                new JLabel("<html><span style='color: #5483B3'>New Password </span></html>"), passwordInputField);
+        passwordInfo.setBackground(Color.decode(backGroundc));
 
         final JLabel usernameInfo = new JLabel("Currently logged in: ");
+        usernameInfo.setForeground(Color.decode("#4A5C6A"));
         usernameInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
         username = new JLabel();
         username.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -64,23 +69,25 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         modeSelection.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final JPanel buttons = new JPanel();
-        buttons.setBackground(Color.decode("#11212D"));
-        final int buttonsRows = 2;
-        final int buttonsCols = 3;
+        buttons.setBackground(Color.decode(backGroundc));
+        final int buttonsRows = 1;
+        final int buttonsCols = 2;
         final int buttonsHgap = 10;
         final int buttonsVgap = 10;
-        buttons.setLayout(new GridLayout(buttonsRows, buttonsCols, buttonsHgap, buttonsVgap));
+        buttons.setLayout(new GridLayout(buttonsCols, buttonsRows, buttonsHgap, buttonsVgap));
 
-        final String foreColor = "#9BA8AB";
-        final String backColor = "#253745";
+        final String foreColor = "#2e365a";
+        final String backColor = "#7DA0CA";
         study = new JButton(ModeSelectionViewModel.STUDY_MODE_BUTTON_LABEL);
-        study.setForeground(Color.decode(foreColor));
-        study.setBackground(Color.decode(backColor));
-        buttons.add(study);
-
         test = new JButton(ModeSelectionViewModel.TEST_MODE_BUTTON_LABEL);
+
+        study.setForeground(Color.decode(foreColor));
         test.setForeground(Color.decode(foreColor));
+
+        study.setBackground(Color.decode(backColor));
         test.setBackground(Color.decode(backColor));
+
+        buttons.add(study);
         buttons.add(test);
 
         logOut = new JButton("Log Out");
@@ -88,13 +95,13 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         changePassword = new JButton("Change Password");
         changePassword.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        final int wrapperMargin = 20;
+        logOut.setBackground(Color.decode("#99cdd8"));
+        changePassword.setBackground(Color.decode("#99cdd8"));
+
         buttonWrapper = new JPanel();
-        buttonWrapper.setLayout(new BoxLayout(buttonWrapper, BoxLayout.Y_AXIS));
+        buttonWrapper.setLayout(new GridLayout(buttonsRows, buttonsCols, buttonsHgap, buttonsVgap));
+        buttonWrapper.setBackground(Color.decode(backGroundc));
         buttonWrapper.setOpaque(false);
-        buttonWrapper.setBorder(BorderFactory.createEmptyBorder(wrapperMargin, 0, wrapperMargin, 0));
-        buttonWrapper.add(changePassword);
-        buttonWrapper.add(logOut);
 
         changePassword.setBackground(Color.decode("#9BA8AB"));
         changePassword.setForeground(Color.decode("#253745"));
@@ -107,6 +114,9 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         logOut.setFocusPainted(false);
         logOut.setOpaque(true);
         logOut.setBorderPainted(false);
+
+        buttonWrapper.add(changePassword);
+        buttonWrapper.add(logOut);
 
         study.addActionListener(
                 new ActionListener() {
@@ -180,8 +190,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         this.add(changeForPassword);
         this.add(passwordInfo);
         this.add(passwordErrorField);
-        this.add(changePassword);
-        this.add(logOut);
+        this.add(buttonWrapper);
 
         this.add(usernameInfo);
         this.add(username);
