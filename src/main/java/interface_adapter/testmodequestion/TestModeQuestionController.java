@@ -7,7 +7,7 @@ import use_case.testmodequestion.TestModeQuestionInputData;
  * The controller for test mode question use case.
  */
 public class TestModeQuestionController {
-    private final use_case.testmodequestion.TestModeQuestionInputBoundary tmqInteractor;
+    private static TestModeQuestionInputBoundary tmqInteractor;
 
     public TestModeQuestionController(TestModeQuestionInputBoundary testModeQuestionInteractor) {
         this.tmqInteractor = testModeQuestionInteractor;
@@ -32,7 +32,7 @@ public class TestModeQuestionController {
     /**
      * Execute the "switch to Test Result View" use case.
      */
-    public void switchToTestResultView() {
+    public static void switchToTestResultView() {
         tmqInteractor.switchToTestResultView();
     }
 }
