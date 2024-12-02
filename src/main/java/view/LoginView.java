@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Objects;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -47,7 +48,8 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Load and resize the image
-        final ImageIcon originalIcon = new ImageIcon("C:\\Users\\huang\\Desktop\\uoft\\csc207\\huan3867\\GearUp\\images\\Signup_icon.jpg");
+        final ImageIcon originalIcon = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource(
+                "images/Signup_icon.jpg")));
         final Image scaledImage = originalIcon.getImage().getScaledInstance(90, -1, Image.SCALE_SMOOTH);
         final ImageIcon resizedIcon = new ImageIcon(scaledImage);
         final JLabel imageLabel = new JLabel(resizedIcon);
@@ -91,8 +93,8 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(titlePanel);
         this.add(usernameInfo);
-        this.add(usernameErrorField);
         this.add(passwordInfo);
+        this.add(usernameErrorField);
         this.add(buttons);
     }
 
