@@ -357,8 +357,8 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addTestModeQuestionUseCase() {
-        final TestModeQuestionOutputBoundary testModeQuestionOutputBoundary = new TestModeQuestionPresenter(viewManagerModel,
-                testModeQuestionViewModel);
+        final TestModeQuestionOutputBoundary testModeQuestionOutputBoundary =
+                new TestModeQuestionPresenter(viewManagerModel, testModeQuestionViewModel, testresultViewModel);
 
         final TestModeQuestionInputBoundary testModeQuestionInteractor =
                 new TestModeQuestionInteractor(testModeQuestionDataAccessInterface, testModeQuestionOutputBoundary);
