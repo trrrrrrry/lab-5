@@ -9,10 +9,7 @@ import java.beans.PropertyChangeListener;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import interface_adapter.testresult.TestresultController;
 import interface_adapter.testresult.TestresultViewModel;
@@ -29,7 +26,8 @@ public class TestresultView extends JPanel implements ActionListener, PropertyCh
 
     private final JButton finish = new JButton("Finish");
 
-    private final Color backgroundC = Color.decode("#99acaf");
+    private final Color backgroundC = Color.decode("#c1e8ff");
+    private final Color backgroundB = Color.decode("#7da0ca");
 
     private int correctQuestions;
 
@@ -43,10 +41,18 @@ public class TestresultView extends JPanel implements ActionListener, PropertyCh
         this.correctQuestions = 0;
         final ArrayList<String> incorrectQuestions = testresultViewModel.getState().getIncorrectQuestions();
 
-        final JLabel title = new JLabel(TestresultViewModel.TITLE_LABEL);
+        final JPanel titlePanel = new JPanel();
+        titlePanel.setLayout(new BorderLayout());
+        titlePanel.setBackground(backgroundB);
+        final int tbMargin = 20;
+        titlePanel.setBorder(BorderFactory.createEmptyBorder(tbMargin, 0, tbMargin, 0));
+
+        final JLabel title = new JLabel(TestresultViewModel.TITLE_LABEL, SwingConstants.CENTER);
         final int fontTitle = 32;
         title.setFont(new Font("Times New Roman", Font.BOLD, fontTitle));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        titlePanel.add(title, BorderLayout.CENTER);
 
         final JLabel correctQuestionsLabel = new JLabel("You got "
                 + correctQuestions + " correct questions for this test.");
@@ -54,6 +60,8 @@ public class TestresultView extends JPanel implements ActionListener, PropertyCh
         final JPanel incorrectQuestionsPanel = new JPanel();
         incorrectQuestionsPanel.setLayout(new BoxLayout(incorrectQuestionsPanel, BoxLayout.Y_AXIS));
         incorrectQuestionsPanel.setBackground(backgroundC);
+        final int scMargin = 15;
+        incorrectQuestionsPanel.setBorder(BorderFactory.createEmptyBorder(scMargin, 0, scMargin, 0));
         final JLabel[] incorrectQuestionsLabel = new JLabel[1];
 
         testresultViewModel.addPropertyChangeListener(evt -> {
@@ -64,17 +72,29 @@ public class TestresultView extends JPanel implements ActionListener, PropertyCh
                 System.out.println(this.wrongqueestions);
                 correctQuestionsLabel.setText("You got "
                         + this.correctQuestions + " correct questions for this test.");
+                final int fontSubtitle = 24;
+                correctQuestionsLabel.setFont(new Font("Times New Roman", Font.PLAIN, fontSubtitle));
+                correctQuestionsLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
                 if (this.wrongqueestions.isEmpty()) {
                     incorrectQuestionsLabel[0] = new JLabel("Congratulations! You answered all 40 "
                             + "questions correctly for this test.");
+                    incorrectQuestionsLabel[0].setFont(new Font("Times New Roman", Font.PLAIN, fontSubtitle));
+                    incorrectQuestionsLabel[0].setAlignmentX(Component.CENTER_ALIGNMENT);
                     incorrectQuestionsPanel.add(incorrectQuestionsLabel[0]);
 
                 }
                 else {
                     incorrectQuestionsLabel[0] = new JLabel("Incorrect questions you got from this test is(are): ");
+                    incorrectQuestionsLabel[0].setAlignmentX(Component.CENTER_ALIGNMENT);
+                    incorrectQuestionsLabel[0].setFont(new Font("Times New Roman", Font.PLAIN, fontSubtitle));
                     incorrectQuestionsPanel.add(incorrectQuestionsLabel[0]);
                     for (String question: wrongqueestions) {
-                        incorrectQuestionsPanel.add(new JLabel("- " + question));
+                        final JTextArea questionArea = new JTextArea("-" + question);
+                        questionArea.setLineWrap(true);
+                        questionArea.setWrapStyleWord(true);
+                        questionArea.setEditable(false);
+                        questionArea.setBackground(backgroundC);
+                        incorrectQuestionsPanel.add(questionArea);
                     }
                 }
             }
@@ -98,9 +118,12 @@ public class TestresultView extends JPanel implements ActionListener, PropertyCh
         //        incorrectQuestionsPanel.add(incorrectQuestionsLabel[0]);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.add(title);
+        this.setBackground(backgroundC);
+        this.add(titlePanel);
         this.add(correctQuestionsLabel);
+        incorrectQuestionsPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(incorrectQuestionsPanel);
+        finish.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(finish);
         finish.addActionListener(
                 new ActionListener() {
