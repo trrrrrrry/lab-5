@@ -42,6 +42,7 @@ public class StudyModeView extends JPanel implements ActionListener {
         title.setFont(new Font("Times New Roman", Font.ITALIC, titleFontSize));
         title.setForeground(Color.decode("#4A5C6A"));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         final JLabel moduleSelection = new JLabel("<html><div style='text-align: center; font-family: "
                 + "\"Times New Roman\"; margin: 10px auto; color: #7DA0CA; font-size: 25'>"
                 + "Please select a module from the below: ");

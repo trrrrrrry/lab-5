@@ -1,10 +1,14 @@
 package use_case.testmodequestion;
 
+import java.util.ArrayList;
+
 /**
  * Output Data for the Test Mode Question Use Case.
  */
 public class TestModeQuestionOutputData {
     private final String option;
+    private int correctQuestions;
+    private ArrayList<String> incorrectQuestions;
 
     /**
      * Constructs a StudyModeQuestionOutputData object with the selected option and confirmation message.
@@ -21,4 +25,21 @@ public class TestModeQuestionOutputData {
     public String getSelectedMode() {
         return option;
     }
+
+    /**
+     * Get correct questions.
+     * @return correct questions
+     */
+    public int getCorrectQuestions() {
+        return correctQuestions;
+    }
+
+    /**
+     * Get incorrect questions.
+     * @return incorrect questions
+     */
+    public ArrayList<String> getIncorrectQuestions() {
+        return incorrectQuestions;
+    }
+
 }

@@ -11,9 +11,8 @@ public class TestModeInteractor implements TestModeInputBoundary {
     }
 
     @Override
-    public void execute(TestModeInputData testModeInputData) {
-        final TestModeOutputData outputData = new TestModeOutputData();
-        testModeOutputBoundary.prepareSuccessView(outputData);
+    public void execute() {
+        testModeOutputBoundary.prepareSuccessView();
     }
 
     @Override

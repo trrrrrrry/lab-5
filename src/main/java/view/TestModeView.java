@@ -7,8 +7,6 @@ import interface_adapter.testmode.TestModeViewModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * The View after user selected test mode.
@@ -35,20 +33,12 @@ public class TestModeView extends JPanel {
         title.setForeground(Color.decode("#4A5C6A"));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        final JLabel beginText = new JLabel("<html>You have 40 Questions to answer. "
-                + "To past the test, you need to get 36 questions correct. "
-                + "For your reference, the time you used will be displayed, but the test is NOT timed.</html>");
+        final JLabel beginText = new JLabel("<html><div style='text-align: center; font-family: "
+                + "\"Times New Roman\"; margin: 10px auto;'> <p style='color: #C1E8FF;'>You have 40 Questions "
+                + "to answer. To pass the test, you need to get 36 questions correct. For your reference, the time you"
+                + " used will be displayed, but the test is NOT timed.</p></div></html>");
         beginText.setAlignmentX(Component.CENTER_ALIGNMENT);
         beginText.setFont(new Font("Arial", Font.PLAIN, 20));
-
-        testModeViewModel.addPropertyChangeListener(evt -> {
-            if ("state".equals(evt.getPropertyName())) {
-                beginText.setText("<html><div style='text-align: center; font-family: \"Times New Roman\"; margin: 10px auto;'>"
-                        + "<p style='color: #C1E8FF;'>You have 40 Questions to answer. "
-                        + "To past the test, you need to get 36 questions correct. "
-                        + "For your reference, the time you used will be displayed, but the test is NOT timed.</p></div></html>");
-            }
-        });
 
         final JPanel buttons = new JPanel();
         buttons.setBackground(Color.decode("#11212D"));
@@ -84,25 +74,19 @@ public class TestModeView extends JPanel {
 
         // Take user to 'question view' page
         begin.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(begin)) {
-                            final TestModeState testModeState = testModeViewModel.getState();
-                            testModeViewModel.setState(testModeState);
-                            testModeViewModel.firePropertyChanged();
-                            testModeController.execute();
-                        }
-                        testModeController.switchToTestModeQuestionView();
+                evt -> {
+                    if (evt.getSource().equals(begin)) {
+                        final TestModeState testModeState = testModeViewModel.getState();
+                        testModeViewModel.setState(testModeState);
+                        testModeViewModel.firePropertyChanged();
+                        testModeController.execute();
                     }
+                    testModeController.switchToTestModeQuestionView();
                 }
         );
 
         backToModeSelection.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        testModeController.switchToModeSelectionView();
-                    }
-                }
+                evt -> testModeController.switchToModeSelectionView()
         );
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

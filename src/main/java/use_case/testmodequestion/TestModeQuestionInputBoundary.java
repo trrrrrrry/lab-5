@@ -7,9 +7,9 @@ public interface TestModeQuestionInputBoundary {
 
     /**
      * Executes the TestModeQuestion use case.
-     * @param TestModeQuestionInputData the input data
+     * @param testModeQuestionInputData the input data
      */
-    void execute(TestModeQuestionInputData TestModeQuestionInputData);
+    void execute(TestModeQuestionInputData testModeQuestionInputData);
 
     /**
      * Switch to next Question View.

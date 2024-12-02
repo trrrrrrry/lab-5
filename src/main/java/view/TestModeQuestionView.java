@@ -5,6 +5,7 @@ import entity.Answer;
 import entity.Question;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.testmodequestion.TestModeQuestionController;
+import interface_adapter.testmodequestion.TestModeQuestionState;
 import interface_adapter.testmodequestion.TestModeQuestionViewModel;
 
 import javax.swing.*;
@@ -35,16 +36,18 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
 
     private LinkedList<Question> questions;
     private Question currentQuestion;
-    private ArrayList<Question> wrongquestions;
+    private ArrayList<String> wrongquestions = new ArrayList<>();
+    private int correctquestions;
 
     public TestModeQuestionView(TestModeQuestionViewModel testModeQuestionViewModel) {
         this.testModeQuestionViewModel = testModeQuestionViewModel;
         this.questions = DatabaseRetriever.getQuestionsRandom();
+        this.wrongquestions = new ArrayList<>();
 
         final JLabel title = new JLabel("Test Mode Question");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        testmodequestion = new JLabel("Question needed to be added ");
+        testmodequestion = new JLabel("<html>Question needed to be added </html>");
         testmodequestion.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final JPanel buttons = new JPanel();
@@ -90,6 +93,7 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
                             option1.revalidate();
                             option1.setOpaque(true);
                             option1.repaint();
+                            correctquestions++;
 
                         }
                         else {
@@ -97,8 +101,8 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
                             option1.revalidate();
                             option1.setOpaque(true);
                             option1.repaint();
-                            if (!wrongquestions.contains(currentQuestion)) {
-                                wrongquestions.add(currentQuestion);
+                            if (!(wrongquestions.contains(currentQuestion))) {
+                                wrongquestions.add(currentQuestion.getQuestionText());
                             }
                         }
                         // Enable "Next" button after an option is selected
@@ -115,6 +119,7 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
                             option2.revalidate();
                             option2.setOpaque(true);
                             option2.repaint();
+                            correctquestions++;
 
                         }
                         else {
@@ -122,8 +127,8 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
                             option2.revalidate();
                             option2.setOpaque(true);
                             option2.repaint();
-                            if (!wrongquestions.contains(currentQuestion)) {
-                                wrongquestions.add(currentQuestion);
+                            if (!(wrongquestions.contains(currentQuestion))) {
+                                wrongquestions.add(currentQuestion.getQuestionText());
                             }
                         }
                         // Enable "Next" button after an option is selected
@@ -140,6 +145,7 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
                             option3.revalidate();
                             option3.setOpaque(true);
                             option3.repaint();
+                            correctquestions++;
 
                         }
                         else {
@@ -147,8 +153,8 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
                             option3.revalidate();
                             option3.setOpaque(true);
                             option3.repaint();
-                            if (!wrongquestions.contains(currentQuestion)) {
-                                wrongquestions.add(currentQuestion);
+                            if (!(wrongquestions.contains(currentQuestion))) {
+                                wrongquestions.add(currentQuestion.getQuestionText());
                             }
                         }
                         // Enable "Next" button after an option is selected
@@ -165,6 +171,7 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
                             option4.revalidate();
                             option4.setOpaque(true);
                             option4.repaint();
+                            correctquestions++;
 
                         }
                         else {
@@ -172,9 +179,10 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
                             option4.revalidate();
                             option4.setOpaque(true);
                             option4.repaint();
-                            if (!wrongquestions.contains(currentQuestion)) {
-                                wrongquestions.add(currentQuestion);
+                            if (!(wrongquestions.contains(currentQuestion))) {
+                                wrongquestions.add(currentQuestion.getQuestionText());
                             }
+
                         }
                         // Enable "Next" button after an option is selected
                         nextButton.setEnabled(true);
@@ -226,12 +234,20 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
         else {
             // End session if no more questions
             // link to test result
-            JOptionPane.showMessageDialog(
-                    this,
-                    "You have completed the study mode!",
-                    "Done",
-                    JOptionPane.INFORMATION_MESSAGE
-            );
+            //            JOptionPane.showMessageDialog(
+            //                    this,
+            //                    "You have completed the study mode!",
+            //                    "Done",
+            //                    JOptionPane.INFORMATION_MESSAGE
+            //            );
+
+            final TestModeQuestionState testModeQuestionState = testModeQuestionViewModel.getState();
+            testModeQuestionState.setCorrectQuestions(correctquestions);
+            testModeQuestionState.setIncorrectQuestions(wrongquestions);
+            testModeQuestionViewModel.setState(testModeQuestionState);
+            testModeQuestionViewModel.firePropertyChanged();
+            testModeQuestionController.switchToTestResultView();
+
         }
     }
 
@@ -242,7 +258,6 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
     public void setLogoutController(LogoutController logoutController) {
         this.logoutController = logoutController;
     }
-
 
     public void setTestModeQuestionController(TestModeQuestionController testModeQuestionController) {
         this.testModeQuestionController = testModeQuestionController;

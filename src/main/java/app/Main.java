@@ -1,7 +1,8 @@
 package app;
 
-import javax.swing.JFrame;
 import java.sql.SQLException;
+
+import javax.swing.JFrame;
 
 /**
  * The Main class of our application.
@@ -20,19 +21,18 @@ public class Main {
                                             .addSignupView()
                                             .addLoggedInView()
                                             .addStudyModeView()
-                                            .addTestResultView()
                                             .addStudyModeBeginView()
                                             .addStudyModeQuestionView()
                                             .addTestModeView()
                                             .addTestModeQuestionView()
+                                            .addTestResultView()
                                             .addSignupUseCase()
                                             .addLoginUseCase()
-                                            .addStudyModeUseCase()
                                             .addLoggedInUseCase()
+                                            .addStudyModeUseCase()
                                             .addStudyModeBeginUseCase()
                                             .addStudyModeQuestionUseCase()
-                                            .addTestResultView()
-//                                            .addTestModeUseCase()
+                                            .addTestModeUseCase()
                                             .addTestModeQuestionUseCase()
                                             .addChangePasswordUseCase()
                                             .addLogoutUseCase()

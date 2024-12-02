@@ -1,15 +1,10 @@
 package view;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 import javax.swing.*;
 
 import interface_adapter.logout.LogoutController;
-import interface_adapter.studymode.StudyModeState;
 import interface_adapter.studymodebegin.StudyModeBeginController;
 import interface_adapter.studymodebegin.StudyModeBeginState;
 import interface_adapter.studymodebegin.StudyModeBeginViewModel;
@@ -92,27 +87,21 @@ public class StudyModeBeginView extends JPanel {
 
         // Take user to 'question view' page based on their selection
         begin.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(begin)) {
-                            final StudyModeBeginState studyModeBeginState = studyModeBeginViewModel.getState();
-                            studyModeBeginState.setModule(moduleName);
-                            studyModeBeginViewModel.setState(studyModeBeginState);
-                            studyModeBeginViewModel.firePropertyChanged();
-                            studyModeBeginController.execute(studyModeBeginState.getModule());
-                        }
-                        studyModeBeginController.switchToStudyModeQuestionView();
+                evt -> {
+                    if (evt.getSource().equals(begin)) {
+                        final StudyModeBeginState studyModeBeginState = studyModeBeginViewModel.getState();
+                        studyModeBeginState.setModule(moduleName);
+                        studyModeBeginViewModel.setState(studyModeBeginState);
+                        studyModeBeginViewModel.firePropertyChanged();
+                        studyModeBeginController.execute(studyModeBeginState.getModule());
                     }
+                    studyModeBeginController.switchToStudyModeQuestionView();
                 }
         );
 
         // Take user back to <TestModeView>
         backToStudyMode.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        studyModeBeginController.switchToStudyModeView();
-                    }
-                }
+                evt -> studyModeBeginController.switchToStudyModeView()
         );
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

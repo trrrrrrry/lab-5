@@ -357,8 +357,8 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addTestModeQuestionUseCase() {
-        final TestModeQuestionOutputBoundary testModeQuestionOutputBoundary = new TestModeQuestionPresenter(viewManagerModel,
-                testModeQuestionViewModel);
+        final TestModeQuestionOutputBoundary testModeQuestionOutputBoundary =
+                new TestModeQuestionPresenter(viewManagerModel, testModeQuestionViewModel, testresultViewModel);
 
         final TestModeQuestionInputBoundary testModeQuestionInteractor =
                 new TestModeQuestionInteractor(testModeQuestionDataAccessInterface, testModeQuestionOutputBoundary);
@@ -389,18 +389,19 @@ public class AppBuilder {
      * Adds the Test Mode Use Case to the application.
      * @return this builder
      */
-//    public AppBuilder addTestModeUseCase() {
-//
-//        final TestModeOutputBoundary testModeOutputBoundary =
-//                new TestModePresenter(viewManagerModel, testModeViewModel, modeSelectionViewModel);
-//
-//        final TestModeInputBoundary testModeInteractor =
-//                new TestModeInteractor(testModeOutputBoundary);
-//
-//        final TestModeController testModeController = new TestModeController(testModeInteractor);
-//        testModeView.setTestModeController(testModeController);
-//        return this;
-//    }
+    public AppBuilder addTestModeUseCase() {
+
+        final TestModeOutputBoundary testModeOutputBoundary =
+                new TestModePresenter(viewManagerModel, testModeViewModel,
+                        modeSelectionViewModel, testModeQuestionViewModel);
+
+        final TestModeInputBoundary testModeInteractor =
+                new TestModeInteractor(testModeOutputBoundary);
+
+        final TestModeController testModeController = new TestModeController(testModeInteractor);
+        testModeView.setTestModeController(testModeController);
+        return this;
+    }
 
     /**
      * Adds the test result use case to the application.

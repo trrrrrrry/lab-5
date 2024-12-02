@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Objects;
 
 import javax.swing.*;
 
@@ -59,8 +60,12 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         title.setFont(new Font("Times New Roman", Font.BOLD, fontTitle));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        final ImageIcon originalIcon = new ImageIcon("C:\\Users\\huang\\Desktop\\uoft\\csc207\\"
-                + "huan3867\\GearUp\\images\\Signup_icon.jpg");
+        //        final ImageIcon originalIcon = new ImageIcon("C:\\Users\\huang\\Desktop\\uoft\\csc207\\"
+        //                + "huan3867\\GearUp\\images\\Signup_icon.jpg");
+        //        System.out.println(getClass().getClassLoader().getResource("images/Signup_icon.jpg"));
+
+        final ImageIcon originalIcon = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource(
+                "images/Signup_icon.jpg")));
         final Image scaledImage = originalIcon.getImage().getScaledInstance(90, -1, Image.SCALE_SMOOTH);
         final ImageIcon resizedIcon = new ImageIcon(scaledImage);
 

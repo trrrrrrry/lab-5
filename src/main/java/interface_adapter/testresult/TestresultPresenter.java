@@ -23,7 +23,6 @@ public class TestresultPresenter implements TestresultOutputBoundary {
     @Override
     public void prepareSuccessView(TestresultOutputData outputData) {
         testresultViewModel.setCorrectQuestions(outputData.getCorrectQuestions());
-        testresultViewModel.setTime(outputData.getTime());
         testresultViewModel.setIncorrectQuestions(outputData.getIncorrectQuestions());
     }
 
