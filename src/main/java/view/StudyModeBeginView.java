@@ -96,6 +96,7 @@ public class StudyModeBeginView extends JPanel {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(begin)) {
                             final StudyModeBeginState studyModeBeginState = studyModeBeginViewModel.getState();
+                            studyModeBeginState.setModule(moduleName);
                             studyModeBeginViewModel.setState(studyModeBeginState);
                             studyModeBeginViewModel.firePropertyChanged();
                             studyModeBeginController.execute(studyModeBeginState.getModule());

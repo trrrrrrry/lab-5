@@ -79,44 +79,44 @@ public class DatabaseRetriever {
         return answers;
     }
 
-//    /**
-//     * Retrieves a subset of questions from the database within a specified range.
-//     *
-//     * @param startID the starting ID of the range.
-//     * @param endID the ending ID of the range.
-//     * @return a list of Question objects with associated answers within the range.
-//     * @throws SQLException if a database access error occurs.
-//     */
-//    public static List<Question> getQuestionsInRange(int startID, int endID) throws SQLException {
-//        final List<Question> questions = new ArrayList<>();
-//        final String query = "SELECT id, question_text FROM Questions WHERE id BETWEEN ? AND ? LIMIT 20";
-//
-//        try (Connection conn = DatabaseConnection.getConnection();
-//             PreparedStatement pstmt = conn.prepareStatement(query)) {
-//            pstmt.setInt(1, startID);
-//            pstmt.setInt(2, endID);
-//
-//            try (ResultSet rs = pstmt.executeQuery()) {
-//                while (rs.next()) {
-//                    final int id = rs.getInt("id");
-//                    final String questionText = rs.getString("question_text");
-//
-//                    // Fetch associated answers for the current question
-//                    final List<Answer> answers = getAllAnswersOnQ(id);
-//
-//                    // Create a Question object with its ID, text, and answers
-//                    final Question question = new Question(id, questionText, answers);
-//                    questions.add(question);
-//                }
-//            }
-//        }
-//        catch (SQLException e) {
-//            e.printStackTrace();
-//            throw e;
-//        }
-//
-//        return questions;
-//    }
+    /**
+     * Retrieves a subset of questions from the database within a specified range.
+     *
+     * @param startID the starting ID of the range.
+     * @param endID the ending ID of the range.
+     * @return a list of Question objects with associated answers within the range.
+     * @throws SQLException if a database access error occurs.
+     */
+    public static LinkedList<Question> getQuestionsInRange(int startID, int endID) throws SQLException {
+        final LinkedList<Question> questions = new LinkedList<>();
+        final String query = "SELECT id, question_text FROM Questions WHERE id BETWEEN ? AND ? LIMIT 24";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, startID);
+            pstmt.setInt(2, endID);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    final int id = rs.getInt("id");
+                    final String questionText = rs.getString("question_text");
+
+                    // Fetch associated answers for the current question
+                    final List<Answer> answers = getAllAnswersOnQ(id);
+
+                    // Create a Question object with its ID, text, and answers
+                    final Question question = new Question(id, questionText, answers);
+                    questions.add(question);
+                }
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+
+        return questions;
+    }
 
     /**
      * Retrieves a subset of questions from the database within a specified range.

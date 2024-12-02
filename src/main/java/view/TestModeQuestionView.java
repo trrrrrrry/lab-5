@@ -48,21 +48,36 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
         testmodequestion.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final JPanel buttons = new JPanel();
-        buttons.setLayout(new GridLayout(2, 3, 10, 10));
+        buttons.setLayout(new BoxLayout(buttons, BoxLayout.Y_AXIS));
+        //        buttons.setLayout(new FlowLayout(FlowLayout.LEFT));
+        buttons.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         option1 = new JButton("Option 1");
         buttons.add(option1);
+        buttons.add(Box.createVerticalStrut(10));
+
         option2 = new JButton("Option 2");
         buttons.add(option2);
+        buttons.add(Box.createVerticalStrut(10));
+
         option3 = new JButton("Option 3");
         buttons.add(option3);
+        buttons.add(Box.createVerticalStrut(10));
+
         option4 = new JButton("Option 4");
         buttons.add(option4);
+        buttons.add(Box.createVerticalStrut(10));
 
         nextButton = new JButton("Next");
         // disable nextButton at first
         nextButton.setEnabled(false);
+        nextButton.setBounds(300, 400, 80, 30);
         buttons.add(nextButton);
+
+        final JLabel usernameInfo = new JLabel("Currently logged in: ");
+        usernameInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        username = new JLabel();
+        username.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         loadNextQuestion();
 
@@ -71,12 +86,20 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (currentQuestion.getAnswers().get(0).isCorrect()) {
-                            option1.setBackground(Color.green);
+                            option1.setBackground(Color.GREEN);
+                            option1.revalidate();
+                            option1.setOpaque(true);
+                            option1.repaint();
 
                         }
                         else {
-                            option1.setBackground(Color.red);
-                            wrongquestions.add(currentQuestion);
+                            option1.setBackground(Color.RED);
+                            option1.revalidate();
+                            option1.setOpaque(true);
+                            option1.repaint();
+                            if (!wrongquestions.contains(currentQuestion)) {
+                                wrongquestions.add(currentQuestion);
+                            }
                         }
                         // Enable "Next" button after an option is selected
                         nextButton.setEnabled(true);
@@ -88,11 +111,20 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (currentQuestion.getAnswers().get(1).isCorrect()) {
-                            option2.setBackground(Color.green);
+                            option2.setBackground(Color.GREEN);
+                            option2.revalidate();
+                            option2.setOpaque(true);
+                            option2.repaint();
+
                         }
                         else {
-                            option2.setBackground(Color.red);
-                            wrongquestions.add(currentQuestion);
+                            option2.setBackground(Color.RED);
+                            option2.revalidate();
+                            option2.setOpaque(true);
+                            option2.repaint();
+                            if (!wrongquestions.contains(currentQuestion)) {
+                                wrongquestions.add(currentQuestion);
+                            }
                         }
                         // Enable "Next" button after an option is selected
                         nextButton.setEnabled(true);
@@ -104,13 +136,20 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (currentQuestion.getAnswers().get(2).isCorrect()) {
-                            option3.setBackground(Color.green);
+                            option3.setBackground(Color.GREEN);
+                            option3.revalidate();
+                            option3.setOpaque(true);
+                            option3.repaint();
+
                         }
-
                         else {
-                            option3.setBackground(Color.red);
-                            wrongquestions.add(currentQuestion);
-
+                            option3.setBackground(Color.RED);
+                            option3.revalidate();
+                            option3.setOpaque(true);
+                            option3.repaint();
+                            if (!wrongquestions.contains(currentQuestion)) {
+                                wrongquestions.add(currentQuestion);
+                            }
                         }
                         // Enable "Next" button after an option is selected
                         nextButton.setEnabled(true);
@@ -122,11 +161,20 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (currentQuestion.getAnswers().get(3).isCorrect()) {
-                            option4.setBackground(Color.green);
+                            option4.setBackground(Color.GREEN);
+                            option4.revalidate();
+                            option4.setOpaque(true);
+                            option4.repaint();
+
                         }
                         else {
-                            option4.setBackground(Color.red);
-                            wrongquestions.add(currentQuestion);
+                            option4.setBackground(Color.RED);
+                            option4.revalidate();
+                            option4.setOpaque(true);
+                            option4.repaint();
+                            if (!wrongquestions.contains(currentQuestion)) {
+                                wrongquestions.add(currentQuestion);
+                            }
                         }
                         // Enable "Next" button after an option is selected
                         nextButton.setEnabled(true);
@@ -143,11 +191,6 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
                     }
                 }
         );
-
-        final JLabel usernameInfo = new JLabel("Currently logged in: ");
-        usernameInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        username = new JLabel();
-        username.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

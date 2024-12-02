@@ -35,4 +35,7 @@ public class StudyModeQuestionController {
     public void switchToTestResultView() {
         smqInteractor.switchToTestResultView();
     }
+
+    public void switchToStudyModeView() { smqInteractor.switchToStudyModeView();
+    }
 }

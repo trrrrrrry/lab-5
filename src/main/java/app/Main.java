@@ -32,7 +32,7 @@ public class Main {
                                             .addStudyModeBeginUseCase()
                                             .addStudyModeQuestionUseCase()
                                             .addTestResultView()
-                                            .addTestModeUseCase()
+//                                            .addTestModeUseCase()
                                             .addTestModeQuestionUseCase()
                                             .addChangePasswordUseCase()
                                             .addLogoutUseCase()
