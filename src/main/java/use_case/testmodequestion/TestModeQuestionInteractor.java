@@ -1,7 +1,7 @@
 package use_case.testmodequestion;
 
 /**
- * The TestModeQuestion Interactor
+ * The TestModeQuestion Interactor.
  */
 public class TestModeQuestionInteractor implements TestModeQuestionInputBoundary {
     private final TestModeQuestionDataAccessInterface tmqdaiObject;
@@ -14,8 +14,8 @@ public class TestModeQuestionInteractor implements TestModeQuestionInputBoundary
     }
 
     @Override
-    public void execute(TestModeQuestionInputData input) {
-        final String option = input.getSelectedAnswer();
+    public void execute(TestModeQuestionInputData testModeQuestionInputData) {
+        final String option = testModeQuestionInputData.getSelectedAnswer();
 
         //        necessary?
         //        if (!isValidMode(mode)) {
