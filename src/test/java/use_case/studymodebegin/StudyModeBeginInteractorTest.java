@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class StudyModeBeginTest {
+class StudyModeBeginInteractorTest {
 
     @Test
     void successBeginTest() {
@@ -19,7 +19,7 @@ class StudyModeBeginTest {
         // Create a ViewManagerModel to track the current view
         ViewManagerModel viewManagerModel = new ViewManagerModel();
 
-        // Set up a Success Presenter to check if the user is redirected to <StudyModeBeginView>
+        // Set up a Success Presenter to check if the user is redirected to <StudyModeQuestionView>
         // with the module name they selected. In this case, the module name is "Module 1".
         StudyModeBeginOutputBoundary successPresenter = new StudyModeBeginOutputBoundary() {
 

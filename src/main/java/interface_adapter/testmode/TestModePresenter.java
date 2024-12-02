@@ -4,7 +4,6 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.modeselection.ModeSelectionViewModel;
 import interface_adapter.testmodequestion.TestModeQuestionViewModel;
 import use_case.testmode.TestModeOutputBoundary;
-import use_case.testmode.TestModeOutputData;
 
 /**
  * The Presenter for the Test Mode Use Case.
@@ -26,7 +25,7 @@ public class TestModePresenter implements TestModeOutputBoundary {
     }
 
     @Override
-    public void prepareSuccessView(TestModeOutputData outputData) {
+    public void prepareSuccessView() {
         // On success, switch to test mode question view
         final TestModeState testModeState = testModeViewModel.getState();
         this.testModeViewModel.setState(testModeState);
