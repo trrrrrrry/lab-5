@@ -32,22 +32,6 @@ public class TestresultViewModel extends ViewModel<TestresultState> {
     }
 
     /**
-     * A getter for time.
-     * @return time
-     */
-    public int getTime() {
-        return getState().getTime();
-    }
-
-    /**
-     * A setter for time.
-     * @param time time
-     */
-    public void setTime(int time) {
-        getState().setTime(time);
-    }
-
-    /**
      * A getter for incorrect questions.
      * @return incorrect questions
      */

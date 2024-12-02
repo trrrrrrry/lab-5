@@ -7,7 +7,6 @@ import java.util.ArrayList;
  */
 public class TestresultState {
     private int correctQuestions;
-    private int time;
     private ArrayList<String> incorrectQuestions = new ArrayList<>();
     private String testResultError;
 
@@ -17,14 +16,6 @@ public class TestresultState {
 
     public void setCorrectQuestions(int correctQuestions) {
         this.correctQuestions = correctQuestions;
-    }
-
-    public int getTime() {
-        return time;
-    }
-
-    public void setTime(int time) {
-        this.time = time;
     }
 
     public ArrayList<String> getIncorrectQuestions() {
