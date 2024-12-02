@@ -98,7 +98,7 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
         nextButton.setBounds(300, 400, 80, 30);
         buttons.add(nextButton);
 
-        final JLabel usernameInfo = new JLabel("Currently logged in111: ");
+        final JLabel usernameInfo = new JLabel("Currently logged in: ");
         usernameInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
         username = new JLabel();
         username.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -298,14 +298,16 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
 
         if (!this.questions.isEmpty()) {
             currentQuestion = this.questions.poll();
-            studymodequestion.setText(currentQuestion.getQuestionText());
+            studymodequestion.setText("<html><p style='width:350px;'>" + currentQuestion.getQuestionText() + ""
+                    + "</p></html>");
 
             final List<Answer> answers = currentQuestion.getAnswers();
             final JButton[] options = {option1, option2, option3, option4};
 
             for (int i = 0; i < 4; i++) {
                 if (i < answers.size()) {
-                    options[i].setText(answers.get(i).getAnswerText());
+                    options[i].setText("<html><p style='width:300px;'>" + answers.get(i).getAnswerText()
+                            + "</p></html>");
                     options[i].setEnabled(true);
                     // Reset button color
                     options[i].setBackground(null);
