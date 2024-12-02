@@ -40,8 +40,7 @@ class StudyModeInteractorTest {
 
             @Override
             public void switchToModeSelectionView() {
-                viewManagerModel.setState("mode selection");
-                viewManagerModel.firePropertyChanged();
+                // Not useful in this test
             }
         };
 
