@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -33,13 +34,16 @@ public class TestresultView extends JPanel implements ActionListener, PropertyCh
         this.testresultViewModel = viewModel;
         testresultViewModel.addPropertyChangeListener(this);
 
+        final int correctQuestions = testresultViewModel.getState().getCorrectQuestions();
+        final ArrayList<String> incorrectQuestions = testresultViewModel.getState().getIncorrectQuestions();
+
         final JLabel title = new JLabel(TestresultViewModel.TITLE_LABEL);
         final int fontTitle = 32;
         title.setFont(new Font("Times New Roman", Font.BOLD, fontTitle));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        final JLabel correctQuestionsLabel = new JLabel("Correct questions you got for this test is "
-                + viewModel.getCorrectQuestions());
+        final JLabel correctQuestionsLabel = new JLabel("You got "
+                + correctQuestions + " correct questions for this test.");
 
         final JPanel incorrectQuestionsPanel = new JPanel();
         incorrectQuestionsPanel.setLayout(new BoxLayout(incorrectQuestionsPanel, BoxLayout.Y_AXIS));
@@ -52,15 +56,16 @@ public class TestresultView extends JPanel implements ActionListener, PropertyCh
         else {
             incorrectQuestionsLabel = new JLabel("Incorrect questions you got from this test is(are): ");
         }
-        incorrectQuestionsPanel.add(incorrectQuestionsLabel);
 
-        for (String question: viewModel.getIncorrectQuestions()) {
+        for (String question: incorrectQuestions) {
             incorrectQuestionsPanel.add(new JLabel("- " + question));
         }
+        incorrectQuestionsPanel.add(incorrectQuestionsLabel);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(title);
         this.add(correctQuestionsLabel);
+        this.add(incorrectQuestionsPanel);
         this.add(finish);
         finish.addActionListener(
                 new ActionListener() {

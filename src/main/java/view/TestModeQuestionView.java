@@ -5,6 +5,7 @@ import entity.Answer;
 import entity.Question;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.testmodequestion.TestModeQuestionController;
+import interface_adapter.testmodequestion.TestModeQuestionState;
 import interface_adapter.testmodequestion.TestModeQuestionViewModel;
 
 import javax.swing.*;
@@ -35,7 +36,8 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
 
     private LinkedList<Question> questions;
     private Question currentQuestion;
-    private ArrayList<Question> wrongquestions;
+    private ArrayList<String> wrongquestions = new ArrayList<>();
+    private int correctquestions;
 
     public TestModeQuestionView(TestModeQuestionViewModel testModeQuestionViewModel) {
         this.testModeQuestionViewModel = testModeQuestionViewModel;
@@ -91,6 +93,7 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
                             option1.revalidate();
                             option1.setOpaque(true);
                             option1.repaint();
+                            correctquestions++;
 
                         }
                         else {
@@ -99,7 +102,7 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
                             option1.setOpaque(true);
                             option1.repaint();
                             if (!(wrongquestions.contains(currentQuestion))) {
-                                wrongquestions.add(currentQuestion);
+                                wrongquestions.add(currentQuestion.getQuestionText());
                             }
                         }
                         // Enable "Next" button after an option is selected
@@ -116,6 +119,7 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
                             option2.revalidate();
                             option2.setOpaque(true);
                             option2.repaint();
+                            correctquestions++;
 
                         }
                         else {
@@ -124,7 +128,7 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
                             option2.setOpaque(true);
                             option2.repaint();
                             if (!(wrongquestions.contains(currentQuestion))) {
-                                wrongquestions.add(currentQuestion);
+                                wrongquestions.add(currentQuestion.getQuestionText());
                             }
                         }
                         // Enable "Next" button after an option is selected
@@ -141,6 +145,7 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
                             option3.revalidate();
                             option3.setOpaque(true);
                             option3.repaint();
+                            correctquestions++;
 
                         }
                         else {
@@ -149,7 +154,7 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
                             option3.setOpaque(true);
                             option3.repaint();
                             if (!(wrongquestions.contains(currentQuestion))) {
-                                wrongquestions.add(currentQuestion);
+                                wrongquestions.add(currentQuestion.getQuestionText());
                             }
                         }
                         // Enable "Next" button after an option is selected
@@ -166,6 +171,7 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
                             option4.revalidate();
                             option4.setOpaque(true);
                             option4.repaint();
+                            correctquestions++;
 
                         }
                         else {
@@ -174,7 +180,7 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
                             option4.setOpaque(true);
                             option4.repaint();
                             if (!(wrongquestions.contains(currentQuestion))) {
-                                wrongquestions.add(currentQuestion);
+                                wrongquestions.add(currentQuestion.getQuestionText());
                             }
 
                         }
@@ -235,7 +241,13 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
             //                    JOptionPane.INFORMATION_MESSAGE
             //            );
 
-            TestModeQuestionController.switchToTestResultView();
+            final TestModeQuestionState testModeQuestionState = testModeQuestionViewModel.getState();
+            testModeQuestionState.setCorrectQuestions(correctquestions);
+            testModeQuestionState.setIncorrectQuestions(wrongquestions);
+            testModeQuestionViewModel.setState(testModeQuestionState);
+            testModeQuestionViewModel.firePropertyChanged();
+            testModeQuestionController.switchToTestResultView();
+
         }
     }
 

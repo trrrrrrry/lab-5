@@ -1,6 +1,8 @@
 package interface_adapter.testmodequestion;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.testresult.TestresultState;
+import interface_adapter.testresult.TestresultViewModel;
 import use_case.testmodequestion.TestModeQuestionOutputBoundary;
 import use_case.testmodequestion.TestModeQuestionOutputData;
 
@@ -8,20 +10,29 @@ import use_case.testmodequestion.TestModeQuestionOutputData;
  * Presenter for Test Mode Question use case.
  */
 public class TestModeQuestionPresenter implements TestModeQuestionOutputBoundary {
-    private final TestModeQuestionViewModel testModeQuestionViewModel;
-    private final ViewManagerModel viewManagerModel;
+    private TestModeQuestionViewModel testModeQuestionViewModel;
+    private ViewManagerModel viewManagerModel;
+    private TestresultViewModel testresultViewModel;
 
-    public TestModeQuestionPresenter(ViewManagerModel viewManagerModel, TestModeQuestionViewModel testModeQuestionViewModel) {
+    public TestModeQuestionPresenter(ViewManagerModel viewManagerModel,
+                                     TestModeQuestionViewModel testModeQuestionViewModel,
+                                     TestresultViewModel testresultViewModel) {
         this.testModeQuestionViewModel = testModeQuestionViewModel;
         this.viewManagerModel = viewManagerModel;
+        this.testresultViewModel = testresultViewModel;
     }
 
     @Override
     public void prepareSuccessView(TestModeQuestionOutputData output) {
         // TODO: haven't change yet
-        testModeQuestionViewModel.getState().setSelectedOption(output.getSelectedMode());
+        final TestresultState testresultState = testresultViewModel.getState();
+        testresultState.setCorrectQuestions(output.getCorrectQuestions());
+        testresultState.setIncorrectQuestions(output.getIncorrectQuestions());
+        testresultViewModel.setState(testresultState);
 
-        viewManagerModel.setState(output.getSelectedMode());
+        testresultViewModel.firePropertyChanged();
+
+        viewManagerModel.setState(testresultViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 
@@ -39,7 +50,7 @@ public class TestModeQuestionPresenter implements TestModeQuestionOutputBoundary
 
     @Override
     public void switchToTestResultView() {
-        viewManagerModel.setState("test result");
+        viewManagerModel.setState(testresultViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 }
