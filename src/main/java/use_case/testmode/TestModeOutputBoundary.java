@@ -1,5 +1,7 @@
 package use_case.testmode;
 
+import use_case.studymode.StudyModeOutputData;
+
 /**
  * The output boundary for the Test Mode Use Case.
  */
@@ -7,8 +9,9 @@ public interface TestModeOutputBoundary {
 
     /**
      * Prepares the success view for the Test Mode Use Case.
+     * @param outputData the output data
      */
-    void prepareSuccessView();
+    void prepareSuccessView(TestModeOutputData outputData);
 
     /**
      * Prepares the failure view for the Test Mode Use Case.

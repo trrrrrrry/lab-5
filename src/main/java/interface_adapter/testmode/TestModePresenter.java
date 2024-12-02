@@ -25,7 +25,7 @@ public class TestModePresenter implements TestModeOutputBoundary {
     }
 
     @Override
-    public void prepareSuccessView() {
+    public void prepareSuccessView(TestModeOutputData outputData) {
         // On success, switch to test mode question view
 
         final TestModeState testModeState = testModeViewModel.getState();

@@ -6,8 +6,9 @@ package use_case.testmode;
 public interface TestModeInputBoundary {
     /**
      * Executes the test mode use case.
+     * @param testModeInputData the input data
      */
-    void execute();
+    void execute(TestModeInputData testModeInputData);
 
     /**
      * Switch to the Test Mode View.

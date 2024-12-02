@@ -1,22 +1,19 @@
 package use_case.testmode;
 
-import use_case.studymode.StudyModeDataAccessInterface;
-
 /**
  * The Test Mode Interactor.
  */
 public class TestModeInteractor implements TestModeInputBoundary {
-    private final TestModeDataAccessInterface testModeDataAccessInterface;
     private final TestModeOutputBoundary testModeOutputBoundary;
 
-    public TestModeInteractor(TestModeDataAccessInterface testModeDataAccessInterface, TestModeOutputBoundary testModeOutputBoundary) {
-        this.testModeDataAccessInterface = testModeDataAccessInterface;
+    public TestModeInteractor(TestModeOutputBoundary testModeOutputBoundary) {
         this.testModeOutputBoundary = testModeOutputBoundary;
     }
 
     @Override
-    public void execute() {
-        testModeOutputBoundary.prepareSuccessView();
+    public void execute(TestModeInputData testModeInputData) {
+        final TestModeOutputData outputData = new TestModeOutputData();
+        testModeOutputBoundary.prepareSuccessView(outputData);
     }
 
     @Override
