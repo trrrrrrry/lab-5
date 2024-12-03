@@ -90,15 +90,18 @@ import view.*;
 //                  your team to think about ways to refactor the code to resolve these
 //                  if your team decides to work with this as your starter code
 //                  for your final project this term. ami
+
 public class AppBuilder {
     private final JPanel cardPanel = new JPanel();
     private final CardLayout cardLayout = new CardLayout();
+
     // thought question: is the hard dependency below a problem?
-    private final UserFactory userFactory = new CommonUserFactory();
+    private final UserFactory userFactory;
+    // thought question: is the hard dependency below a problem?
+    private final InMemoryUserDataAccessObject userDataAccessObject;
+
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
-
-    private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
 
     private final InMemoryStudyModeDataAccessInterface studyModeDataAccessInterface =
             new InMemoryStudyModeDataAccessInterface();
@@ -114,8 +117,6 @@ public class AppBuilder {
             new InMemoryTestModeQuestionDataAccessInterface();
     private final InMemoryStudyModeQuestionDataAccessInterface studyModeQuestionDataAccessInterface = 
             new InMemoryStudyModeQuestionDataAccessInterface();
-
-
 
     private SignupView signupView;
     private SignupViewModel signupViewModel;
@@ -137,7 +138,9 @@ public class AppBuilder {
     private TestModeQuestionView testModeQuestionView;
     private TestModeQuestionViewModel testModeQuestionViewModel;
 
-    public AppBuilder() {
+    public AppBuilder(UserFactory userFactory, InMemoryUserDataAccessObject userDataAccessObject) {
+        this.userFactory = userFactory;
+        this.userDataAccessObject = userDataAccessObject;
         cardPanel.setLayout(cardLayout);
     }
 

@@ -4,6 +4,10 @@ import java.sql.SQLException;
 
 import javax.swing.JFrame;
 
+import data_access.InMemoryUserDataAccessObject;
+import entity.CommonUserFactory;
+import entity.UserFactory;
+
 /**
  * The Main class of our application.
  */
@@ -14,7 +18,12 @@ public class Main {
      * @throws SQLException throw exception
      */
     public static void main(String[] args) throws SQLException {
-        final AppBuilder appBuilder = new AppBuilder();
+        // Create instances of dependencies
+        final UserFactory userFactory = new CommonUserFactory();
+        final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
+
+        // Inject dependencies into AppBuilder
+        final AppBuilder appBuilder = new AppBuilder(userFactory, userDataAccessObject);
 
         final JFrame application = appBuilder
                                             .addLoginView()
