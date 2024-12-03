@@ -1,7 +1,10 @@
 package use_case.signup;
 
+import java.io.IOException;
+
 import entity.User;
 import entity.UserFactory;
+import use_case.email_validation.VerifaliaEmailValidator;
 
 /**
  * The Signup Interactor.
@@ -22,7 +25,7 @@ public class SignupInteractor implements SignupInputBoundary {
     @Override
     public void execute(SignupInputData signupInputData) {
         boolean validRequest = true;
-//         Step 1: Validate the email
+        // Step 1: Validate the email
         try {
             if (!VerifaliaEmailValidator.validateEmail(signupInputData.getUsername())) {
                 userPresenter.prepareFailView("Invalid email address. Please enter a valid email.");
