@@ -105,8 +105,6 @@ public class AppBuilder {
             new InMemoryStudyModeDataAccessInterface();
     private final InMemoryStudyModeBeginDataAccessInterface studyModeBeginDataAccessInterface =
             new InMemoryStudyModeBeginDataAccessInterface();
-    private final InMemoryTestModeDataAccessInterface testModeDataAccessInterface =
-            new InMemoryTestModeDataAccessInterface();
     private final InMemoryModeSelectionDataAccessObject modeSelectionDataAccessInterface =
             new InMemoryModeSelectionDataAccessObject();
     private final InMemoryTestResultDataAccessObject testResultDataAccessObject =
