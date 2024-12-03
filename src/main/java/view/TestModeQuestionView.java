@@ -230,7 +230,8 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
 
             for (int i = 0; i < 4; i++) {
                 if (i < answers.size()) {
-                    options[i].setText("<html><p style='width:300px;'>" + answers.get(i).getAnswerText());
+                    options[i].setText("<html><p style='width:300px;'>" + answers.get(i).getAnswerText() 
+                                       + "</p></html>");
                     options[i].setEnabled(true);
                     // Reset button color
                     options[i].setBackground(null);
