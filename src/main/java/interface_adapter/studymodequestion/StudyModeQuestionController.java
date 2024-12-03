@@ -23,20 +23,6 @@ public class StudyModeQuestionController {
     }
 
     /**
-     * Execute the "switch to next question View" use case.
-     */
-    public void switchToNextQuestionView() {
-        smqInteractor.switchToNextQuestionView();
-    }
-
-    /**
-     * Execute the "switch to Test Result View" use case.
-     */
-    public void switchToTestResultView() {
-        smqInteractor.switchToTestResultView();
-    }
-
-    /**
      * Execute the "switch to StudyMode View" use case.
      */
     public void switchToStudyModeView() {

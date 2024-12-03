@@ -43,7 +43,6 @@ public class TestModeQuestionPresenter implements TestModeQuestionOutputBoundary
 
     @Override
     public void switchToNextQuestionView() {
-        // TODO : change needed
         viewManagerModel.setState("next question");
         viewManagerModel.firePropertyChanged();
     }

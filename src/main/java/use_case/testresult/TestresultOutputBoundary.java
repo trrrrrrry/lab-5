@@ -4,6 +4,7 @@ package use_case.testresult;
  * The output boundary for the Login Use Case.
  */
 public interface TestresultOutputBoundary {
+
     /**
      * Prepares the success view for the test result Use Case.
      * @param outputData the output data

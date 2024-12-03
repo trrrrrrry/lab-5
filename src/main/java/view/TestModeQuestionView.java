@@ -1,5 +1,20 @@
 package view;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import data_access.DatabaseRetriever;
 import entity.Answer;
 import entity.Question;
@@ -7,15 +22,6 @@ import interface_adapter.logout.LogoutController;
 import interface_adapter.testmodequestion.TestModeQuestionController;
 import interface_adapter.testmodequestion.TestModeQuestionState;
 import interface_adapter.testmodequestion.TestModeQuestionViewModel;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * The View of Test Mode Question.
@@ -42,10 +48,10 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
 
     public TestModeQuestionView(TestModeQuestionViewModel testModeQuestionViewModel) throws SQLException {
         this.testModeQuestionViewModel = testModeQuestionViewModel;
-        //TODO:uncomment 回来
-//        this.questions = DatabaseRetriever.getQuestionsRandom();
-        this.questions = DatabaseRetriever.getQuestionsInRange(0,3);
-        this.wrongquestions = new ArrayList<>();
+        // TODO:uncomment 回来
+        //        this.questions = DatabaseRetriever.getQuestionsRandom();
+        this.questions = DatabaseRetriever.getQuestionsInRange(0, 3);
+        //        this.wrongquestions = new ArrayList<>();
 
         final JLabel title = new JLabel("Test Mode Question");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -91,25 +97,7 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
         option1.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        if (currentQuestion.getAnswers().get(0).isCorrect()) {
-                            option1.setBackground(Color.GREEN);
-                            option1.revalidate();
-                            option1.setOpaque(true);
-                            option1.repaint();
-                            correctquestions++;
-
-                        }
-                        else {
-                            option1.setBackground(Color.RED);
-                            option1.revalidate();
-                            option1.setOpaque(true);
-                            option1.repaint();
-                            if (!(wrongquestions.contains(currentQuestion))) {
-                                wrongquestions.add(currentQuestion.getQuestionText());
-                            }
-                        }
-                        // Enable "Next" button after an option is selected
-                        nextButton.setEnabled(true);
+                        optionsaction(0, option1);
                     }
                 }
         );
@@ -117,25 +105,7 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
         option2.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        if (currentQuestion.getAnswers().get(1).isCorrect()) {
-                            option2.setBackground(Color.GREEN);
-                            option2.revalidate();
-                            option2.setOpaque(true);
-                            option2.repaint();
-                            correctquestions++;
-
-                        }
-                        else {
-                            option2.setBackground(Color.RED);
-                            option2.revalidate();
-                            option2.setOpaque(true);
-                            option2.repaint();
-                            if (!(wrongquestions.contains(currentQuestion))) {
-                                wrongquestions.add(currentQuestion.getQuestionText());
-                            }
-                        }
-                        // Enable "Next" button after an option is selected
-                        nextButton.setEnabled(true);
+                        optionsaction(1, option2);
                     }
                 }
         );
@@ -143,25 +113,7 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
         option3.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        if (currentQuestion.getAnswers().get(2).isCorrect()) {
-                            option3.setBackground(Color.GREEN);
-                            option3.revalidate();
-                            option3.setOpaque(true);
-                            option3.repaint();
-                            correctquestions++;
-
-                        }
-                        else {
-                            option3.setBackground(Color.RED);
-                            option3.revalidate();
-                            option3.setOpaque(true);
-                            option3.repaint();
-                            if (!(wrongquestions.contains(currentQuestion))) {
-                                wrongquestions.add(currentQuestion.getQuestionText());
-                            }
-                        }
-                        // Enable "Next" button after an option is selected
-                        nextButton.setEnabled(true);
+                        optionsaction(2, option3);
                     }
                 }
         );
@@ -169,26 +121,7 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
         option4.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        if (currentQuestion.getAnswers().get(3).isCorrect()) {
-                            option4.setBackground(Color.GREEN);
-                            option4.revalidate();
-                            option4.setOpaque(true);
-                            option4.repaint();
-                            correctquestions++;
-
-                        }
-                        else {
-                            option4.setBackground(Color.RED);
-                            option4.revalidate();
-                            option4.setOpaque(true);
-                            option4.repaint();
-                            if (!(wrongquestions.contains(currentQuestion))) {
-                                wrongquestions.add(currentQuestion.getQuestionText());
-                            }
-
-                        }
-                        // Enable "Next" button after an option is selected
-                        nextButton.setEnabled(true);
+                        optionsaction(3, option4);
                     }
                 }
         );
@@ -211,6 +144,28 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
 
         this.add(usernameInfo);
         this.add(username);
+    }
+
+    private void optionsaction(int id, JButton options) {
+        if (this.currentQuestion.getAnswers().get(id).isCorrect()) {
+            options.setBackground(Color.GREEN);
+            options.revalidate();
+            options.setOpaque(true);
+            options.repaint();
+            this.correctquestions++;
+
+        }
+        else {
+            options.setBackground(Color.RED);
+            options.revalidate();
+            options.setOpaque(true);
+            options.repaint();
+            if (!(this.wrongquestions.contains(this.currentQuestion))) {
+                this.wrongquestions.add(this.currentQuestion.getQuestionText());
+            }
+        }
+        // Enable "Next" button after an option is selected
+        this.nextButton.setEnabled(true);
     }
 
     private void loadNextQuestion() {
@@ -250,7 +205,8 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
             System.out.println(wrongquestions);
             testModeQuestionViewModel.setState(testModeQuestionState);
             testModeQuestionViewModel.firePropertyChanged();
-            testModeQuestionController.execute(testModeQuestionState.getCorrectQuestions(), testModeQuestionState.getIncorrectQuestions());
+            testModeQuestionController.execute(testModeQuestionState.getCorrectQuestions(),
+                    testModeQuestionState.getIncorrectQuestions());
             testModeQuestionController.switchToTestResultView();
 
         }

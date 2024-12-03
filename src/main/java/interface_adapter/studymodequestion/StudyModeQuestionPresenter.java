@@ -18,7 +18,6 @@ public class StudyModeQuestionPresenter implements StudyModeQuestionOutputBounda
 
     @Override
     public void prepareSuccessView(StudyModeQuestionOutputData output) {
-        // TODO: haven't change yet
         studyModeQuestionViewModel.getState().setSelectedOption(output.getSelectedMode());
 
         viewManagerModel.setState(output.getSelectedMode());
@@ -28,19 +27,6 @@ public class StudyModeQuestionPresenter implements StudyModeQuestionOutputBounda
     @Override
     public void prepareFailView(String errorMessage) {
         // assume there is no failure case when selecting a mode.
-    }
-
-    @Override
-    public void switchToNextQuestionView() {
-        // TODO: how next
-        viewManagerModel.setState("next question");
-        viewManagerModel.firePropertyChanged();
-    }
-
-    @Override
-    public void switchToTestResultView() {
-        viewManagerModel.setState("test result");
-        viewManagerModel.firePropertyChanged();
     }
 
     @Override
