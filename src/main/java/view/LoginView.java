@@ -1,13 +1,22 @@
 package view;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Objects;
 
-import javax.swing.*;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -15,6 +24,9 @@ import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
 
+/**
+ * Login View.
+ */
 public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
 
     private final String viewName = "log in";
@@ -44,7 +56,8 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         titlePanel.setBackground(backgroundC);
 
         final JLabel title = new JLabel("Login");
-        title.setFont(new Font("Times New Roman", Font.BOLD, 32));
+        final int fontSize = 32;
+        title.setFont(new Font("Times New Roman", Font.BOLD, fontSize));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Load and resize the image

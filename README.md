@@ -2,8 +2,6 @@
 
 ## Authors and Contributors
 
-- **All members** - *Signup, Signin, Logout Feature*
-
 - **Kimberly Fu** - *Quiz Feature*  
   [Kimberly GitHub page](https://github.com/KiiimFU)
 
@@ -13,7 +11,7 @@
 - **Yanting (Clara) Fan** - *Test Mode & Study Mode*  
   [Yanting's GitHub page](https://github.com/faenwitee)
 
-- **Zixiang (Terry) Huang** - *Modules & Topics Feature*  
+- **Zixiang (Terry) Huang** - *API & Database & app visualization*  
   [Zixiang's GitHub page](https://github.com/trrrrrrry)
 
 

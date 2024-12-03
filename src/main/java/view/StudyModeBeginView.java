@@ -1,15 +1,19 @@
+
 package view;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import interface_adapter.logout.LogoutController;
-import interface_adapter.studymode.StudyModeState;
 import interface_adapter.studymodebegin.StudyModeBeginController;
 import interface_adapter.studymodebegin.StudyModeBeginState;
 import interface_adapter.studymodebegin.StudyModeBeginViewModel;
@@ -36,7 +40,8 @@ public class StudyModeBeginView extends JPanel {
         this.setBackground(Color.decode("#11212D"));
 
         final JLabel title = new JLabel("Study Mode\n");
-        title.setFont(new Font("Times New Roman", Font.ITALIC, 25));
+        final int fontsize = 25;
+        title.setFont(new Font("Times New Roman", Font.ITALIC, fontsize));
         title.setForeground(Color.decode("#4A5C6A"));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -46,12 +51,14 @@ public class StudyModeBeginView extends JPanel {
                 + moduleName + ". The questions you get wrong will be "
                 + " redisplayed until you answer all of them correctly.</html>");
         beginText.setAlignmentX(Component.CENTER_ALIGNMENT);
-        beginText.setFont(new Font("Arial", Font.PLAIN, 20));
+        final int size = 20;
+        beginText.setFont(new Font("Arial", Font.PLAIN, size));
 
         studyModeBeginViewModel.addPropertyChangeListener(evt -> {
             if ("state".equals(evt.getPropertyName())) {
                 moduleName = studyModeBeginViewModel.getState().getModule();
-                beginText.setText("<html><div style='text-align: center; font-family: \"Times New Roman\"; margin: 10px auto;'>"
+                beginText.setText("<html><div style='text-align: center; font-family: "
+                        + "\"Times New Roman\"; margin: 10px auto;'>"
                         + "<p style='color: #C1E8FF;'>Welcome to study <span style='color: #5483B3; "
                         + "font-style: italic;'>" + moduleName + "</span>.</p>"
                         + "<p style='color: #C1E8FF;'>The questions you get wrong</span> "

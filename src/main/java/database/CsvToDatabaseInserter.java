@@ -106,9 +106,11 @@ public class CsvToDatabaseInserter {
     }
 
     /**
-     * Main method to demonstrate the functionality of importing data from a CSV file.
-     * It reads a predefined CSV file and imports its contents into the database.
+     * Main method to execute the CsvToDatabaseInserter.
+     * This demonstrates how to import questions and answers from a CSV file into the database.
      *
+     * <p>It reads a predefined CSV file located at {@code src/main/java/database/questions.csv},
+     * parses the file, and inserts the data into the database.</p>
      * @param args command-line arguments (not used in this method)
      */
     public static void main(String[] args) {

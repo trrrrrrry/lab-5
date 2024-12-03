@@ -48,15 +48,22 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
 
     public TestModeQuestionView(TestModeQuestionViewModel testModeQuestionViewModel) throws SQLException {
         this.testModeQuestionViewModel = testModeQuestionViewModel;
-        // TODO:uncomment 回来
+
+        this.setBackground(Color.decode("#9BA8AB"));
+
+        //TODO:uncomment 回来
         //        this.questions = DatabaseRetriever.getQuestionsRandom();
-        this.questions = DatabaseRetriever.getQuestionsInRange(0, 3);
-        //        this.wrongquestions = new ArrayList<>();
+        this.questions = DatabaseRetriever.getQuestionsInRange(0,3);
+        this.wrongquestions = new ArrayList<>();
+
 
         final JLabel title = new JLabel("Test Mode Question");
+        final int fontsize = 25;
+        title.setFont(new Font("Times New Roman", Font.ITALIC, fontsize));
+        title.setForeground(Color.decode("#4A5C6A"));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        testmodequestion = new JLabel("<html>Question needed to be added </html>");
+        testmodequestion = new JLabel("Question needed to be added");
         testmodequestion.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final JPanel buttons = new JPanel();
@@ -85,6 +92,7 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
         nextButton.setEnabled(false);
         nextButton.setBounds(300, 400, 80, 30);
         buttons.add(nextButton);
+        buttons.setBackground(Color.decode("#9BA8AB"));
 
         final JLabel usernameInfo = new JLabel("Currently logged in: ");
         usernameInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -171,14 +179,16 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
     private void loadNextQuestion() {
         if (!questions.isEmpty()) {
             currentQuestion = questions.poll();
-            testmodequestion.setText(currentQuestion.getQuestionText());
+            testmodequestion.setText("<html><p style='width:350px;'>" + currentQuestion.getQuestionText()
+                    + "</p></html>");
 
             final List<Answer> answers = currentQuestion.getAnswers();
             final JButton[] options = {option1, option2, option3, option4};
 
             for (int i = 0; i < 4; i++) {
                 if (i < answers.size()) {
-                    options[i].setText(answers.get(i).getAnswerText());
+                    options[i].setText("<html><p style='width:300px;'>" + answers.get(i).getAnswerText() 
+                                       + "</p></html>");
                     options[i].setEnabled(true);
                     // Reset button color
                     options[i].setBackground(null);
