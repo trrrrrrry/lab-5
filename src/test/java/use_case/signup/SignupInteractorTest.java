@@ -7,13 +7,13 @@ import entity.UserFactory;
 import org.junit.jupiter.api.Test;
 
 import org.mockito.Mockito;
+import use_case.email_validation.VerifaliaEmailValidator;
 
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mockStatic;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class SignupInteractorTest {
 
@@ -202,5 +202,20 @@ class SignupInteractorTest {
 
         // Clean up static mock
         Mockito.framework().clearInlineMocks();
+    }
+
+    @Test
+    void testSwitchToLoginView() {
+        // Mock dependencies
+        final SignupOutputBoundary mockOutputBoundary = mock(SignupOutputBoundary.class);
+        final SignupUserDataAccessInterface mockDataAccess = mock(SignupUserDataAccessInterface.class);
+
+        // Create the interactor with mocked dependencies
+        final SignupInteractor interactor = new SignupInteractor(mockDataAccess, mockOutputBoundary, null);
+        // Call the method
+        interactor.switchToLoginView();
+
+        // Verify that the output boundary's switchToLoginView method was called
+        verify(mockOutputBoundary, times(1)).switchToLoginView();
     }
 }
