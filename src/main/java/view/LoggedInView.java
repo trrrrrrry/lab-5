@@ -38,12 +38,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private ModeSelectionController modeSelectionController;
     private final JLabel username;
 
-    // private final JButton logOut;
     private final JTextField passwordInputField = new JTextField(15);
-    // private final JButton changePassword;
-    // private final JButton study;
-    // private final JButton test;
-    // private final JPanel buttonWrapper;
     private final String backGroundc = "#11212D";
 
     public LoggedInView(LoggedInViewModel loggedInViewModel) {

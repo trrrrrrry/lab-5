@@ -18,7 +18,6 @@ public class TestresultInputData {
         return correctQuestions;
     }
 
-
     public ArrayList<String> getIncorrectQuestions() {
         return incorrectQuestions;
     }
