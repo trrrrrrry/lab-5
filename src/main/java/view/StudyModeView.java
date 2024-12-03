@@ -104,6 +104,10 @@ public class StudyModeView extends JPanel implements ActionListener {
         styleBackToModeSelection();
         buttonWrapper.add(backToModeSelection);
 
+        backToModeSelection.addActionListener(
+                evt -> studyModeController.switchToModeSelectionView()
+        );
+
         return buttonWrapper;
     }
 
