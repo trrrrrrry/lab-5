@@ -3,7 +3,6 @@ package use_case.testresult;
 import data_access.InMemoryTestResultDataAccessObject;
 import interface_adapter.ViewManagerModel;
 import org.junit.jupiter.api.Test;
-import use_case.testresult.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
