@@ -8,12 +8,10 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import data_access.*;
-import entity.CommonUserFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.change_password.ChangePasswordController;
 import interface_adapter.change_password.ChangePasswordPresenter;
-import interface_adapter.change_password.LoggedInState;
 import interface_adapter.change_password.LoggedInViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
@@ -344,13 +342,14 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addStudyModeQuestionUseCase() {
-        final StudyModeQuestionOutputBoundary studyModeQuestionOutputBoundary = new StudyModeQuestionPresenter(viewManagerModel,
-                 studyModeQuestionViewModel);
+        final StudyModeQuestionOutputBoundary studyModeQuestionOutputBoundary = new StudyModeQuestionPresenter(
+                viewManagerModel, studyModeQuestionViewModel);
 
         final StudyModeQuestionInputBoundary studyModeQuestionInteractor =
                 new StudyModeQuestionInteractor(studyModeQuestionDataAccessInterface, studyModeQuestionOutputBoundary);
 
-        final StudyModeQuestionController studyModeQuestionController = new StudyModeQuestionController(studyModeQuestionInteractor);
+        final StudyModeQuestionController studyModeQuestionController = new StudyModeQuestionController(
+                studyModeQuestionInteractor);
         studyModeQuestionView.setStudyModeQuestionController(studyModeQuestionController);
         return this;
     }
@@ -366,7 +365,8 @@ public class AppBuilder {
         final TestModeQuestionInputBoundary testModeQuestionInteractor =
                 new TestModeQuestionInteractor(testModeQuestionDataAccessInterface, testModeQuestionOutputBoundary);
 
-        final TestModeQuestionController testModeQuestionController = new TestModeQuestionController(testModeQuestionInteractor);
+        final TestModeQuestionController testModeQuestionController =
+                new TestModeQuestionController(testModeQuestionInteractor);
         testModeQuestionView.setTestModeQuestionController(testModeQuestionController);
         return this;
     }
