@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -15,6 +16,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.jetbrains.annotations.NotNull;
+
 import data_access.DatabaseRetriever;
 import entity.Answer;
 import entity.Question;
@@ -27,19 +30,26 @@ import interface_adapter.testmodequestion.TestModeQuestionViewModel;
  * The View of Test Mode Question.
  */
 public class TestModeQuestionView extends JPanel implements ActionListener {
+    private static final int THREE = 3;
+    private static final int FOUR = 4;
+    private static final int TEN = 10;
+    private static final int THRITY = 30;
+    private static final int EIGHTY = 80;
+    private static final int THREEHUNDRED = 300;
+    private static final int FOURHUNDRED = 400;
+
     private final String viewName = "test mode question";
 
     private LogoutController logoutController;
     private final TestModeQuestionViewModel testModeQuestionViewModel;
     private TestModeQuestionController testModeQuestionController;
 
-    private final JLabel username;
     private final JLabel testmodequestion;
     private final JButton option1;
     private final JButton option2;
     private final JButton option3;
     private final JButton option4;
-    private final JButton nextButton;
+    private JButton nextButton;
 
     private LinkedList<Question> questions;
     private Question currentQuestion;
@@ -51,17 +61,12 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
 
         this.setBackground(Color.decode("#9BA8AB"));
 
-        //TODO:uncomment 回来
-        //        this.questions = DatabaseRetriever.getQuestionsRandom();
-        this.questions = DatabaseRetriever.getQuestionsInRange(0,3);
+        // uncomment for full version of test mode question
+        // this.questions = DatabaseRetriever.getQuestionsRandom();
+        this.questions = DatabaseRetriever.getQuestionsInRange(0, THREE);
         this.wrongquestions = new ArrayList<>();
 
-
-        final JLabel title = new JLabel("Test Mode Question");
-        final int fontsize = 25;
-        title.setFont(new Font("Times New Roman", Font.ITALIC, fontsize));
-        title.setForeground(Color.decode("#4A5C6A"));
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        final JLabel title = getjLabel();
 
         testmodequestion = new JLabel("Question needed to be added");
         testmodequestion.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -73,31 +78,21 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
 
         option1 = new JButton("Option 1");
         buttons.add(option1);
-        buttons.add(Box.createVerticalStrut(10));
+        buttons.add(Box.createVerticalStrut(TEN));
 
         option2 = new JButton("Option 2");
         buttons.add(option2);
-        buttons.add(Box.createVerticalStrut(10));
+        buttons.add(Box.createVerticalStrut(TEN));
 
         option3 = new JButton("Option 3");
         buttons.add(option3);
-        buttons.add(Box.createVerticalStrut(10));
+        buttons.add(Box.createVerticalStrut(TEN));
 
         option4 = new JButton("Option 4");
         buttons.add(option4);
-        buttons.add(Box.createVerticalStrut(10));
+        buttons.add(Box.createVerticalStrut(TEN));
 
-        nextButton = new JButton("Next");
-        // disable nextButton at first
-        nextButton.setEnabled(false);
-        nextButton.setBounds(300, 400, 80, 30);
-        buttons.add(nextButton);
-        buttons.setBackground(Color.decode("#9BA8AB"));
-
-        final JLabel usernameInfo = new JLabel("Currently logged in: ");
-        usernameInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        username = new JLabel();
-        username.setAlignmentX(Component.CENTER_ALIGNMENT);
+        nextButton = getNextButton(buttons);
 
         loadNextQuestion();
 
@@ -129,7 +124,7 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
         option4.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        optionsaction(3, option4);
+                        optionsaction(THREE, option4);
                     }
                 }
         );
@@ -144,14 +139,37 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
                 }
         );
 
+        addTo(title, buttons);
+
+    }
+
+    private void addTo(JLabel title, JPanel buttons) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
         this.add(testmodequestion);
         this.add(buttons);
+    }
 
-        this.add(usernameInfo);
-        this.add(username);
+    @NotNull
+    private JButton getNextButton(JPanel buttons) {
+        this.nextButton = new JButton("Next");
+        // disable nextButton at first
+        nextButton.setEnabled(false);
+        nextButton.setBounds(THREEHUNDRED, FOURHUNDRED, EIGHTY, THRITY);
+        buttons.add(nextButton);
+        buttons.setBackground(Color.decode("#9BA8AB"));
+        return nextButton;
+    }
+
+    @NotNull
+    private static JLabel getjLabel() {
+        final JLabel title = new JLabel("Test Mode Question");
+        final int fontsize = 25;
+        title.setFont(new Font("Times New Roman", Font.ITALIC, fontsize));
+        title.setForeground(Color.decode("#4A5C6A"));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        return title;
     }
 
     private void optionsaction(int id, JButton options) {
@@ -185,7 +203,7 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
             final List<Answer> answers = currentQuestion.getAnswers();
             final JButton[] options = {option1, option2, option3, option4};
 
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < FOUR; i++) {
                 if (i < answers.size()) {
                     options[i].setText("<html><p style='width:300px;'>" + answers.get(i).getAnswerText() 
                                        + "</p></html>");
@@ -202,13 +220,6 @@ public class TestModeQuestionView extends JPanel implements ActionListener {
         else {
             // End session if no more questions
             // link to test result
-            //            JOptionPane.showMessageDialog(
-            //                    this,
-            //                    "You have completed the study mode!",
-            //                    "Done",
-            //                    JOptionPane.INFORMATION_MESSAGE
-            //            );
-
             final TestModeQuestionState testModeQuestionState = testModeQuestionViewModel.getState();
             testModeQuestionState.setCorrectQuestions(correctquestions);
             testModeQuestionState.setIncorrectQuestions(wrongquestions);

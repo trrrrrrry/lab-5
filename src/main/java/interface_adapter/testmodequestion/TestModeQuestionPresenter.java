@@ -24,7 +24,6 @@ public class TestModeQuestionPresenter implements TestModeQuestionOutputBoundary
 
     @Override
     public void prepareSuccessView(TestModeQuestionOutputData output) {
-        // TODO: haven't change yet
         final TestresultState testresultState = testresultViewModel.getState();
         testresultState.setCorrectQuestions(output.getCorrectQuestions());
         testresultState.setIncorrectQuestions(output.getIncorrectQuestions());
@@ -39,12 +38,6 @@ public class TestModeQuestionPresenter implements TestModeQuestionOutputBoundary
     @Override
     public void prepareFailView(String errorMessage) {
         // assume there is no failure case when selecting a mode.
-    }
-
-    @Override
-    public void switchToNextQuestionView() {
-        viewManagerModel.setState("next question");
-        viewManagerModel.firePropertyChanged();
     }
 
     @Override

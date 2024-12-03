@@ -8,16 +8,16 @@ import use_case.studymodequestion.StudyModeQuestionDataAccessInterface;
  */
 public class InMemoryStudyModeQuestionDataAccessInterface implements StudyModeQuestionDataAccessInterface {
 
-    private String option;
-
-    @Override
-    public void saveSelectedOption(String option) {
-        this.option = option;
-    }
-
-    @Override
-    public String getSelectedOption() {
-        return this.option;
-    }
+//    private String option;
+//
+//    @Override
+//    public void saveSelectedOption(String option) {
+//        this.option = option;
+//    }
+//
+//    @Override
+//    public String getSelectedOption() {
+//        return this.option;
+//    }
 
 }

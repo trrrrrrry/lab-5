@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -14,6 +15,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import org.jetbrains.annotations.NotNull;
 
 import data_access.DatabaseRetriever;
 import entity.Answer;
@@ -28,8 +31,13 @@ import interface_adapter.studymodequestion.StudyModeQuestionViewModel;
 public class StudyModeQuestionView extends JPanel implements ActionListener {
     private static final int THREE = 3;
     private static final int FOUR = 4;
+    private static final int FIVE = 5;
+    private static final int SIX = 6;
     private static final int TEN = 10;
+    private static final int TWENTY = 20;
     private static final int THRITY = 30;
+    private static final int FOURTY = 40;
+    private static final int SIXTY = 60;
     private static final int EIGHTY = 80;
     private static final int THREEHUNDRED = 300;
     private static final int FOURHUNDRED = 400;
@@ -42,14 +50,13 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
     private final StudyModeQuestionViewModel studyModeQuestionViewModel;
     private StudyModeQuestionController studyModeQuestionController;
 
-    private final JLabel username;
-    private final JLabel studymodequestion;
-    private final JButton option1;
-    private final JButton option2;
-    private final JButton option3;
-    private final JButton option4;
-    private final JButton nextButton;
-    private final JButton finishButton;
+    private JLabel studymodequestion;
+    private JButton option1;
+    private JButton option2;
+    private JButton option3;
+    private JButton option4;
+    private JButton nextButton;
+    private JButton finishButton;
 
     private LinkedList<Question> questions = new LinkedList<>();
     private Question currentQuestion;
@@ -60,42 +67,13 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
         this.studyModeQuestionViewModel = studyModeQuestionViewModel;
         final Random random = new Random();
         this.setBackground(Color.decode("#FBFADA"));
-        this.randomNum = random.nextInt(6) + 1;
+        this.randomNum = random.nextInt(SIX) + 1;
         getModuleQuestion();
-        //        this.questions = DatabaseRetriever.getQuestionsFromStart(0);
-        //        this.moduleName = studyModeQuestionViewModel.getState().getModule();
-        //        this.questions = new LinkedList<>();
-        //        XXXXX
-        //        studyModeQuestionViewModel.addPropertyChangeListener(evt -> {
-        //            if ("state".equals(evt.getPropertyName())) {
-        //                this.moduleName = studyModeQuestionViewModel.getState().getModule();
-        //
-        //                System.out.println(this.moduleName);
-        //                //                getModuleQuestion();
-        //                try {
-        //                    getModuleQuestion();
-        //                }
-        //                catch (SQLException ex) {
-        //                    throw new RuntimeException(ex);
-        //                }
-        //            }
-        //        });
-        //        XXXXX
-        //        final JLabel title = new JLabel("Study Mode Question");
-        //        title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        //        studymodequestion = new JLabel(("Question needed to be added"));
-
-        final JLabel title = new JLabel("Study Mode Question");
-        final int fontsize = 25;
-        title.setFont(new Font("Times New Roman", Font.ITALIC, fontsize));
-        title.setForeground(Color.decode("#436580"));
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        studymodequestion = new JLabel("Question needed to be added ");
-        studymodequestion.setAlignmentX(Component.CENTER_ALIGNMENT);
+        final JLabel title = getjLabel();
 
         final JPanel buttons = new JPanel();
+
         buttons.setLayout(new BoxLayout(buttons, BoxLayout.Y_AXIS));
         //        buttons.setLayout(new FlowLayout(FlowLayout.LEFT));
         buttons.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -115,25 +93,9 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
         option4 = new JButton("Option 4");
         buttons.add(option4);
 
-        nextButton = new JButton("Next");
-        // disable nextButton at first
-        nextButton.setEnabled(false);
+        setNextButton(buttons);
 
-        nextButton.setBounds(THREEHUNDRED, FOURHUNDRED, EIGHTY, THRITY);
-        buttons.setBackground(Color.decode("#FBFADA"));
-
-        buttons.add(nextButton);
-
-        finishButton = new JButton("finish");
-        // disable nextButton at first
-        finishButton.setEnabled(false);
-        finishButton.setBounds(THREEHUNDRED, FOURHUNDRED, EIGHTY, THRITY);
-        buttons.add(finishButton);
-
-        final JLabel usernameInfo = new JLabel("Currently logged in: ");
-        usernameInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        username = new JLabel();
-        username.setAlignmentX(Component.CENTER_ALIGNMENT);
+        setFinishButton(buttons);
 
         loadNextQuestion();
 
@@ -149,7 +111,7 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
         option2.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        optionsaction(1, option3);
+                        optionsaction(1, option2);
                     }
                 }
         );
@@ -165,7 +127,7 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
         option4.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        optionsaction(3, option4);
+                        optionsaction(THREE, option4);
                     }
                 }
         );
@@ -180,80 +142,81 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
                 }
         );
 
+        finishButton.addActionListener(
+            new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                        studyModeQuestionController.switchToStudyModeView();
+                    }
+                }
+        );
+
+        addTo(title, buttons);
+    }
+
+    private void addTo(JLabel title, JPanel buttons) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
         this.add(studymodequestion);
         this.add(buttons);
-
-        this.add(usernameInfo);
-        this.add(username);
     }
 
-    //    private void getModuleQuestion() throws SQLException {
-    //        if ("Module 1".equals(moduleName)) {
-    //            return DatabaseRetriever.getQuestionsFromStart(0);
-    //            this.questions = DatabaseRetriever.getQuestionsFromStart(0);
-    //
-    //        }
-    //        else if ("Module 2".equals(moduleName)) {
-    //            return DatabaseRetriever.getQuestionsFromStart(20);
-    //            this.questions = DatabaseRetriever.getQuestionsFromStart(20);
-    //
-    //        }
-    //        else if ("Module 3".equals(moduleName)) {
-    //            return DatabaseRetriever.getQuestionsFromStart(40);
-    //            this.questions = DatabaseRetriever.getQuestionsFromStart(40);
-    //
-    //        }
-    //        else if ("Module 4".equals(moduleName)) {
-    //            return DatabaseRetriever.getQuestionsFromStart(60);
-    //            this.questions = DatabaseRetriever.getQuestionsFromStart(60);
-    //
-    //        }
-    //        else if ("Module 5".equals(moduleName)) {
-    //             return DatabaseRetriever.getQuestionsFromStart(80);
-    //            this.questions = DatabaseRetriever.getQuestionsFromStart(80);
-    //        }
-    //        else {
-    // return DatabaseRetriever.getQuestionsInRange(100,123);
-    //            this.questions = DatabaseRetriever.getQuestionsInRange(100,123);
-    //
-    //        }
-    //
-    //    }
+    private void setFinishButton(JPanel buttons) {
+        finishButton = new JButton("finish");
+        // disable nextButton at first
+        finishButton.setEnabled(true);
+        finishButton.setBounds(THREEHUNDRED, FOURHUNDRED, EIGHTY, THRITY);
+        buttons.add(finishButton);
+    }
+
+    private void setNextButton(JPanel buttons) {
+        nextButton = new JButton("Next");
+        // disable nextButton at first
+        nextButton.setEnabled(false);
+
+        nextButton.setBounds(THREEHUNDRED, FOURHUNDRED, EIGHTY, THRITY);
+        buttons.setBackground(Color.decode("#FBFADA"));
+
+        buttons.add(nextButton);
+    }
+
+    @NotNull
+    private JLabel getjLabel() {
+        final JLabel title = new JLabel("Study Mode Question");
+        final int fontsize = 25;
+        title.setFont(new Font("Times New Roman", Font.ITALIC, fontsize));
+        title.setForeground(Color.decode("#436580"));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        studymodequestion = new JLabel("Question needed to be added ");
+        studymodequestion.setAlignmentX(Component.CENTER_ALIGNMENT);
+        return title;
+    }
 
     private void getModuleQuestion() throws SQLException {
         if (this.randomNum == 1) {
-            //            return DatabaseRetriever.getQuestionsFromStart(0);
             this.questions = DatabaseRetriever.getQuestionsFromStart(0);
 
         }
         else if (this.randomNum == 2) {
-            //            return DatabaseRetriever.getQuestionsFromStart(20);
-            this.questions = DatabaseRetriever.getQuestionsFromStart(20);
+            this.questions = DatabaseRetriever.getQuestionsFromStart(TWENTY);
 
         }
-        else if (this.randomNum == 3) {
-            //            return DatabaseRetriever.getQuestionsFromStart(40);
-            this.questions = DatabaseRetriever.getQuestionsFromStart(40);
+        else if (this.randomNum == THREE) {
+            this.questions = DatabaseRetriever.getQuestionsFromStart(FOURTY);
 
         }
-        else if (this.randomNum == 4) {
-            //            return DatabaseRetriever.getQuestionsFromStart(60);
-            this.questions = DatabaseRetriever.getQuestionsFromStart(60);
+        else if (this.randomNum == FOUR) {
+            this.questions = DatabaseRetriever.getQuestionsFromStart(SIXTY);
 
         }
-        else if (this.randomNum == 5) {
-            //            return DatabaseRetriever.getQuestionsFromStart(80);
+        else if (this.randomNum == FIVE) {
             this.questions = DatabaseRetriever.getQuestionsFromStart(EIGHTY);
         }
         else {
-            //            return DatabaseRetriever.getQuestionsInRange(100,123);
             this.questions = DatabaseRetriever.getQuestionsInRange(ONEHUNDRED, ONETWOTHREE);
 
         }
-
     }
 
     private void optionsaction(int id, JButton options) {
@@ -309,12 +272,6 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
         }
         else {
             // End session if no more questions
-            //            JOptionPane.showMessageDialog(
-            //                    this,
-            //                    "You have completed the study mode!",
-            //                    "Done",
-            //                    JOptionPane.INFORMATION_MESSAGE
-            //            );
             studyModeQuestionController.switchToStudyModeView();
 
         }
@@ -337,10 +294,18 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
         System.out.println("Click " + evt.getActionCommand());
     }
 
+    /**
+     * Helper function on get CurrentQuestion.
+     * @return studymodequestion the Jlabel
+     */
     public JLabel getCurrentQuestion() {
         return studymodequestion;
     }
 
+    /**
+     * Helper function on get CurrentQuestion.
+     * @return buttons the button
+     */
     public JButton[] getOptionsButtons() {
         final JButton[] buttons = {option1, option2, option3, option4};
         return buttons;

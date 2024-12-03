@@ -17,11 +17,6 @@ public interface TestModeQuestionOutputBoundary {
     void prepareFailView(String errorMessage);
 
     /**
-     * Switch to the next Test Mode Question View.
-     */
-    void switchToNextQuestionView();
-
-    /**
      * Switch to the Test Result View.
      */
     void switchToTestResultView();
