@@ -6,10 +6,7 @@ import entity.User;
 import entity.UserFactory;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
-
 import org.mockito.Mockito;
-import use_case.email_validation.VerifaliaEmailValidator;
 
 import java.io.IOException;
 
@@ -17,8 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class SignupInteractorTest {
 
