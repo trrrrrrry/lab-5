@@ -36,7 +36,8 @@ public class StudyModeBeginView extends JPanel {
         this.setBackground(Color.decode("#11212D"));
 
         final JLabel title = new JLabel("Study Mode\n");
-        title.setFont(new Font("Times New Roman", Font.ITALIC, 25));
+        final int fontsize = 25;
+        title.setFont(new Font("Times New Roman", Font.ITALIC, fontsize));
         title.setForeground(Color.decode("#4A5C6A"));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 

@@ -44,6 +44,7 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
     public StudyModeQuestionView(StudyModeQuestionViewModel studyModeQuestionViewModel) throws SQLException {
         this.studyModeQuestionViewModel = studyModeQuestionViewModel;
         final Random random = new Random();
+        this.setBackground(Color.decode("#FBFADA"));
         this.randomNum = random.nextInt(6) + 1;
         getModuleQuestion();
         //        this.questions = DatabaseRetriever.getQuestionsFromStart(0);
@@ -69,6 +70,13 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
         //        title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         //        studymodequestion = new JLabel(("Question needed to be added"));
+
+        final JLabel title = new JLabel("Study Mode Question");
+        final int fontsize = 25;
+        title.setFont(new Font("Times New Roman", Font.ITALIC, fontsize));
+        title.setForeground(Color.decode("#436580"));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         studymodequestion = new JLabel("Question needed to be added ");
         studymodequestion.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -96,6 +104,7 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
         // disable nextButton at first
         nextButton.setEnabled(false);
         nextButton.setBounds(300, 400, 80, 30);
+        buttons.setBackground(Color.decode("#FBFADA"));
         buttons.add(nextButton);
 
         final JLabel usernameInfo = new JLabel("Currently logged in: ");
@@ -217,7 +226,7 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        //        this.add(title);
+        this.add(title);
         this.add(studymodequestion);
         this.add(buttons);
 
@@ -298,7 +307,7 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
 
         if (!this.questions.isEmpty()) {
             currentQuestion = this.questions.poll();
-            studymodequestion.setText("<html><p style='width:350px;'>" + currentQuestion.getQuestionText() + ""
+            studymodequestion.setText("<html><p style='width:350px;'>" + currentQuestion.getQuestionText()
                     + "</p></html>");
 
             final List<Answer> answers = currentQuestion.getAnswers();
