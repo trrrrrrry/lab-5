@@ -12,6 +12,10 @@ import entity.Question;
  */
 public class DatabaseViewer {
 
+    private static final String ID = "Question ID: ";
+    private static final String TEXT = "Question Text: ";
+    private static final String ANSWER = " - Answer: ";
+
     /**
      * Fetches all questions and answers from the database and prints them to the console.
      */
@@ -20,11 +24,11 @@ public class DatabaseViewer {
             final List<Question> questions = DatabaseRetriever.getAllQuestions();
 
             for (Question question : questions) {
-                System.out.println("Question ID: " + question.getId());
-                System.out.println("Question Text: " + question.getQuestionText());
+                System.out.println(ID + question.getId());
+                System.out.println(TEXT + question.getQuestionText());
 
                 for (Answer answer : question.getAnswers()) {
-                    String answerText = " - Answer: " + answer.getAnswerText();
+                    String answerText = ANSWER + answer.getAnswerText();
                     if (answer.isCorrect()) {
                         answerText += " (Correct)";
                     }
@@ -33,8 +37,9 @@ public class DatabaseViewer {
                 System.out.println();
             }
         }
-        catch (Exception databaseviewerexception) {
-            databaseviewerexception.printStackTrace();
+        catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+            System.err.println("Error retrieving questions from the database.");
         }
     }
 
@@ -50,12 +55,12 @@ public class DatabaseViewer {
 
             // Iterate through the questions and display them
             for (Question question : questions) {
-                System.out.println("Question ID: " + question.getId());
-                System.out.println("Question Text: " + question.getQuestionText());
+                System.out.println(ID + question.getId());
+                System.out.println(TEXT + question.getQuestionText());
 
                 // Iterate through the answers for each question and display them
                 for (Answer answer : question.getAnswers()) {
-                    String answerText = " - Answer: " + answer.getAnswerText();
+                    final String answerText = ANSWER + answer.getAnswerText();
                     //                    if (answer.isCorrect()) {
                     //                        answerText += " (Correct)";
                     //                    }
@@ -79,12 +84,12 @@ public class DatabaseViewer {
 
         // Iterate through the questions and display them
         for (Question question : questions) {
-            System.out.println("Question ID: " + question.getId());
-            System.out.println("Question Text: " + question.getQuestionText());
+            System.out.println(ID + question.getId());
+            System.out.println(TEXT + question.getQuestionText());
 
             // Iterate through the answers for each question and display them
             for (Answer answer : question.getAnswers()) {
-                String answerText = " - Answer: " + answer.getAnswerText();
+                String answerText = ANSWER + answer.getAnswerText();
                 if (answer.isCorrect()) {
                     answerText += " (Correct)";
                 }

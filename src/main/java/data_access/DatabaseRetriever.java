@@ -16,6 +16,9 @@ import entity.Question;
  */
 public class DatabaseRetriever {
 
+    private static final String QUESTION_ID = "id";
+    private static final String QUESTION_TEXT = "question_text";
+
     /**
      * Retrieves all questions from the database along with their answers.
      *
@@ -31,8 +34,8 @@ public class DatabaseRetriever {
              ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
-                final int id = rs.getInt("id");
-                final String questionText = rs.getString("question_text");
+                final int id = rs.getInt(QUESTION_ID);
+                final String questionText = rs.getString(QUESTION_TEXT);
                 final List<Answer> answers = getAllAnswersOnQ(id);
 
                 // Create a Question object with its ID and answers
@@ -49,7 +52,6 @@ public class DatabaseRetriever {
      * @param questionID the ID of the question in which we are trying to find the answers.
      * @return a list of answer objects with associated question
      * @throws SQLException if a database access error occurs
-     *
      */
     public static List<Answer> getAllAnswersOnQ(int questionID) throws SQLException {
         final List<Answer> answers = new ArrayList<>();
@@ -83,7 +85,7 @@ public class DatabaseRetriever {
      * Retrieves a subset of questions from the database within a specified range.
      *
      * @param startID the starting ID of the range.
-     * @param endID the ending ID of the range.
+     * @param endID   the ending ID of the range.
      * @return a list of Question objects with associated answers within the range.
      * @throws SQLException if a database access error occurs.
      */
@@ -98,8 +100,8 @@ public class DatabaseRetriever {
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
-                    final int id = rs.getInt("id");
-                    final String questionText = rs.getString("question_text");
+                    final int id = rs.getInt(QUESTION_ID);
+                    final String questionText = rs.getString(QUESTION_TEXT);
 
                     // Fetch associated answers for the current question
                     final List<Answer> answers = getAllAnswersOnQ(id);
@@ -110,9 +112,9 @@ public class DatabaseRetriever {
                 }
             }
         }
-        catch (SQLException e) {
-            e.printStackTrace();
-            throw e;
+        catch (SQLException exp) {
+            exp.printStackTrace();
+            throw exp;
         }
 
         return questions;
@@ -135,8 +137,8 @@ public class DatabaseRetriever {
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
-                    final int id = rs.getInt("id");
-                    final String questionText = rs.getString("question_text");
+                    final int id = rs.getInt(QUESTION_ID);
+                    final String questionText = rs.getString(QUESTION_TEXT);
 
                     // Fetch associated answers for the current question
                     final List<Answer> answers = getAllAnswersOnQ(id);
@@ -147,14 +149,22 @@ public class DatabaseRetriever {
                 }
             }
         }
-        catch (SQLException e) {
-            e.printStackTrace();
-            throw e;
+        catch (SQLException exp) {
+            exp.printStackTrace();
+            throw exp;
         }
 
         return questions;
     }
 
+    /**
+     * Retrieves a random selection of 40 questions from the database.
+     * Each question includes its associated answers.
+     *
+     * @return a {@code LinkedList<Question>} containing 40 random questions with their respective answers.
+     * @throws RuntimeException if a database access error occurs or the query fails.
+     *
+     */
     public static LinkedList<Question> getQuestionsRandom() {
         final LinkedList<Question> questions = new LinkedList<Question>();
         final String query = "SELECT id, question_text FROM Questions ORDER BY RANDOM() LIMIT 40";
@@ -165,7 +175,7 @@ public class DatabaseRetriever {
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     final int id = rs.getInt("id");
-                    final String questionText = rs.getString("question_text");
+                    final String questionText = rs.getString(QUESTION_TEXT);
 
                     // Fetch associated answers for the current question
                     final List<Answer> answers = getAllAnswersOnQ(id);
@@ -183,41 +193,4 @@ public class DatabaseRetriever {
 
         return questions;
     }
-
-//    /**
-//     * Retrieves up to 20 questions between the specified ID range.
-//     *
-//     * @param startID the starting ID of the range.
-//     * @param endID the ending ID of the range.
-//     * @return a list of Question objects within the specified range.
-//     * @throws SQLException if a database access error occurs.
-//     */
-//    public static List<Answer> getAnswersInRange(int startID, int endID) throws SQLException {
-//        final List<Answer> answers = new ArrayList<>();
-//        final String query = "SELECT answer_text, is_correct FROM Answers WHERE question_id BETWEEN ? AND ? LIMIT 20 ";
-//
-//        try (Connection conn = DatabaseConnection.getConnection();
-//             PreparedStatement pstmt = conn.prepareStatement(query)) {
-//            pstmt.setInt(1, startID);
-//            pstmt.setInt(2, endID);
-//
-//            try (ResultSet rs = pstmt.executeQuery()) {
-//                while (rs.next()) {
-//                    final boolean isCorrect = rs.getBoolean("is_correct");
-//                    final String answerText = rs.getString("answer_text");
-//
-//                    // Create a Question object and add it to the list
-//                    final Answer answer = new Answer(answerText, isCorrect);
-//                    answers.add(answer);
-//                }
-//            }
-//        }
-//        catch (SQLException retrieverE) {
-//            retrieverE.printStackTrace();
-//            throw retrieverE;
-//        }
-//
-//        return answers;
-//    }
-
 }

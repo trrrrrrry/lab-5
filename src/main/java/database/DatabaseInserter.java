@@ -22,7 +22,8 @@ public class DatabaseInserter {
         final String insertQuestionSql = "INSERT INTO Questions (question_text) VALUES (?)";
         int generatedId = -1;
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(insertQuestionSql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement stmt = conn.prepareStatement(insertQuestionSql,
+                     PreparedStatement.RETURN_GENERATED_KEYS)) {
 
             stmt.setString(1, questionText);
             stmt.executeUpdate();
@@ -54,29 +55,30 @@ public class DatabaseInserter {
             stmt.executeUpdate();
         }
     }
-
-    /**
-     * The main method serves as the entry point of the application.
-     * This method demonstrates inserting a sample question and its corresponding answers
-     * into the database. It uses {@link #insertQuestion(String)} to add a question
-     * and {@link #insertAnswer(int, String, boolean)} to add possible answers.
-     *
-     * @param args command-line arguments passed to the application (not used in this method)
-     */
-    public static void main(String[] args) {
-        try {
-            // Example data insertion
-            final int questionId = insertQuestion("What is the capital of France?");
-            insertAnswer(questionId, "Paris", true);
-            insertAnswer(questionId, "London", false);
-            insertAnswer(questionId, "Berlin", false);
-            insertAnswer(questionId, "Rome", false);
-
-            System.out.println("Question and answers with id " + questionId + " inserted successfully.");
-
-        }
-        catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-    }
 }
+
+//    /**
+//     * The main method serves as the entry point of the application.
+//     * This method demonstrates inserting a sample question and its corresponding answers
+//     * into the database. It uses {@link #insertQuestion(String)} to add a question
+//     * and {@link #insertAnswer(int, String, boolean)} to add possible answers.
+//     *
+//     * @param args command-line arguments passed to the application (not used in this method)
+//     */
+//    public static void main(String[] args) {
+//        try {
+//            // Example data insertion
+//            final int questionId = insertQuestion("What is the capital of France?");
+//            insertAnswer(questionId, "Paris", true);
+//            insertAnswer(questionId, "London", false);
+//            insertAnswer(questionId, "Berlin", false);
+//            insertAnswer(questionId, "Rome", false);
+//
+//            System.out.println("Question and answers with id " + questionId + " inserted successfully.");
+//
+//        }
+//        catch (SQLException exception) {
+//            exception.printStackTrace();
+//        }
+//     }
+
