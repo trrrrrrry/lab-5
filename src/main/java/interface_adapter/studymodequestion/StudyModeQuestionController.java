@@ -18,7 +18,7 @@ public class StudyModeQuestionController {
      * @param option the option that the user selected.
      */
     public void execute(String option) {
-        final StudyModeQuestionInputData input = new StudyModeQuestionInputData(option);
+        final StudyModeQuestionInputData input = new StudyModeQuestionInputData();
         smqInteractor.execute(input);
     }
 
