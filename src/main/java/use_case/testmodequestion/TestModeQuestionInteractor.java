@@ -17,15 +17,9 @@ public class TestModeQuestionInteractor implements TestModeQuestionInputBoundary
 
     @Override
     public void execute(TestModeQuestionInputData testModeQuestionInputData) {
-        //        final String option = testModeQuestionInputData.getSelectedAnswer();
         final int correctnumber = testModeQuestionInputData.getCorrectAnswer();
         final ArrayList<String> wrongquestions = testModeQuestionInputData.getWrongquestions();
 
-        //                necessary?
-        //                if (!isValidMode(mode)) {
-        //                    presenter.prepareFailView("Invalid answer selected,
-        //                    Please choose one of the fourth option");
-        //                }
         final TestModeQuestionOutputData output = new TestModeQuestionOutputData(correctnumber, wrongquestions);
 
         presenter.prepareSuccessView(output);
