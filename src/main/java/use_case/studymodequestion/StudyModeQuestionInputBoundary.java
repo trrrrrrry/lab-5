@@ -12,16 +12,6 @@ public interface StudyModeQuestionInputBoundary {
     void execute(StudyModeQuestionInputData studyModeQuestionInputDataInputData);
 
     /**
-     * Switch to next Question View.
-     */
-    void switchToNextQuestionView();
-
-    /**
-     * Switch to the TestResult(?) View.
-     */
-    void switchToTestResultView();
-
-    /**
      * Switch back to the StudyMode View.
      */
     void switchToStudyModeView();

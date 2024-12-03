@@ -9,29 +9,8 @@ import use_case.testmodequestion.TestModeQuestionDataAccessInterface;
  */
 public class InMemoryTestModeQuestionDataAccessInterface implements TestModeQuestionDataAccessInterface {
 
-    private String options;
     private int correctQuestions;
     private ArrayList<String> incorrectQuestions;
-
-    /**
-     * Save the specific option selected.
-     *
-     * @param option The selected option to be saved, represented as a String.
-     */
-    @Override
-    public void saveSelectedOption(String option) {
-        this.options = option;
-    }
-
-    /**
-     * Get the current selected option.
-     *
-     * @return current option
-     */
-    @Override
-    public String getSelectedOption() {
-        return this.options;
-    }
 
     @Override
     public int getCorrectQuestions() {

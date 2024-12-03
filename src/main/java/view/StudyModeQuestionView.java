@@ -1,6 +1,7 @@
 package view;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -8,7 +9,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import javax.swing.*;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import data_access.DatabaseRetriever;
 import entity.Answer;
@@ -17,11 +22,20 @@ import interface_adapter.logout.LogoutController;
 import interface_adapter.studymodequestion.StudyModeQuestionController;
 import interface_adapter.studymodequestion.StudyModeQuestionViewModel;
 
-// TODO: wrapper of question text and option text
 /**
  * The View of Study Mode Question.
  */
 public class StudyModeQuestionView extends JPanel implements ActionListener {
+    private static final int THREE = 3;
+    private static final int FOUR = 4;
+    private static final int TEN = 10;
+    private static final int THRITY = 30;
+    private static final int EIGHTY = 80;
+    private static final int THREEHUNDRED = 300;
+    private static final int FOURHUNDRED = 400;
+    private static final int ONETWOTHREE = 123;
+    private static final int ONEHUNDRED = 100;
+
     private final String viewName = "study mode question";
 
     private LogoutController logoutController;
@@ -35,6 +49,7 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
     private final JButton option3;
     private final JButton option4;
     private final JButton nextButton;
+    private final JButton finishButton;
 
     private LinkedList<Question> questions = new LinkedList<>();
     private Question currentQuestion;
@@ -87,15 +102,15 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
 
         option1 = new JButton("Option 1");
         buttons.add(option1);
-        buttons.add(Box.createVerticalStrut(10));
+        buttons.add(Box.createVerticalStrut(TEN));
 
         option2 = new JButton("Option 2");
         buttons.add(option2);
-        buttons.add(Box.createVerticalStrut(10));
+        buttons.add(Box.createVerticalStrut(TEN));
 
         option3 = new JButton("Option 3");
         buttons.add(option3);
-        buttons.add(Box.createVerticalStrut(10));
+        buttons.add(Box.createVerticalStrut(TEN));
 
         option4 = new JButton("Option 4");
         buttons.add(option4);
@@ -103,9 +118,17 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
         nextButton = new JButton("Next");
         // disable nextButton at first
         nextButton.setEnabled(false);
-        nextButton.setBounds(300, 400, 80, 30);
+
+        nextButton.setBounds(THREEHUNDRED, FOURHUNDRED, EIGHTY, THRITY);
         buttons.setBackground(Color.decode("#FBFADA"));
+
         buttons.add(nextButton);
+
+        finishButton = new JButton("finish");
+        // disable nextButton at first
+        finishButton.setEnabled(false);
+        finishButton.setBounds(THREEHUNDRED, FOURHUNDRED, EIGHTY, THRITY);
+        buttons.add(finishButton);
 
         final JLabel usernameInfo = new JLabel("Currently logged in: ");
         usernameInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -118,24 +141,7 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
         option1.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        if (currentQuestion.getAnswers().get(0).isCorrect()) {
-                            option1.setBackground(Color.GREEN);
-                            option1.revalidate();
-                            option1.setOpaque(true);
-                            option1.repaint();
-
-                        }
-                        else {
-                            option1.setBackground(Color.RED);
-                            option1.revalidate();
-                            option1.setOpaque(true);
-                            option1.repaint();
-                            if (!questions.contains(currentQuestion)) {
-                                questions.add(currentQuestion);
-                            }
-                        }
-                        // Enable "Next" button after an option is selected
-                        nextButton.setEnabled(true);
+                        optionsaction(0, option1);
                     }
                 }
         );
@@ -143,23 +149,7 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
         option2.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        if (currentQuestion.getAnswers().get(1).isCorrect()) {
-                            option2.setBackground(Color.GREEN);
-                            option2.revalidate();
-                            option2.setOpaque(true);
-                            option2.repaint();
-                        }
-                        else {
-                            option2.setBackground(Color.RED);
-                            option2.revalidate();
-                            option2.setOpaque(true);
-                            option2.repaint();
-                            if (!questions.contains(currentQuestion)) {
-                                questions.add(currentQuestion);
-                            }
-                        }
-                        // Enable "Next" button after an option is selected
-                        nextButton.setEnabled(true);
+                        optionsaction(1, option3);
                     }
                 }
         );
@@ -167,25 +157,7 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
         option3.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        if (currentQuestion.getAnswers().get(2).isCorrect()) {
-                            option3.setBackground(Color.GREEN);
-                            option3.revalidate();
-                            option3.setOpaque(true);
-                            option3.repaint();
-                        }
-
-                        else {
-                            option3.setBackground(Color.RED);
-                            option3.revalidate();
-                            option3.setOpaque(true);
-                            option3.repaint();
-
-                            if (!questions.contains(currentQuestion)) {
-                                questions.add(currentQuestion);
-                            }
-                        }
-                        // Enable "Next" button after an option is selected
-                        nextButton.setEnabled(true);
+                        optionsaction(2, option3);
                     }
                 }
         );
@@ -193,23 +165,7 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
         option4.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        if (currentQuestion.getAnswers().get(3).isCorrect()) {
-                            option4.setBackground(Color.GREEN);
-                            option4.revalidate();
-                            option4.setOpaque(true);
-                            option4.repaint();
-                        }
-                        else {
-                            option4.setBackground(Color.RED);
-                            option4.revalidate();
-                            option4.setOpaque(true);
-                            option4.repaint();
-                            if (!questions.contains(currentQuestion)) {
-                                questions.add(currentQuestion);
-                            }
-                        }
-                        // Enable "Next" button after an option is selected
-                        nextButton.setEnabled(true);
+                        optionsaction(3, option4);
                     }
                 }
         );
@@ -234,73 +190,97 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
         this.add(username);
     }
 
-//    private void getModuleQuestion() throws SQLException {
-//        if ("Module 1".equals(moduleName)) {
-////            return DatabaseRetriever.getQuestionsFromStart(0);
-//            this.questions = DatabaseRetriever.getQuestionsFromStart(0);
-//
-//        }
-//        else if ("Module 2".equals(moduleName)) {
-////            return DatabaseRetriever.getQuestionsFromStart(20);
-//            this.questions = DatabaseRetriever.getQuestionsFromStart(20);
-//
-//        }
-//        else if ("Module 3".equals(moduleName)) {
-////            return DatabaseRetriever.getQuestionsFromStart(40);
-//            this.questions = DatabaseRetriever.getQuestionsFromStart(40);
-//
-//        }
-//        else if ("Module 4".equals(moduleName)) {
-////            return DatabaseRetriever.getQuestionsFromStart(60);
-//            this.questions = DatabaseRetriever.getQuestionsFromStart(60);
-//
-//        }
-//        else if ("Module 5".equals(moduleName)) {
-////            return DatabaseRetriever.getQuestionsFromStart(80);
-//            this.questions = DatabaseRetriever.getQuestionsFromStart(80);
-//        }
-//        else {
-////            return DatabaseRetriever.getQuestionsInRange(100,123);
-//            this.questions = DatabaseRetriever.getQuestionsInRange(100,123);
-//
-//        }
-//
-//    }
+    //    private void getModuleQuestion() throws SQLException {
+    //        if ("Module 1".equals(moduleName)) {
+    //            return DatabaseRetriever.getQuestionsFromStart(0);
+    //            this.questions = DatabaseRetriever.getQuestionsFromStart(0);
+    //
+    //        }
+    //        else if ("Module 2".equals(moduleName)) {
+    //            return DatabaseRetriever.getQuestionsFromStart(20);
+    //            this.questions = DatabaseRetriever.getQuestionsFromStart(20);
+    //
+    //        }
+    //        else if ("Module 3".equals(moduleName)) {
+    //            return DatabaseRetriever.getQuestionsFromStart(40);
+    //            this.questions = DatabaseRetriever.getQuestionsFromStart(40);
+    //
+    //        }
+    //        else if ("Module 4".equals(moduleName)) {
+    //            return DatabaseRetriever.getQuestionsFromStart(60);
+    //            this.questions = DatabaseRetriever.getQuestionsFromStart(60);
+    //
+    //        }
+    //        else if ("Module 5".equals(moduleName)) {
+    //             return DatabaseRetriever.getQuestionsFromStart(80);
+    //            this.questions = DatabaseRetriever.getQuestionsFromStart(80);
+    //        }
+    //        else {
+    // return DatabaseRetriever.getQuestionsInRange(100,123);
+    //            this.questions = DatabaseRetriever.getQuestionsInRange(100,123);
+    //
+    //        }
+    //
+    //    }
 
     private void getModuleQuestion() throws SQLException {
         if (this.randomNum == 1) {
-//            return DatabaseRetriever.getQuestionsFromStart(0);
+            //            return DatabaseRetriever.getQuestionsFromStart(0);
             this.questions = DatabaseRetriever.getQuestionsFromStart(0);
 
         }
         else if (this.randomNum == 2) {
-//            return DatabaseRetriever.getQuestionsFromStart(20);
+            //            return DatabaseRetriever.getQuestionsFromStart(20);
             this.questions = DatabaseRetriever.getQuestionsFromStart(20);
 
         }
         else if (this.randomNum == 3) {
-//            return DatabaseRetriever.getQuestionsFromStart(40);
+            //            return DatabaseRetriever.getQuestionsFromStart(40);
             this.questions = DatabaseRetriever.getQuestionsFromStart(40);
 
         }
         else if (this.randomNum == 4) {
-//            return DatabaseRetriever.getQuestionsFromStart(60);
+            //            return DatabaseRetriever.getQuestionsFromStart(60);
             this.questions = DatabaseRetriever.getQuestionsFromStart(60);
 
         }
         else if (this.randomNum == 5) {
-//            return DatabaseRetriever.getQuestionsFromStart(80);
-            this.questions = DatabaseRetriever.getQuestionsFromStart(80);
+            //            return DatabaseRetriever.getQuestionsFromStart(80);
+            this.questions = DatabaseRetriever.getQuestionsFromStart(EIGHTY);
         }
         else {
-//            return DatabaseRetriever.getQuestionsInRange(100,123);
-            this.questions = DatabaseRetriever.getQuestionsInRange(100,123);
+            //            return DatabaseRetriever.getQuestionsInRange(100,123);
+            this.questions = DatabaseRetriever.getQuestionsInRange(ONEHUNDRED, ONETWOTHREE);
 
         }
 
     }
 
-    private void loadNextQuestion() {
+    private void optionsaction(int id, JButton options) {
+        if (this.currentQuestion.getAnswers().get(id).isCorrect()) {
+            options.setBackground(Color.GREEN);
+            options.revalidate();
+            options.setOpaque(true);
+            options.repaint();
+
+        }
+        else {
+            options.setBackground(Color.RED);
+            options.revalidate();
+            options.setOpaque(true);
+            options.repaint();
+            if (!this.questions.contains(this.currentQuestion)) {
+                this.questions.add(this.currentQuestion);
+            }
+        }
+        // Enable "Next" button after an option is selected
+        this.nextButton.setEnabled(true);
+    }
+
+    /**
+     * LoadNextQuestion load the next question.
+     */
+    public void loadNextQuestion() {
         //        if (this.questions == null || this.questions.isEmpty()) {
         //            System.out.print("no questions available yet.");
         //        }
@@ -313,7 +293,7 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
             final List<Answer> answers = currentQuestion.getAnswers();
             final JButton[] options = {option1, option2, option3, option4};
 
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < FOUR; i++) {
                 if (i < answers.size()) {
                     options[i].setText("<html><p style='width:300px;'>" + answers.get(i).getAnswerText()
                             + "</p></html>");
@@ -329,12 +309,12 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
         }
         else {
             // End session if no more questions
-//            JOptionPane.showMessageDialog(
-//                    this,
-//                    "You have completed the study mode!",
-//                    "Done",
-//                    JOptionPane.INFORMATION_MESSAGE
-//            );
+            //            JOptionPane.showMessageDialog(
+            //                    this,
+            //                    "You have completed the study mode!",
+            //                    "Done",
+            //                    JOptionPane.INFORMATION_MESSAGE
+            //            );
             studyModeQuestionController.switchToStudyModeView();
 
         }
@@ -357,4 +337,12 @@ public class StudyModeQuestionView extends JPanel implements ActionListener {
         System.out.println("Click " + evt.getActionCommand());
     }
 
+    public JLabel getCurrentQuestion() {
+        return studymodequestion;
+    }
+
+    public JButton[] getOptionsButtons() {
+        final JButton[] buttons = {option1, option2, option3, option4};
+        return buttons;
+    }
 }

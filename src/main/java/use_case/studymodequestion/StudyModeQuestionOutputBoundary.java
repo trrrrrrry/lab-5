@@ -17,14 +17,7 @@ public interface StudyModeQuestionOutputBoundary {
     void prepareFailView(String errorMessage);
 
     /**
-     * Switch to the next Study Mode Question View.
+     * Switch back to study mode.
      */
-    void switchToNextQuestionView();
-
-    /**
-     * Switch to the Test Result View.
-     */
-    void switchToTestResultView();
-
     void switchToStudyMode();
 }

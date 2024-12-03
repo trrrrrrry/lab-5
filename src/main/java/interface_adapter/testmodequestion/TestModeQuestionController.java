@@ -1,10 +1,9 @@
 package interface_adapter.testmodequestion;
 
+import java.util.ArrayList;
+
 import use_case.testmodequestion.TestModeQuestionInputBoundary;
 import use_case.testmodequestion.TestModeQuestionInputData;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 /**
  * The controller for test mode question use case.
