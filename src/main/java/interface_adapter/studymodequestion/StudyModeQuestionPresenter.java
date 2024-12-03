@@ -19,9 +19,9 @@ public class StudyModeQuestionPresenter implements StudyModeQuestionOutputBounda
 
     @Override
     public void prepareSuccessView(StudyModeQuestionOutputData output) {
-        studyModeQuestionViewModel.getState().setSelectedOption(output.getSelectedMode());
-
-        viewManagerModel.setState(output.getSelectedMode());
+        //        studyModeQuestionViewModel.getState().setSelectedOption(output.getSelectedMode());
+        //
+        //        viewManagerModel.setState(output.getSelectedMode());
         viewManagerModel.firePropertyChanged();
     }
 

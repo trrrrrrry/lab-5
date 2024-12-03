@@ -28,15 +28,18 @@ public class StudyModeQuestionInteractorTest {
             public void switchToStudyMode() {
                 // not used
             }
-        }
+        };
 
+        StudyModeQuestionDataAccessInterface dataAccessInterface = new StudyModeQuestionDataAccessInterface() {
+        };
+        StudyModeQuestionInputData studyModeQuestionInputData = new StudyModeQuestionInputData();
         // Create and execute the <StudyModeQuestion> Interactor
-        StudyModeQuestionInputBoundary interactor = new StudyModeQuestionInteractor(successPresenter);
-        interactor.execute();
+        StudyModeQuestionInputBoundary interactor = new StudyModeQuestionInteractor(dataAccessInterface,successPresenter);
+        interactor.execute(studyModeQuestionInputData);
 
         // Assert that the interactor correctly navigated to the "study mode question" view
-        interactor.switchToStudyModeQuestionView();
-        assertEquals("study mode question", viewManagerModel.getState(), "The view state should be 'study mode question' after starting the study mode.");
+        interactor.switchToStudyModeView();
+        assertEquals("", viewManagerModel.getState(), "The view state should be 'study mode question' after starting the study mode.");
     }
 
     @Test
@@ -44,42 +47,30 @@ public class StudyModeQuestionInteractorTest {
         // Create a ViewManagerModel to track the current view
         ViewManagerModel viewManagerModel = new ViewManagerModel();
 
-        StudyModeQuestionDataAccessInterface dataAccessInterface = new StudyModeQuestionDataAccessInterface() {
-        //            @Override
-        //            public void saveSelectedOption(String option) {
-        //                // not used
-        //            }
-        //
-        //            @Override
-        //            public String getSelectedOption() {
-        //                return "";
-        //            }
+            StudyModeQuestionOutputBoundary successPresenter = new StudyModeQuestionOutputBoundary() {
+                @Override
+                public void prepareSuccessView(StudyModeQuestionOutputData outputData) {
+                    // not used in this test
+                }
+
+                @Override
+                public void prepareFailView(String errorMessage) {
+                    fail("Unexpected failure while starting study mode");
+                }
+
+                @Override
+                public void switchToStudyMode() {
+                    // We check if the user is redirected to the mode selection view
+                    viewManagerModel.setState("study mode");
+                    viewManagerModel.firePropertyChanged();
+                }
             };
 
-        // Set up a Success Presenter to check if the user is redirected to the <ModeSelectionView>
-        StudyModeQuestionOutputBoundary successPresenter = new StudyModeQuestionOutputBoundary() {
-            @Override
-            public void prepareSuccessView(StudyModeQuestionOutputData outputData) {
-                // This might be used for showing results, not necessary in this test
-
-            }
-
-            @Override
-            public void prepareFailView(String errorMessage) {
-                fail("Unexpected failure while finishing study mode");
-            }
-
-            @Override
-            public void switchToStudyMode() {
-                // We check if the user is redirected to the mode selection view
-                viewManagerModel.setState("mode selection");
-                viewManagerModel.firePropertyChanged();
-            }
-
-        StudyModeQuestionInputData studyModeQuestionInputData = new StudyModeQuestionInputData("");
-        // Create and execute the <StudyModeQuestion> Interactor
-        StudyModeQuestionInputBoundary interactor = new StudyModeQuestionInteractor(dataAccessInterface, successPresenter);
-        interactor.execute();
+            StudyModeQuestionDataAccessInterface dataAccessInterface = new StudyModeQuestionDataAccessInterface() {
+            };
+            StudyModeQuestionInputData studyModeQuestionInputData = new StudyModeQuestionInputData();
+            // Create and execute the <StudyModeQuestion> Interactor
+            StudyModeQuestionInputBoundary interactor = new StudyModeQuestionInteractor(dataAccessInterface,successPresenter);
 
         // Assert that the interactor navigated correctly to the "mode selection" view
         interactor.switchToStudyModeView();
@@ -92,31 +83,29 @@ public class StudyModeQuestionInteractorTest {
 
         StudyModeQuestionOutputBoundary failurePresenter = new StudyModeQuestionOutputBoundary() {
             @Override
-            public void prepareSuccessView() {
-                // This should not be triggered in this test, as the test focuses on failure
+            public void prepareSuccessView(StudyModeQuestionOutputData outputData) {
+                // not used in this test
             }
 
             @Override
             public void prepareFailView(String errorMessage) {
-                // Assert the expected error message when no more questions are available
                 assertEquals("No more questions available.", errorMessage, "The error message should indicate no more questions are available.");
             }
 
             @Override
-            public void switchToStudyModeQuestionView() {
-                // Not used in this test
-            }
-
-            @Override
-            public void switchToModeSelectionView() {
-                // Not used in this test
+            public void switchToStudyMode() {
+                // No need to use in this test
             }
         };
 
-        StudyModeQuestionInputBoundary interactor = new StudyModeQuestionInteractor(failurePresenter);
+        StudyModeQuestionDataAccessInterface dataAccessInterface = new StudyModeQuestionDataAccessInterface() {
+        };
+
+        StudyModeQuestionInputData studyModeQuestionInputData = new StudyModeQuestionInputData();
+        StudyModeQuestionInputBoundary interactor = new StudyModeQuestionInteractor(dataAccessInterface, failurePresenter);
 
         // Simulate the situation where there are no more questions
-        interactor.execute();
+        interactor.execute(studyModeQuestionInputData);
         failurePresenter.prepareFailView("No more questions available.");
     }
 }
