@@ -12,11 +12,6 @@ public interface TestModeQuestionInputBoundary {
     void execute(TestModeQuestionInputData testModeQuestionInputData);
 
     /**
-     * Switch to next Question View.
-     */
-    void switchToNextQuestionView();
-
-    /**
      * Switch to the TestResult(?) View.
      */
     void switchToTestResultView();

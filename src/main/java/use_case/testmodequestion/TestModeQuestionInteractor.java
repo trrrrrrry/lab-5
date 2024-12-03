@@ -21,18 +21,14 @@ public class TestModeQuestionInteractor implements TestModeQuestionInputBoundary
         final int correctnumber = testModeQuestionInputData.getCorrectAnswer();
         final ArrayList<String> wrongquestions = testModeQuestionInputData.getWrongquestions();
 
-        //        necessary?
-        //        if (!isValidMode(mode)) {
-        //            presenter.prepareFailView("Invalid answer selected, Please choose one of the fourth option");
-        //        }
+        //                necessary?
+        //                if (!isValidMode(mode)) {
+        //                    presenter.prepareFailView("Invalid answer selected,
+        //                    Please choose one of the fourth option");
+        //                }
         final TestModeQuestionOutputData output = new TestModeQuestionOutputData(correctnumber, wrongquestions);
 
         presenter.prepareSuccessView(output);
-    }
-
-    @Override
-    public void switchToNextQuestionView() {
-        presenter.switchToNextQuestionView();
     }
 
     @Override

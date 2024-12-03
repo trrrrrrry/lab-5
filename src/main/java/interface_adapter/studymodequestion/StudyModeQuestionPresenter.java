@@ -11,7 +11,8 @@ public class StudyModeQuestionPresenter implements StudyModeQuestionOutputBounda
     private final StudyModeQuestionViewModel studyModeQuestionViewModel;
     private final ViewManagerModel viewManagerModel;
 
-    public StudyModeQuestionPresenter(ViewManagerModel viewManagerModel, StudyModeQuestionViewModel studyModeQuestionViewModel) {
+    public StudyModeQuestionPresenter(ViewManagerModel viewManagerModel,
+                                      StudyModeQuestionViewModel studyModeQuestionViewModel) {
         this.studyModeQuestionViewModel = studyModeQuestionViewModel;
         this.viewManagerModel = viewManagerModel;
     }

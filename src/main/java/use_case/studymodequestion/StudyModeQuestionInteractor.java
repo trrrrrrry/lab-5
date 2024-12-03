@@ -14,6 +14,7 @@ public class StudyModeQuestionInteractor implements StudyModeQuestionInputBounda
     }
 
     @Override
+
     public void execute(StudyModeQuestionInputData input) {
         final String option = input.getSelectedAnswer();
         //            if (!isValidMode(mode)) {

@@ -27,13 +27,6 @@ public class TestModeQuestionController {
     }
 
     /**
-     * Execute the "switch to next question View" use case.
-     */
-    public void switchToNextQuestionView() {
-        tmqInteractor.switchToNextQuestionView();
-    }
-
-    /**
      * Execute the "switch to Test Result View" use case.
      */
     public static void switchToTestResultView() {
