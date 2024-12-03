@@ -1,12 +1,17 @@
 package view;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import interface_adapter.logout.LogoutController;
 import interface_adapter.studymode.StudyModeController;
@@ -22,32 +27,27 @@ public class StudyModeView extends JPanel implements ActionListener {
     private LogoutController logoutController;
     private final StudyModeViewModel studymodeViewModel;
     private StudyModeController studyModeController;
+    private final Color backgroundC = Color.decode("#11212D");
 
-    private final JLabel username;
-    private final JButton module1;
-    private final JButton module2;
-    private final JButton module3;
-    private final JButton module4;
-    private final JButton module5;
-    private final JButton module6;
-    private final JButton backToModeSelection;
-    private final JPanel buttonWrapper;
+    private JButton backToModeSelection;
 
     public StudyModeView(StudyModeViewModel studyModeViewModel) {
         this.studymodeViewModel = studyModeViewModel;
-        this.setBackground(Color.decode("#11212D"));
+        this.setBackground(backgroundC);
 
-        final int titleFontSize = 25;
-        final JLabel title = new JLabel("Study Mode\n");
-        title.setFont(new Font("Times New Roman", Font.ITALIC, titleFontSize));
-        title.setForeground(Color.decode("#4A5C6A"));
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        final JPanel titlePanel = createTitle();
+        final JPanel moduleTextPanel = createModuleTextPanel();
+        final JPanel buttons = createButtonsPanel(studyModeViewModel);
+        final JPanel buttonWrapper = createButtonWrapper();
 
-        final JLabel moduleSelection = new JLabel("<html><div style='text-align: center; font-family: "
-                + "\"Times New Roman\"; margin: 10px auto; color: #7DA0CA; font-size: 25'>"
-                + "Please select a module from the below: ");
-        moduleSelection.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.add(titlePanel);
+        this.add(moduleTextPanel);
+        this.add(buttons);
+        this.add(buttonWrapper);
+    }
 
+    private JPanel createButtonsPanel(StudyModeViewModel studyModeViewModel) {
         final JPanel buttons = new JPanel();
         buttons.setBackground(Color.decode("#11212D"));
         final int buttonsRows = 2;
@@ -58,162 +58,88 @@ public class StudyModeView extends JPanel implements ActionListener {
 
         final String foreColor = "#9BA8AB";
         final String backColor = "#253745";
-        module1 = new JButton("Module 1");
-        module1.setForeground(Color.decode(foreColor));
-        module1.setBackground(Color.decode(backColor));
-        buttons.add(module1);
-        module2 = new JButton("Module 2");
-        module2.setForeground(Color.decode(foreColor));
-        module2.setBackground(Color.decode(backColor));
-        buttons.add(module2);
-        module3 = new JButton("Module 3");
-        module3.setForeground(Color.decode(foreColor));
-        module3.setBackground(Color.decode(backColor));
-        buttons.add(module3);
-        module4 = new JButton("Module 4");
-        module4.setForeground(Color.decode(foreColor));
-        module4.setBackground(Color.decode(backColor));
-        buttons.add(module4);
-        module5 = new JButton("Module 5");
-        module5.setForeground(Color.decode(foreColor));
-        module5.setBackground(Color.decode(backColor));
-        buttons.add(module5);
-        module6 = new JButton("Module 6");
-        module6.setForeground(Color.decode(foreColor));
-        module6.setBackground(Color.decode(backColor));
-        buttons.add(module6);
+        final String[] moduleNames = {"Module 1", "Module 2", "Module 3", "Module 4", "Module 5", "Module 6"};
+        final JButton[] modules = new JButton[moduleNames.length];
+
+        for (int i = 0; i < moduleNames.length; i++) {
+            modules[i] = createModuleButton(moduleNames[i], foreColor, backColor, studyModeViewModel);
+            buttons.add(modules[i]);
+        }
+
+        return buttons;
+    }
+
+    private JButton createModuleButton(String moduleName,
+                                       String foreColor,
+                                       String backColor,
+                                       StudyModeViewModel studyModeViewModel) {
+        final JButton moduleButton = new JButton(moduleName);
+        moduleButton.setForeground(Color.decode(foreColor));
+        moduleButton.setBackground(Color.decode(backColor));
+
+        moduleButton.addActionListener(evt -> {
+            final StudyModeState studyModeState = studyModeViewModel.getState();
+            studyModeState.setModule(moduleName);
+            studyModeViewModel.setState(studyModeState);
+            studyModeViewModel.firePropertyChanged();
+            studyModeController.execute(studyModeState.getModule());
+            studyModeController.switchToStudyModeBeginView();
+        });
+
+        return moduleButton;
+    }
+
+    private JPanel createButtonWrapper() {
+        final JPanel buttonWrapper = new JPanel();
+        final int borderTop = 20;
+        final int borderBottom = 20;
+        final int borderLeft = 20;
+        final int borderRight = 20;
+        buttonWrapper.setLayout(new BoxLayout(buttonWrapper, BoxLayout.Y_AXIS));
+        buttonWrapper.setOpaque(false);
+        buttonWrapper.setBorder(BorderFactory.createEmptyBorder(borderTop, borderLeft, borderBottom, borderRight));
 
         backToModeSelection = new JButton("Back To Mode Selection");
         backToModeSelection.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        final int wrapperMargin = 20;
-        buttonWrapper = new JPanel();
-        buttonWrapper.setLayout(new BoxLayout(buttonWrapper, BoxLayout.Y_AXIS));
-        buttonWrapper.setOpaque(false);
-        buttonWrapper.setBorder(BorderFactory.createEmptyBorder(wrapperMargin, 0, wrapperMargin, 0));
+        styleBackToModeSelection();
         buttonWrapper.add(backToModeSelection);
 
+        return buttonWrapper;
+    }
+
+    private void styleBackToModeSelection() {
         backToModeSelection.setBackground(Color.decode("#9BA8AB"));
         backToModeSelection.setForeground(Color.decode("#253745"));
         backToModeSelection.setFocusPainted(false);
         backToModeSelection.setOpaque(true);
         backToModeSelection.setBorderPainted(false);
+    }
 
-        final JLabel usernameInfo = new JLabel("Currently logged in: ");
-        usernameInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        username = new JLabel();
-        username.setAlignmentX(Component.CENTER_ALIGNMENT);
+    private JPanel createTitle() {
+        final JPanel titlePanel = new JPanel();
+        titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.X_AXIS));
+        titlePanel.setBackground(backgroundC);
 
-        // Take user to 'begin view' page based on their selection
-        module1.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(module1)) {
-                            final StudyModeState studyModeState = studyModeViewModel.getState();
-                            studyModeState.setModule("Module 1");
-                            studyModeViewModel.setState(studyModeState);
-                            studyModeViewModel.firePropertyChanged();
-                            studyModeController.execute(studyModeState.getModule());
-                        }
-                        studyModeController.switchToStudyModeBeginView();
-                    }
-                }
-        );
+        final int titleFontSize = 25;
+        final JLabel title = new JLabel("Study Mode\n");
+        title.setFont(new Font("Times New Roman", Font.ITALIC, titleFontSize));
+        title.setForeground(Color.decode("#4A5C6A"));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        titlePanel.add(title);
+        return titlePanel;
+    }
 
-        module2.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(module2)) {
-                            final StudyModeState studyModeState = studyModeViewModel.getState();
-                            studyModeState.setModule("Module 2");
-                            studyModeViewModel.setState(studyModeState);
-                            studyModeViewModel.firePropertyChanged();
-                            studyModeController.execute(studyModeState.getModule());
-                        }
-                        studyModeController.switchToStudyModeBeginView();
-                    }
-                }
-        );
+    private JPanel createModuleTextPanel() {
+        final JPanel modulePanel = new JPanel();
+        modulePanel.setLayout(new BoxLayout(modulePanel, BoxLayout.X_AXIS));
+        modulePanel.setBackground(backgroundC);
 
-        module3.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(module3)) {
-                            final StudyModeState studyModeState = studyModeViewModel.getState();
-                            studyModeState.setModule("Module 3");
-                            studyModeViewModel.setState(studyModeState);
-                            studyModeViewModel.firePropertyChanged();
-                            studyModeController.execute(studyModeState.getModule());
-                        }
-                        studyModeController.switchToStudyModeBeginView();
-                    }
-                }
-        );
-
-        module4.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(module4)) {
-                            final StudyModeState studyModeState = studyModeViewModel.getState();
-                            studyModeState.setModule("Module 4");
-                            studyModeViewModel.setState(studyModeState);
-                            studyModeViewModel.firePropertyChanged();
-                            studyModeController.execute(studyModeState.getModule());
-                        }
-                        studyModeController.switchToStudyModeBeginView();
-                    }
-                }
-        );
-
-        module5.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(module5)) {
-                            final StudyModeState studyModeState = studyModeViewModel.getState();
-                            studyModeState.setModule("Module 5");
-                            studyModeViewModel.setState(studyModeState);
-                            studyModeViewModel.firePropertyChanged();
-                            studyModeController.execute(studyModeState.getModule());
-                        }
-                        studyModeController.switchToStudyModeBeginView();
-                    }
-                }
-        );
-
-        module6.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(module6)) {
-                            final StudyModeState studyModeState = studyModeViewModel.getState();
-                            studyModeState.setModule("Module 6");
-                            studyModeViewModel.setState(studyModeState);
-                            studyModeViewModel.firePropertyChanged();
-                            studyModeController.execute(studyModeState.getModule());
-                        }
-                        studyModeController.switchToStudyModeBeginView();
-                    }
-                }
-        );
-
-        // Take user back to <LoggedInView>
-        backToModeSelection.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        studyModeController.switchToModeSelectionView();
-                    }
-                }
-        );
-
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-        this.add(title);
-        this.add(moduleSelection);
-        this.add(buttons);
-
-        this.add(buttonWrapper);
-
-        this.add(usernameInfo);
-        this.add(username);
+        final JLabel moduleSelection = new JLabel("<html><div style='text-align: center; font-family: "
+                + "\"Times New Roman\"; margin: 10px auto; color: #7DA0CA; font-size: 25'>"
+                + "Please select a module from the below: ");
+        moduleSelection.setAlignmentX(Component.CENTER_ALIGNMENT);
+        modulePanel.add(moduleSelection);
+        return modulePanel;
     }
 
     public String getViewName() {

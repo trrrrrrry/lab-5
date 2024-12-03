@@ -1,12 +1,20 @@
 package view;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.GridLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import interface_adapter.logout.LogoutController;
 import interface_adapter.testmode.TestModeController;
 import interface_adapter.testmode.TestModeState;
 import interface_adapter.testmode.TestModeViewModel;
-
-import javax.swing.*;
-import java.awt.*;
 
 /**
  * The View after user selected test mode.
@@ -18,88 +26,126 @@ public class TestModeView extends JPanel {
     private final TestModeViewModel testModeViewModel;
     private TestModeController testModeController;
 
-    private final JButton begin;
-    private final JButton backToModeSelection;
-    private final JLabel username;
-    private final JPanel buttonWrapper;
+    private JButton begin;
+    private JButton backToModeSelection;
+    private JPanel buttonWrapper;
 
     public TestModeView(TestModeViewModel testModeViewModel) {
-
         this.testModeViewModel = testModeViewModel;
         this.setBackground(Color.decode("#11212D"));
 
-        final JLabel title = new JLabel("Test Mode\n");
-        title.setFont(new Font("Times New Roman", Font.ITALIC, 25));
-        title.setForeground(Color.decode("#4A5C6A"));
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        final JLabel title = createTitleLabel();
+        final JLabel beginText = createBeginTextLabel();
+        final JPanel buttons = createButtonsPanel();
+        buttonWrapper = createButtonWrapper();
 
-        final JLabel beginText = new JLabel("<html><div style='text-align: center; font-family: "
-                + "\"Times New Roman\"; margin: 10px auto;'> <p style='color: #C1E8FF;'>You have 40 Questions "
-                + "to answer. To pass the test, you need to get 36 questions correct. For your reference, the time you"
-                + " used will be displayed, but the test is NOT timed.</p></div></html>");
-        beginText.setAlignmentX(Component.CENTER_ALIGNMENT);
-        beginText.setFont(new Font("Arial", Font.PLAIN, 20));
+        setupActionListeners();
 
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        addComponents(title, beginText, buttons);
+    }
+
+    private JLabel createTitleLabel() {
+        final int titleFontSize = 25;
+        return createLabel("Test Mode\n", new Font("Times New Roman", Font.ITALIC, titleFontSize), "#4A5C6A");
+    }
+
+    private JLabel createBeginTextLabel() {
+        final int beginTextFontSize = 20;
+        final String text = "<html><div style='text-align: center; font-family: \"Times New Roman\"; "
+                + "margin: 10px auto;'> <p style='color: #C1E8FF;'>You have 40 Questions to answer. "
+                + "To pass the test, you need to get 36 questions correct. For your reference, the time you used will"
+                + " be displayed, but the test is NOT timed.</p></div></html>";
+        return createHtmlLabel(text, beginTextFontSize);
+    }
+
+    private JLabel createLabel(String text, Font font, String color) {
+        final JLabel label = new JLabel(text);
+        if (font != null) {
+            label.setFont(font);
+        }
+        if (color != null) {
+            label.setForeground(Color.decode(color));
+        }
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        return label;
+    }
+
+    private JLabel createHtmlLabel(String htmlText, int fontSize) {
+        final JLabel label = new JLabel("<html><div style='text-align: center; font-family: \"Times New Roman\"; "
+                + "margin: 10px auto; font-size: " + fontSize + "'>"
+                + htmlText + "</div></html>");
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        label.setFont(new Font("Arial", Font.PLAIN, fontSize));
+        return label;
+    }
+
+    private JPanel createButtonsPanel() {
         final JPanel buttons = new JPanel();
+        final int beginButtonFontSize = 20;
         buttons.setBackground(Color.decode("#11212D"));
-        final String fancyFont = "Lucida Handwriting";
-        final int fontSize = 20;
+        final int buttonsRow = 1;
+        final int buttonsCols = 1;
+        final int buttonsHgap = 10;
+        final int buttonsVgap = 10;
+        buttons.setLayout(new GridLayout(buttonsRow, buttonsCols, buttonsHgap, buttonsVgap));
 
-        begin = new JButton("Begin");
-        begin.setFont(new Font(fancyFont, Font.ITALIC, fontSize));
-        begin.setForeground(Color.decode("#9BA8AB"));
-        begin.setBackground(Color.decode("#253745"));
+        begin = createButton("Begin", "Lucida Handwriting", beginButtonFontSize, "#9BA8AB", "#253745");
         buttons.add(begin);
 
         backToModeSelection = new JButton("Back To Mode Selection");
         backToModeSelection.setAlignmentX(Component.CENTER_ALIGNMENT);
+        styleButton(backToModeSelection, "#9BA8AB", "#253745");
 
+        return buttons;
+    }
+
+    private JPanel createButtonWrapper() {
         final int wrapperMargin = 20;
         buttonWrapper = new JPanel();
         buttonWrapper.setLayout(new BoxLayout(buttonWrapper, BoxLayout.Y_AXIS));
         buttonWrapper.setOpaque(false);
         buttonWrapper.setBorder(BorderFactory.createEmptyBorder(wrapperMargin, 0, wrapperMargin, 0));
         buttonWrapper.add(backToModeSelection);
+        return buttonWrapper;
+    }
 
-        backToModeSelection.setBackground(Color.decode("#9BA8AB"));
-        backToModeSelection.setForeground(Color.decode("#253745"));
-        backToModeSelection.setFocusPainted(false);
-        backToModeSelection.setOpaque(true);
-        backToModeSelection.setBorderPainted(false);
+    private JButton createButton(String text, String font, int fontSize, String foreColor, String backColor) {
+        final JButton button = new JButton(text);
+        button.setFont(new Font(font, Font.ITALIC, fontSize));
+        button.setForeground(Color.decode(foreColor));
+        button.setBackground(Color.decode(backColor));
+        return button;
+    }
 
-        final JLabel usernameInfo = new JLabel("Currently logged in: ");
-        usernameInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        username = new JLabel();
-        username.setAlignmentX(Component.CENTER_ALIGNMENT);
+    private void styleButton(JButton button, String foreColor, String backColor) {
+        button.setBackground(Color.decode(backColor));
+        button.setForeground(Color.decode(foreColor));
+        button.setFocusPainted(false);
+        button.setOpaque(true);
+        button.setBorderPainted(false);
+    }
 
-        // Take user to 'question view' page
-        begin.addActionListener(
-                evt -> {
-                    if (evt.getSource().equals(begin)) {
-                        final TestModeState testModeState = testModeViewModel.getState();
-                        testModeViewModel.setState(testModeState);
-                        testModeViewModel.firePropertyChanged();
-                        testModeController.execute();
-                    }
-                    testModeController.switchToTestModeQuestionView();
-                }
-        );
+    private void setupActionListeners() {
+        begin.addActionListener(evt -> {
+            if (evt.getSource().equals(begin)) {
+                final TestModeState testModeState = testModeViewModel.getState();
+                testModeViewModel.setState(testModeState);
+                testModeViewModel.firePropertyChanged();
+                testModeController.execute();
+            }
+            testModeController.switchToTestModeQuestionView();
+        });
 
-        backToModeSelection.addActionListener(
-                evt -> testModeController.switchToModeSelectionView()
-        );
+        backToModeSelection.addActionListener(evt -> testModeController.switchToModeSelectionView());
+    }
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
+    private void addComponents(JLabel title, JLabel beginText, JPanel buttons) {
         this.add(title);
         this.add(beginText);
         this.add(buttons);
         this.add(backToModeSelection);
-
         this.add(buttonWrapper);
-
-        this.add(usernameInfo);
-        this.add(username);
     }
 
     public String getViewName() {
