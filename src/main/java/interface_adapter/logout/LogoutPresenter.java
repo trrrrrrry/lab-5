@@ -11,12 +11,12 @@ import use_case.logout.LogoutOutputData;
 /**
  * The Presenter for the Logout Use Case.
  */
+
 public class LogoutPresenter implements LogoutOutputBoundary {
 
     private LoggedInViewModel loggedInViewModel;
     private ViewManagerModel viewManagerModel;
     private LoginViewModel loginViewModel;
-
 
     public LogoutPresenter(ViewManagerModel viewManagerModel,
                           LoggedInViewModel loggedInViewModel,

@@ -4,6 +4,7 @@ import data_access.InMemoryUserDataAccessObject;
 import entity.CommonUserFactory;
 import entity.User;
 import entity.UserFactory;
+import interface_adapter.ViewManagerModel;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -22,6 +23,9 @@ class LoginInteractorTest {
         User user = factory.create("Paul", "password");
         userRepository.save(user);
 
+        // Create a ViewManagerModel to track the current view
+        ViewManagerModel viewManagerModel = new ViewManagerModel();
+
         // This creates a successPresenter that tests whether the test case is as we expect.
         LoginOutputBoundary successPresenter = new LoginOutputBoundary() {
             @Override
@@ -35,11 +39,20 @@ class LoginInteractorTest {
             }
 
             @Override
-            public void switchToSignUpView() {}
+            public void switchToSignUpView() {
+                //same implementation from the login presenter switchToSignUpView()
+                viewManagerModel.setState("sign up");
+                viewManagerModel.firePropertyChanged();
+            }
         };
 
+        // Create and execute the interactor
         LoginInputBoundary interactor = new LoginInteractor(userRepository, successPresenter);
         interactor.execute(inputData);
+
+        //Test if the view is navigated successfuly
+        interactor.switchToSignUpView();
+        assertEquals("sign up", viewManagerModel.getState());
     }
 
     @Test
@@ -101,9 +114,7 @@ class LoginInteractorTest {
             }
 
             @Override
-            public void switchToSignUpView() {
-
-            }
+            public void switchToSignUpView() {}
         };
 
         LoginInputBoundary interactor = new LoginInteractor(userRepository, failurePresenter);
@@ -131,9 +142,7 @@ class LoginInteractorTest {
             }
 
             @Override
-            public void switchToSignUpView() {
-
-            }
+            public void switchToSignUpView() {}
         };
 
         LoginInputBoundary interactor = new LoginInteractor(userRepository, failurePresenter);

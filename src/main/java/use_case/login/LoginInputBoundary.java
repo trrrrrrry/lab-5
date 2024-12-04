@@ -11,5 +11,8 @@ public interface LoginInputBoundary {
      */
     void execute(LoginInputData loginInputData);
 
+    /**
+     * Switch To Sign Up View.
+     */
     void switchToSignUpView();
 }

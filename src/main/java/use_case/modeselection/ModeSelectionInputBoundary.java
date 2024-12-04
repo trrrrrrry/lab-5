@@ -10,4 +10,14 @@ public interface ModeSelectionInputBoundary {
      * @param modeselectionInputData the input data
      */
     void execute(ModeSelectionInputData modeselectionInputData);
+
+    /**
+     * Switch to Study Mode View.
+     */
+    void switchToStudyModeView();
+
+    /**
+     * Switch to Test Mode View.
+     */
+    void switchToTestModeView();
 }
