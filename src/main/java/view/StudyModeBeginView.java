@@ -57,9 +57,8 @@ public class StudyModeBeginView extends JPanel {
         studyModeBeginViewModel.addPropertyChangeListener(evt -> {
             if ("state".equals(evt.getPropertyName())) {
                 moduleName = studyModeBeginViewModel.getState().getModule();
-                beginText.setText("<html><div style='text-align: center; font-family: "
-                        + "\"Times New Roman\"; margin: 10px auto;'>"
-                        + "<p style='color: #C1E8FF;'>Welcome to study <span style='color: #5483B3; "
+                beginText.setText("<html><div style='text-align: center; font-family: \"Times New Roman\"; margin: 10p"
+                        + "x auto;'><p style='color: #C1E8FF;'>Welcome to study <span style='color: #5483B3; "
                         + "font-style: italic;'>" + moduleName + "</span>.</p>"
                         + "<p style='color: #C1E8FF;'>The questions you get wrong</span> "
                         + "will be redisplayed until you answer all of them correctly.</p></div></html>");

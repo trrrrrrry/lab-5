@@ -7,7 +7,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import data_access.*;
+import data_access.InMemoryModeSelectionDataAccessObject;
+import data_access.InMemoryStudyModeBeginDataAccessInterface;
+import data_access.InMemoryStudyModeDataAccessInterface;
+import data_access.InMemoryStudyModeQuestionDataAccessInterface;
+import data_access.InMemoryTestModeQuestionDataAccessInterface;
+import data_access.InMemoryTestResultDataAccessObject;
+import data_access.InMemoryUserDataAccessObject;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.change_password.ChangePasswordController;
@@ -75,7 +81,16 @@ import use_case.testmodequestion.TestModeQuestionOutputBoundary;
 import use_case.testresult.TestresultInputBoundary;
 import use_case.testresult.TestresultInteractor;
 import use_case.testresult.TestresultOutputBoundary;
-import view.*;
+import view.LoggedInView;
+import view.LoginView;
+import view.SignupView;
+import view.StudyModeBeginView;
+import view.StudyModeQuestionView;
+import view.StudyModeView;
+import view.TestModeQuestionView;
+import view.TestModeView;
+import view.TestresultView;
+import view.ViewManager;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
@@ -222,6 +237,7 @@ public class AppBuilder {
     /**
      * Adds the Test Mode Question View to the application.
      * @return this builder
+     * @throws SQLException if an error occurs during insertion
      */
     public AppBuilder addTestModeQuestionView() throws SQLException {
         testModeQuestionViewModel = new TestModeQuestionViewModel();
